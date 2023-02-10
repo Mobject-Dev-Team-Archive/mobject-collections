@@ -11,8 +11,8 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 ## Documentation
 
-The documentation for this project can be found [here](https://benhar-dev.github.io/mobject-io/).
+The documentation for this project can be found [here](https://benhar-dev.github.io/mobject-collections/#/).
 
 ## Versions
 
-- TcXaeShell 3.1.4024.
+- TcXaeShell 3.1.4024.35
