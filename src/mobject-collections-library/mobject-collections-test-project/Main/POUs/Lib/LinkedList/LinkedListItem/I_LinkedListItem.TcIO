@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_LinkedListItem" Id="{53ad1378-fdfa-40b0-bb28-8d29f5f6be9f}">
+    <Declaration><![CDATA[INTERFACE I_LinkedListItem
+]]></Declaration>
+    <Property Name="DataType" Id="{67a6de58-0b51-42eb-b8e3-c204779e535c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC DataType : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{25cb2f4f-c892-49f2-8386-16628d6fc9b5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Equals" Id="{42524c8e-5be9-4ec1-9fd9-53150bfb09c1}">
+      <Declaration><![CDATA[METHOD PUBLIC Equals : BOOL
+VAR_INPUT
+	Symbol : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="Get" Id="{3cf610bf-474c-45ea-8852-ef97d7e3e565}">
+      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_LinkedListItem_ReadWrite" Id="{0cff8fbe-58e6-42f0-93b9-bcbf9ae1547a}">
+    <Declaration><![CDATA[INTERFACE I_LinkedListItem_ReadWrite
+]]></Declaration>
+    <Property Name="DataType" Id="{de2117e9-cb99-46c1-baf3-20d06865c704}">
+      <Declaration><![CDATA[PROPERTY PUBLIC DataType : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{2b4e858b-ec83-4a38-9e78-eae820b4f106}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Destroy" Id="{63a4bd84-b6d5-48f0-b124-677ef16e8f2b}">
+      <Declaration><![CDATA[METHOD PUBLIC Destroy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Equals" Id="{90365554-6b6a-4950-87bf-5e0c9d5f2d1a}">
+      <Declaration><![CDATA[METHOD PUBLIC Equals : BOOL
+VAR_INPUT
+	Symbol : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="Get" Id="{57570f9d-cb01-4800-8bd9-c63f326ab93b}">
+      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Next" Id="{36f7d60e-da19-4ec7-aef7-5f62014911e7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListItem_ReadWrite]]></Declaration>
+      <Get Name="Get" Id="{95363e59-fbba-49a3-bcd8-29930c162152}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{01642d6e-14c4-4289-a99f-8469c57d0bae}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Previous" Id="{391f15bb-7210-4ad5-9151-9a7de912f823}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListItem_ReadWrite]]></Declaration>
+      <Get Name="Get" Id="{7aec497c-ad57-41b0-877f-1c3a82af4357}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{d562e515-c3b0-4344-956f-865d275d909b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

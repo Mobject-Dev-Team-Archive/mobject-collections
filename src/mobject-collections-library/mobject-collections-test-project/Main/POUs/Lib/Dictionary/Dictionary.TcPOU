@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Dictionary" Id="{2496496f-6f27-4201-9f0e-92026c6200d3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK Dictionary
+VAR
+	head : I_DictionaryItem;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Destructor" Id="{f0b14ba4-8acf-4d87-ae72-9fa54a7970b6}" />
+    <Folder Name="Private" Id="{d1bfc11a-bfb8-4279-8f99-8ed64ee1dde6}" />
+    <Method Name="AddKeyValue" Id="{d65f77f4-4ccd-40df-9fd0-75019b8c0eda}">
+      <Declaration><![CDATA[METHOD PUBLIC AddKeyValue
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+END_VAR
+VAR
+	pDictionaryNode : POINTER TO DictionaryItem;
+	last : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pDictionaryNode := __NEW(DictionaryItem(Source := Value, Key := Key)); 
+
+IF head = 0 THEN	
+	head := pDictionaryNode^; 
+	RETURN;
+END_IF
+
+last := head; 
+
+WHILE last.Next <> 0 DO
+	last := last.next; 
+END_WHILE;
+	
+last.next := pDictionaryNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{7785c898-3c48-4fe2-81e1-cacbbc4b08af}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR
+VAR
+	current, next : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN	
+	RETURN;
+END_IF
+
+current := head; 
+
+WHILE current.Next <> 0 DO
+	next := current.next; 
+	current.Destroy();
+	current := next;
+END_WHILE;
+	
+current.Destroy();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ContainsKey" Id="{c30a7e26-67f2-4551-b9c7-e531d1461757}">
+      <Declaration><![CDATA[METHOD PUBLIC ContainsKey : BOOL;
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR
+VAR
+	foundItem : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundItem := GetItemByKey(Key);
+
+IF foundItem = 0 THEN
+	RETURN;
+END_IF
+
+ContainsKey := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{9ebe98eb-1d50-4553-a45d-3da249d13a8f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : UINT]]></Declaration>
+      <Get Name="Get" Id="{1c0d3937-4ab9-4f4e-aaa8-c17c25b4cf78}">
+        <Declaration><![CDATA[VAR
+	currentCount : UINT;
+	currentItem : I_DictionaryItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[currentCount := 0;
+currentItem := head;
+
+WHILE currentItem <> 0 DO
+	currentItem := currentItem.Next;
+	currentCount := currentCount + 1;
+END_WHILE;
+
+Count := currentCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_exit" Id="{5f1d7ddd-a865-4ea8-a3c3-b4158d9f1099}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+Clear();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetItemByKey" Id="{af2545c1-cc5f-4ca6-921c-5788cb2a81eb}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE GetItemByKey : I_DictionaryItem
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR
+VAR
+	currentItem : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+currentItem := head; 
+
+WHILE currentItem <> 0 DO
+	
+	IF currentItem.Key = Key THEN
+		GetItemByKey := currentItem;
+		return;
+	END_IF
+	
+	currentItem := currentItem.next; 
+	
+END_WHILE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{a24dcb40-efa1-4f1e-a731-a3646f2b28cd}">
+      <Declaration><![CDATA[METHOD PUBLIC Remove
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR
+VAR
+	foundItem : I_DictionaryItem;
+	previousItem : I_DictionaryItem;
+	nextItem : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundItem := GetItemByKey(Key);
+
+IF foundItem = 0 THEN
+	RETURN;
+END_IF
+
+previousItem := foundItem.Previous;
+nextItem := foundItem.Next;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetValue" Id="{e9df9db0-5f25-404e-929c-5a02ea131685}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValue : BOOL;
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Destination : ANY;
+END_VAR
+VAR
+	foundItem : I_DictionaryItem;
+	transform : FB_JsonReadWriteDataType;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundItem := GetItemByKey(Key);
+
+IF foundItem = 0 THEN
+	RETURN;
+END_IF
+
+IF foundItem.DataType <> transform.GetDataTypeNameByAddress(Destination.diSize,Destination.pValue) THEN
+	RETURN;
+END_IF
+
+foundItem.Get(Destination);
+
+TryGetValue := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

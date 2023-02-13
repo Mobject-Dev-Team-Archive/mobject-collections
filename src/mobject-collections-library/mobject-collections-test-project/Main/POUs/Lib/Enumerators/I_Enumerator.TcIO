@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_Enumerator" Id="{863b6c67-d871-45ce-9944-b65fd67a74ce}">
+    <Declaration><![CDATA[INTERFACE I_Enumerator
+]]></Declaration>
+    <Method Name="Dispose" Id="{43ce57b6-3744-468b-bb2a-e5cc781a8443}">
+      <Declaration><![CDATA[METHOD PUBLIC Dispose
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetValue" Id="{a3aa25e6-2c38-4262-9e4f-b86ff8a4b0bb}">
+      <Declaration><![CDATA[METHOD PUBLIC GetValue : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="IsValid" Id="{16344ffb-9233-434e-beff-c01934548ecd}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f8d2d29d-f068-4b7e-88f4-c9f0ef98bba9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="MoveNext" Id="{95a756b9-1053-49ff-8bcf-058296e1437b}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveNext : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

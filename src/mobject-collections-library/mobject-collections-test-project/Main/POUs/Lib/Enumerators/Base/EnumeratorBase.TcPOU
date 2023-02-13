@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="EnumeratorBase" Id="{ab0e0f95-5b7e-4770-acc0-5bd568950a14}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK EnumeratorBase
+VAR
+	connection : EnumeratorConnection;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{d796c509-27ba-4f7b-abac-cf86cee01e7f}" />
+    <Method Name="Dispose" Id="{c0409b25-95a3-4fca-8e23-1f146ce9444c}">
+      <Declaration><![CDATA[METHOD PUBLIC Dispose
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[connection.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{db5c1070-779b-4e22-a925-e7b14274daf2}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	ConnectionUpdater : I_EnumeratorConnectionUpdater;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[connection.LinkTo(ConnectionUpdater);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsValid" Id="{971570d5-4dee-430c-9e4a-5d200224b7cc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{801958b5-4378-4c4e-a9c2-65873e5184a8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := connection.IsValid;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

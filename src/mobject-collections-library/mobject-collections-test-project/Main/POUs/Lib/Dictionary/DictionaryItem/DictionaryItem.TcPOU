@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DictionaryItem" Id="{3d8e8dd5-3e2c-4a9a-8943-9d753175c6b4}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK DictionaryItem EXTENDS LinkedListItem IMPLEMENTS I_DictionaryItem
+VAR
+	_key : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ca8899f4-2b13-4932-8206-ceb41c935e49}" />
+    <Method Name="FB_init" Id="{661b2d89-3553-4510-b945-a1e8556bd35c}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Source : ANY;
+	Key : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_key := Key;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Key" Id="{71b099c2-2cad-41b3-b92b-023916d94980}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Key : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{6a7a4a99-96ac-4031-a0ae-117ffea26c85}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Key := _key;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

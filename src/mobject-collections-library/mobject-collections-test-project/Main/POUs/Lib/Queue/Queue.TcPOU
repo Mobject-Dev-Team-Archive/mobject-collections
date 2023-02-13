@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Queue" Id="{1560f4e8-0d30-4cd0-8a35-4cb789c690a0}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'}
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK Queue
+VAR
+	head : I_QueueItem;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Destructor" Id="{07801cfe-e9f1-4f70-9193-b414630971ad}" />
+    <Method Name="Clear" Id="{ceb7ff56-02be-4942-a18b-24e6bdf422bf}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR
+VAR
+	current, next : I_QueueItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN	
+	RETURN;
+END_IF
+
+current := head; 
+
+WHILE current.Next <> 0 DO
+	next := current.next; 
+	current.Destroy();
+	current := next;
+END_WHILE;
+	
+current.Destroy();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{74a80c93-5128-4663-bce6-db585e882711}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : UINT]]></Declaration>
+      <Get Name="Get" Id="{cd074aca-ebef-41bc-a94d-415607b152ce}">
+        <Declaration><![CDATA[VAR
+	currentCount : UINT;
+	currentNode : I_QueueItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[currentCount := 0;
+currentNode := head;
+
+WHILE currentNode <> 0 DO
+	currentNode := currentNode.Next;
+	currentCount := currentCount + 1;
+END_WHILE;
+
+Count := currentCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Dequeue" Id="{1ebc705c-ca50-401d-8bfc-812a17ac732a}">
+      <Declaration><![CDATA[METHOD PUBLIC Dequeue : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+VAR
+	transform : FB_JsonReadWriteDataType;
+	next : I_QueueItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+IF head.DataType <> transform.GetDataTypeNameByAddress(Destination.diSize,Destination.pValue) THEN
+	RETURN;
+END_IF
+
+next := head.Next;
+
+Dequeue := head.Get(Destination);
+head.Destroy();
+head := next;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Enqueue" Id="{5f56d2fb-90cb-4948-8ebe-7045801f934b}">
+      <Declaration><![CDATA[METHOD PUBLIC Enqueue
+VAR_INPUT
+	Item : ANY;
+END_VAR
+VAR
+	pQueueNode : POINTER TO QueueItem;
+	last : I_QueueItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pQueueNode := __NEW(QueueItem(Source := Item)); 
+
+IF head = 0 THEN	
+	head := pQueueNode^; 
+	RETURN;
+END_IF
+
+last := head; 
+
+WHILE last.Next <> 0 DO
+	last := last.next; 
+END_WHILE;
+	
+last.next := pQueueNode^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{d3f33f7d-ac2f-4275-af05-b8ab00d9c89d}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+Clear();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Peek" Id="{dd37eb75-7dd6-45c5-8f42-587c3a759577}">
+      <Declaration><![CDATA[METHOD PUBLIC Peek : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+VAR
+	transform : FB_JsonReadWriteDataType;
+	next : I_QueueItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+IF head.DataType <> transform.GetDataTypeNameByAddress(Destination.diSize,Destination.pValue) THEN
+	RETURN;
+END_IF
+
+Peek := head.Get(Destination);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

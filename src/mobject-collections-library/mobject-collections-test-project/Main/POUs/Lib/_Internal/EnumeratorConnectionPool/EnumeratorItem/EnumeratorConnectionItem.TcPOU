@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="EnumeratorConnectionItem" Id="{04294803-447a-4de9-9c4c-db99f387c92c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK EnumeratorConnectionItem IMPLEMENTS I_EnumeratorConnectionItem
+VAR
+	enumeratorConnection : I_EnumeratorConnection;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{b199530d-e76c-4723-80fd-0ce2e538e903}" />
+    <Method Name="FB_init" Id="{66df9481-f8bf-47c1-841c-452f16001c81}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	EnumeratorConnection : I_EnumeratorConnection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.enumeratorConnection := EnumeratorConnection;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Get" Id="{c3f57684-bb31-43ea-a067-8c18357cca34}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Get : I_EnumeratorConnection]]></Declaration>
+      <Get Name="Get" Id="{78655108-915f-47d5-8c54-e9f30c102d41}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Get := enumeratorConnection;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

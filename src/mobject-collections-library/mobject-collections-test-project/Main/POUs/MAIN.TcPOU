@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{4fc6a7e2-9479-48b5-85ef-622583cb9cd0}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+//	myLinkedList : LinkedList;
+	
+//	source : ARRAY [1..5] OF INT := [1,2,3,4,5];
+//	destination : ARRAY [0..4] OF INT; 
+test : EnumeratorConnectionPool;
+
+testd : I_Enumerator;
+size : lint;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//myLinkedList.AddFirst(source[1]); // 1
+//myLinkedList.AddFirst(source[2]); // 2,1
+//myLinkedList.AddLast(source[3]); // 2,1,3
+
+//myLinkedList.AddBefore(source[4],source[3]); // 2,1,4,3
+//myLinkedList.AddAfter(source[1],source[5]); // 2,1,5,4,3
+
+size := sizeof(testd);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

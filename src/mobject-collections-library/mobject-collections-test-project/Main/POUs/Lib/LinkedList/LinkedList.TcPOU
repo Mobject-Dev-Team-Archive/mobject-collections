@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="LinkedList" Id="{07326130-6311-4292-a93f-795944bcaf4e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK LinkedList
+VAR
+	head : I_LinkedListItem_ReadWrite;
+	tail : I_LinkedListItem_ReadWrite;
+	_count : ULINT;
+//	activeEnumerators : I_LinkedListItem 
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Destructor" Id="{bdd1bff0-019b-446b-8252-f6f570151864}" />
+    <Folder Name="Private" Id="{f847db7f-59b7-4f5b-85cd-8acc4e90c2ec}" />
+    <Method Name="AddAfter" Id="{4cb91ce1-7110-43c2-8a91-99f8115e5172}">
+      <Declaration><![CDATA[METHOD PUBLIC AddAfter : BOOL;
+VAR_INPUT
+	Value : ANY;
+	After : ANY;
+END_VAR
+VAR
+	foundItem : I_LinkedListItem_ReadWrite;
+	foundItemsNextItem : I_LinkedListItem_ReadWrite;
+	newItem : I_LinkedListItem_ReadWrite;	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Count = 0 THEN
+	RETURN;
+END_IF
+
+foundItem := Find(After);
+
+IF foundItem = 0 THEN
+	RETURN;
+END_IF
+
+newItem := CreateLinkListItem(Value);
+
+foundItemsNextItem := foundItem.Next;
+
+foundItem.Next := newItem;
+
+IF foundItemsNextItem <> 0 THEN
+	foundItemsNextItem.Previous := newItem;
+END_IF
+
+AddAfter := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddBefore" Id="{05c286f5-d486-4fe5-b982-d4c680e82169}">
+      <Declaration><![CDATA[METHOD PUBLIC AddBefore
+VAR_INPUT
+	Value : ANY;
+	Before : ANY;
+END_VAR
+VAR
+	foundItem : I_LinkedListItem_ReadWrite;
+	foundItemsBeforeItem : I_LinkedListItem_ReadWrite;
+	newItem : I_LinkedListItem_ReadWrite;	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundItem := Find(Before);
+
+IF foundItem = 0 THEN
+	RETURN;
+END_IF
+
+newItem := CreateLinkListItem(Value);
+
+foundItemsBeforeItem := foundItem.Previous;
+
+foundItem.Previous := newItem;
+
+IF foundItemsBeforeItem <> 0 THEN
+	foundItemsBeforeItem.Next := newItem;
+ELSIF head = foundItemsBeforeItem THEN
+	head := newItem;
+END_IF
+
+AddAfter := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddFirst" Id="{245d047d-fcff-48a4-9b0a-05c4c0371967}">
+      <Declaration><![CDATA[METHOD PUBLIC AddFirst
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddLast" Id="{5d3a5616-c068-4ac6-9ebc-a2a99f15296e}">
+      <Declaration><![CDATA[METHOD PUBLIC AddLast
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{a1646649-32aa-457e-9d9b-a548c6521917}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR
+	currentItem, nextItem : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN	
+	RETURN;
+END_IF
+
+currentItem := head; 
+
+WHILE currentItem.Next <> 0 DO
+	nextItem := currentItem.next; 
+	currentItem.Destroy();
+	currentItem := nextItem;
+END_WHILE;
+	
+currentItem.Destroy();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{39c6daa4-0670-49aa-9840-5690dc006873}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Get Name="Get" Id="{963ea714-d90a-426c-b3aa-1e85ce9dad25}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := _count;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="CreateLinkListItem" Id="{25817449-b8d3-401f-b0c8-8442b773ef7b}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE CreateLinkListItem : I_LinkedListItem_ReadWrite
+VAR_INPUT
+	Value : ANY;
+END_VAR
+VAR
+	pLinkedListItem : POINTER TO LinkedListItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pLinkedListItem := __NEW(LinkedListItem(Source := Value)); 
+CreateLinkListItem := pLinkedListItem^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{d560c90d-79fd-428f-a248-af3c68e41815}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+Clear();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Find" Id="{ce34ac08-eb6a-459f-bb03-b7ad2d3b0018}">
+      <Declaration><![CDATA[METHOD PUBLIC Find : I_LinkedListItem
+VAR_INPUT
+	Value : ANY;
+END_VAR
+VAR
+	currentItem : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+currentItem := head; 
+
+WHILE currentItem <> 0 DO
+	
+	IF currentItem.Equals(Value) THEN
+		Find := currentItem;
+		return;
+	END_IF
+	
+	currentItem := currentItem.next; 
+	
+END_WHILE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FindLast" Id="{bc8c1af8-5d73-44c4-9a9a-0aebb75cbaaf}">
+      <Declaration><![CDATA[METHOD PUBLIC FindLast : I_LinkedListItem_ReadWrite
+VAR_INPUT
+	Value : ANY;
+END_VAR
+VAR
+	currentItem : I_DictionaryItem;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF head = 0 THEN
+	RETURN;
+END_IF
+
+currentItem := head; 
+
+WHILE currentItem <> 0 DO
+	
+	IF currentItem.Equals(Value) THEN
+		FindLast := currentItem;
+	END_IF
+	
+	currentItem := currentItem.next; 
+	
+END_WHILE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEnumerator" Id="{20c05f16-0681-4b0d-af76-fbf219046c03}">
+      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsListEmpty" Id="{0d076fb5-1050-4fcc-88e5-245a3d8698eb}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsListEmpty : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Length" Id="{559e2a4c-5fa2-4a43-bfb0-c13ebf1b7d82}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Length : ULINT]]></Declaration>
+      <Get Name="Get" Id="{4af1c50c-dec9-48c8-8c9e-cddf0f65ae4e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Remove" Id="{73a7dd1b-4d36-4aca-937d-b59a23e30239}">
+      <Declaration><![CDATA[METHOD Remove : BOOL
+VAR_INPUT
+	Value : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveFirst" Id="{57e4d2d9-bf5c-4130-8acb-cd4a4e9eb7f7}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveFirst
+VAR_INPUT
+	Value : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveLast" Id="{d15f81c6-727a-4e2a-8258-1a691ae06f1c}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveLast
+VAR_INPUT
+	Value : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
