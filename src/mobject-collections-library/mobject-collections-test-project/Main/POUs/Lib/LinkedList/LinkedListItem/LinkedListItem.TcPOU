@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="LinkedListItem" Id="{145197a1-b0ae-480f-9d2e-3a28cdd2aac5}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK LinkedListItem Implements I_LinkedListItem_ReadWrite, I_LinkedListItem
+    <Declaration><![CDATA[FUNCTION_BLOCK LinkedListItem Implements I_LinkedListItem, I_LinkedListItem
 VAR
 	internalBuffer : POINTER TO BYTE;
 	internalBufferSize : UDINT;
 	sourceDataType : T_MAXSTRING;
-	previousItem : I_LinkedListItem_ReadWrite;
-	nextItem : I_LinkedListItem_ReadWrite;
+	previousItem : I_LinkedListItem;
+	nextItem : I_LinkedListItem;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -151,7 +151,7 @@ internalBuffer := __NEW(BYTE, internalBufferSize);
       </Implementation>
     </Method>
     <Property Name="Next" Id="{dedd5018-9eee-4162-a026-681e2d07b1ee}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListItem_ReadWrite]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListItem]]></Declaration>
       <Get Name="Get" Id="{121648c0-ad4d-4c9f-a728-87b9114faa4f}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -171,7 +171,7 @@ END_VAR
       </Set>
     </Property>
     <Property Name="Previous" Id="{d0b69103-fca9-4fdb-bc73-11778d148ddb}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListItem_ReadWrite]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListItem]]></Declaration>
       <Get Name="Get" Id="{c9509b01-8bbe-4c3d-975e-21220c339e4d}">
         <Declaration><![CDATA[VAR
 END_VAR

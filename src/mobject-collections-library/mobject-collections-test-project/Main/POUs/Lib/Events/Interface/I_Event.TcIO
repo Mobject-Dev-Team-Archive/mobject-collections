@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_Event" Id="{ea7febc2-8479-4f67-a091-10e07f511835}">
+    <Declaration><![CDATA[INTERFACE I_Event
+]]></Declaration>
+    <Property Name="Name" Id="{9368da16-cdb5-4c27-8620-fdba96a21a0b}">
+      <Declaration><![CDATA[PROPERTY Name : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{edc8f2e5-c147-46b0-84bf-3adc39448d47}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

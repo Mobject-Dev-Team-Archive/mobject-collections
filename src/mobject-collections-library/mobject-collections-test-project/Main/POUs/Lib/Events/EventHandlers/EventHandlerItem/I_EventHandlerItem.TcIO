@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_EventHandlerItem" Id="{e73ec30b-1ae0-436f-8cd6-ccc4b3ec69f4}">
+    <Declaration><![CDATA[INTERFACE I_EventHandlerItem
+]]></Declaration>
+    <Method Name="Dispose" Id="{25b737d4-1443-4e40-997b-9856b0dfd167}">
+      <Declaration><![CDATA[METHOD PUBLIC Dispose
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Emit" Id="{8e847a56-959e-4613-8090-426dd72bc4a4}">
+      <Declaration><![CDATA[METHOD PUBLIC Emit
+VAR_INPUT
+	Event : I_Event;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="EqualTo" Id="{e24d0a87-b0e1-4c8d-b481-874f70424d5d}">
+      <Declaration><![CDATA[METHOD EqualTo : BOOL
+VAR_INPUT
+	Handler : I_EventHandler;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Next" Id="{f805840f-0032-43e5-ac8d-70b88ee0aedc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_EventHandlerItem]]></Declaration>
+      <Get Name="Get" Id="{4308f03f-087e-4b65-ba29-f0fcbf472ec0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{8f2f6e84-83f6-4ef9-b93b-044cc61a2d14}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Previous" Id="{d3003da3-7b01-4ce4-99bd-f08edc85ec00}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_EventHandlerItem]]></Declaration>
+      <Get Name="Get" Id="{5ede517e-65bc-4bcd-b557-99567290ac21}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{890bb36d-1dc5-446f-83a4-5287d0552a09}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

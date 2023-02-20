@@ -9,7 +9,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Private" Id="{d049cac3-f13d-4f38-a639-72261b67bff5}" />
     <Method Name="AddConnection" Id="{5f9be054-9bf9-4502-a4ac-a334213c9b07}">
       <Declaration><![CDATA[METHOD PUBLIC AddConnection
 VAR_INPUT
@@ -18,19 +17,6 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CreateEnumeratorItem" Id="{39867992-08c4-48fc-ad2e-ec978e9b59d1}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE CreateEnumeratorItem : I_EnumeratorConnectionItem
-VAR_INPUT
-	Value : ANY;
-END_VAR
-VAR
-	pEnumeratorItem : POINTER TO EnumeratorConnectionItem;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[pEnumeratorItem := __NEW(EnumeratorConnectionItem(Source := Value)); 
-CreateEnumeratorItem := pEnumeratorItem^;]]></ST>
       </Implementation>
     </Method>
     <Method Name="InvalidateEnumerators" Id="{f6041b2f-855a-4f31-8685-b1e2cceed099}">

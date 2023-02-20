@@ -3,8 +3,8 @@
   <POU Name="LinkedList" Id="{07326130-6311-4292-a93f-795944bcaf4e}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK LinkedList
 VAR
-	head : I_LinkedListItem_ReadWrite;
-	tail : I_LinkedListItem_ReadWrite;
+	head : I_LinkedListItem;
+	tail : I_LinkedListItem;
 	_count : ULINT;
 //	activeEnumerators : I_LinkedListItem 
 END_VAR
@@ -21,9 +21,9 @@ VAR_INPUT
 	After : ANY;
 END_VAR
 VAR
-	foundItem : I_LinkedListItem_ReadWrite;
-	foundItemsNextItem : I_LinkedListItem_ReadWrite;
-	newItem : I_LinkedListItem_ReadWrite;	
+	foundItem : I_LinkedListItem;
+	foundItemsNextItem : I_LinkedListItem;
+	newItem : I_LinkedListItem;	
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF Count = 0 THEN
@@ -56,9 +56,9 @@ VAR_INPUT
 	Before : ANY;
 END_VAR
 VAR
-	foundItem : I_LinkedListItem_ReadWrite;
-	foundItemsBeforeItem : I_LinkedListItem_ReadWrite;
-	newItem : I_LinkedListItem_ReadWrite;	
+	foundItem : I_LinkedListItem;
+	foundItemsBeforeItem : I_LinkedListItem;
+	newItem : I_LinkedListItem;	
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[foundItem := Find(Before);
@@ -133,7 +133,7 @@ END_VAR
       </Get>
     </Property>
     <Method Name="CreateLinkListItem" Id="{25817449-b8d3-401f-b0c8-8442b773ef7b}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE CreateLinkListItem : I_LinkedListItem_ReadWrite
+      <Declaration><![CDATA[METHOD PRIVATE CreateLinkListItem : I_LinkedListItem
 VAR_INPUT
 	Value : ANY;
 END_VAR
@@ -187,7 +187,7 @@ END_WHILE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="FindLast" Id="{bc8c1af8-5d73-44c4-9a9a-0aebb75cbaaf}">
-      <Declaration><![CDATA[METHOD PUBLIC FindLast : I_LinkedListItem_ReadWrite
+      <Declaration><![CDATA[METHOD PUBLIC FindLast : I_LinkedListItem
 VAR_INPUT
 	Value : ANY;
 END_VAR
@@ -212,6 +212,17 @@ WHILE currentItem <> 0 DO
 END_WHILE;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="First" Id="{0a955b42-d027-43e4-a2ce-0ebdd0cd9a87}">
+      <Declaration><![CDATA[PROPERTY PUBLIC First : I_LinkedListItem]]></Declaration>
+      <Get Name="Get" Id="{801310d7-8bc5-46bc-b5e4-3b5b8e86cf20}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="GetEnumerator" Id="{20c05f16-0681-4b0d-af76-fbf219046c03}">
       <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
 VAR_INPUT
@@ -230,6 +241,17 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Last" Id="{e54e07d1-2ab5-4d94-9d6c-21eaebcab82f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Last : I_LinkedListItem]]></Declaration>
+      <Get Name="Get" Id="{1555d55e-1035-466d-88b6-c96e51a92959}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Length" Id="{559e2a4c-5fa2-4a43-bfb0-c13ebf1b7d82}">
       <Declaration><![CDATA[PROPERTY PUBLIC Length : ULINT]]></Declaration>
       <Get Name="Get" Id="{4af1c50c-dec9-48c8-8c9e-cddf0f65ae4e}">

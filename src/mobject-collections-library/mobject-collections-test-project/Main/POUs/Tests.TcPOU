@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Tests" Id="{716cf7d2-4a71-4aac-8d46-2dbbbbf0001b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Tests
+VAR
+	eventHandlers_Test : EventHandlers_Test;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[eventHandlers_Test();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <Itf Name="I_EnumeratorConnectionItem" Id="{e091440f-74bb-44c5-bffa-19176a69207f}">
-    <Declaration><![CDATA[INTERFACE I_EnumeratorConnectionItem
-]]></Declaration>
-  </Itf>
-</TcPlcObject>

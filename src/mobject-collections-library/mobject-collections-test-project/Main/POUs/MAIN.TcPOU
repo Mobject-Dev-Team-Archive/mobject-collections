@@ -8,10 +8,14 @@ VAR
 	
 //	source : ARRAY [1..5] OF INT := [1,2,3,4,5];
 //	destination : ARRAY [0..4] OF INT; 
-test : EnumeratorConnectionPool;
 
-testd : I_Enumerator;
-size : lint;
+	mockFooEvent : MockEvent(Name:='foo');
+	mockBarEvent : MockEvent(Name:='bar');
+	mockHandler : MockEventHandler;
+	eventHandlers : EventHandlers;
+
+	events : int;
+	register1, register2, trigger1, trigger2, uregister1, uregister2 : BOOL;
 
 END_VAR
 ]]></Declaration>
@@ -23,7 +27,39 @@ END_VAR
 //myLinkedList.AddBefore(source[4],source[3]); // 2,1,4,3
 //myLinkedList.AddAfter(source[1],source[5]); // 2,1,5,4,3
 
-size := sizeof(testd);]]></ST>
+IF register1 THEN
+	register1 := FALSE;
+	eventHandlers.On('foo',mockHandler);
+END_IF
+
+IF register2 THEN
+	register2 := FALSE;
+	eventHandlers.On('bar',mockHandler);
+END_IF
+
+IF trigger1 THEN
+	trigger1 := FALSE;
+	eventHandlers.Emit(mockFooEvent);
+END_IF
+
+IF trigger2 THEN
+	trigger2 := FALSE;
+	eventHandlers.Emit(mockBarEvent);
+END_IF
+
+IF uregister1 THEN
+	uregister1 := FALSE;
+	eventHandlers.Off('foo',mockHandler);
+END_IF
+
+IF uregister2 THEN
+	uregister2 := FALSE;
+	eventHandlers.Off('bar',mockHandler);
+END_IF
+
+events := mockHandler.EventsHandled;
+
+Tests();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -3,53 +3,27 @@
   <POU Name="LinkedListEnumerator" Id="{c908c57f-ee22-4c86-a594-141eb5e0e7af}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK LinkedListEnumerator EXTENDS EnumeratorBase IMPLEMENTS I_ForwardEnumerator
 VAR
-	currentItem : I_LinkedListItem_ReadWrite;
-	nextItem : I_LinkedListItem_ReadWrite;
-	parent : I_EnumeratorParent;
+	linkedListFirstItem : REFERENCE TO I_LinkedListItem;
+	currentItem : I_LinkedListItem;
+	nextItem : I_LinkedListItem;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Constructor" Id="{5ed93154-ab9d-468f-a6cc-f1798f080ae8}" />
-    <Method Name="Dispose" Id="{a7ca1234-de68-49ab-8041-8dbf42dfa684}">
-      <Declaration><![CDATA[METHOD PUBLIC Dispose
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
+    <Folder Name="Protected" Id="{c2e0b2fd-7548-4204-89ed-8bd47fbf61f0}" />
     <Method Name="FB_init" Id="{8c279887-c9ac-48ea-925e-99cb0ad2cec1}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	ConnectionUpdater : I_EnumeratorConnectionUpdater;
-	First : I_LinkedListItem_ReadWrite;
+	LinkedListFirstItem : REFERENCE TO I_LinkedListItem;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// this is following the .net standard of enumerators.  you must call MoveNext on a new enumerator
-// the reason for this is that it allows you to use an enumerator directly in a while loop.
-currentItem := 0;
-nextItem := First;
-this^.parent := Parent;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetValue" Id="{8606a03e-b35b-4c5e-a947-f60f81ef0fcb}">
-      <Declaration><![CDATA[METHOD PUBLIC GetValue BOOL;
-VAR_INPUT
-	Destination : ANY;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF currentItem = 0 THEN
-	RETURN;
-END_IF
-
-currentItem.Get(Destination);]]></ST>
+        <ST><![CDATA[THIS^.LinkedListFirstItem REF= LinkedListFirstItem;]]></ST>
       </Implementation>
     </Method>
     <Method Name="MoveNext" Id="{e42b8db9-37db-4f9f-b8c0-718c5fcfec58}">
@@ -65,6 +39,30 @@ END_IF
 
 currentItem := nextItem;
 nextItem := currentItem.Next;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnGetValue" Id="{2131a1b1-137b-4505-ab83-f36e8ccf1f7d}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED ABSTRACT OnGetValue : BOOL
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF currentItem = 0 THEN
+	RETURN;
+END_IF
+
+currentItem.Get(Destination);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnReset" Id="{ebef311d-589b-4c91-91bd-44321d33a333}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnReset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[currentItem := 0;
+nextItem := LinkedListFirstItem;]]></ST>
       </Implementation>
     </Method>
   </POU>

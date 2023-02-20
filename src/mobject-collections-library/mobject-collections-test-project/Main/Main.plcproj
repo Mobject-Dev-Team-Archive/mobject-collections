@@ -20,16 +20,6 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\Dictionary\Dictionary.TcPOU">
-      <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Compile>
-    <Compile Include="POUs\Lib\Dictionary\DictionaryItem\DictionaryItem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Dictionary\DictionaryItem\I_DictionaryItem.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Lib\Enumerators\Base\EnumeratorBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -45,13 +35,37 @@
     <Compile Include="POUs\Lib\Enumerators\I_ForwardEnumerator.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Lib\Events\EventHandlers\EventHandlerItem\EventHandlerItem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\EventHandlers\EventHandlerItem\I_EventHandlerItem.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\EventHandlers\EventGroupItem\EventGroupItem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\EventHandlers\EventGroupItem\I_EventGroupItem.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\EventHandlers\EventEmitter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\EventHandlers\I_EventHandlers.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\Interface\I_Event.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\Interface\I_EventHandler.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\Interface\I_GenerateEvents.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Lib\LinkedList\LinkedList.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\LinkedList\LinkedListEnumerator\LinkedListEnumerator.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\I_LinkedListItem_ReadWrite.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\LinkedList\LinkedListItem\I_LinkedListItem.TcIO">
@@ -60,23 +74,16 @@
     <Compile Include="POUs\Lib\LinkedList\LinkedListItem\LinkedListItem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\Queue\Queue.TcPOU">
-      <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Compile>
-    <Compile Include="POUs\Lib\Queue\QueueItem\I_QueueItem.TcIO">
+    <Compile Include="POUs\Lib\Tests\EventHandlers_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\Queue\QueueItem\QueueItem.TcPOU">
+    <Compile Include="POUs\Lib\Tests\Mocks\MockEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Tests\Mocks\MockEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\EnumeratorConnectionPool.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\EnumeratorItem\EnumeratorConnectionItem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\EnumeratorItem\I_EnumeratorConnectionItem.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\I_EnumeratorConnectionUpdater.TcIO">
@@ -88,7 +95,34 @@
     <Compile Include="POUs\Lib\_Internal\EnumeratorConnection\I_EnumeratorConnection.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Lib\_Pending\Dictionary\Dictionary.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\Lib\_Pending\Dictionary\DictionaryItem\DictionaryItem.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\Lib\_Pending\Dictionary\DictionaryItem\I_DictionaryItem.TcIO">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\Lib\_Pending\Queue\Queue.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\Lib\_Pending\Queue\QueueItem\I_QueueItem.TcIO">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\Lib\_Pending\Queue\QueueItem\QueueItem.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -96,19 +130,26 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\Lib" />
-    <Folder Include="POUs\Lib\Dictionary" />
-    <Folder Include="POUs\Lib\Dictionary\DictionaryItem" />
     <Folder Include="POUs\Lib\Enumerators\Base" />
+    <Folder Include="POUs\Lib\Events\EventHandlers" />
+    <Folder Include="POUs\Lib\Events\EventHandlers\EventHandlerItem" />
+    <Folder Include="POUs\Lib\Events\EventHandlers\EventGroupItem" />
+    <Folder Include="POUs\Lib\Events\Interface" />
     <Folder Include="POUs\Lib\LinkedList" />
     <Folder Include="POUs\Lib\LinkedList\LinkedListItem" />
     <Folder Include="POUs\Lib\LinkedList\LinkedListEnumerator" />
     <Folder Include="POUs\Lib\Enumerators" />
+    <Folder Include="POUs\Lib\Events" />
+    <Folder Include="POUs\Lib\Tests" />
+    <Folder Include="POUs\Lib\Tests\Mocks" />
+    <Folder Include="POUs\Lib\_Pending" />
     <Folder Include="POUs\Lib\_Internal" />
-    <Folder Include="POUs\Lib\Queue" />
-    <Folder Include="POUs\Lib\Queue\QueueItem" />
     <Folder Include="POUs\Lib\_Internal\EnumeratorConnectionPool" />
-    <Folder Include="POUs\Lib\_Internal\EnumeratorConnectionPool\EnumeratorItem" />
     <Folder Include="POUs\Lib\_Internal\EnumeratorConnection" />
+    <Folder Include="POUs\Lib\_Pending\Dictionary" />
+    <Folder Include="POUs\Lib\_Pending\Dictionary\DictionaryItem" />
+    <Folder Include="POUs\Lib\_Pending\Queue" />
+    <Folder Include="POUs\Lib\_Pending\Queue\QueueItem" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -128,6 +169,10 @@
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="TcUnit">
+      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
+      <Namespace>TcUnit</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
