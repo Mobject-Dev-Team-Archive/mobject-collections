@@ -1,14 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <Itf Name="I_LinkedListItem" Id="{0cff8fbe-58e6-42f0-93b9-bcbf9ae1547a}">
-    <Declaration><![CDATA[INTERFACE I_LinkedListItem EXTENDS I_LinkedListItem
+  <Itf Name="I_LinkedListNode" Id="{0cff8fbe-58e6-42f0-93b9-bcbf9ae1547a}">
+    <Declaration><![CDATA[INTERFACE I_LinkedListNode EXTENDS I_Disposable
 ]]></Declaration>
-    <Property Name="DataType" Id="{67a6de58-0b51-42eb-b8e3-c204779e535c}">
-      <Declaration><![CDATA[PROPERTY PUBLIC DataType : T_MaxString]]></Declaration>
-      <Get Name="Get" Id="{25cb2f4f-c892-49f2-8386-16628d6fc9b5}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
     <Method Name="Destroy" Id="{63a4bd84-b6d5-48f0-b124-677ef16e8f2b}">
       <Declaration><![CDATA[METHOD PUBLIC Destroy
 VAR_INPUT
@@ -28,8 +22,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetTo" Id="{81368b44-2f37-4a7b-af91-c3727dbd41a7}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
+VAR_INPUT
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="Next" Id="{36f7d60e-da19-4ec7-aef7-5f62014911e7}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListItem]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListNode]]></Declaration>
       <Get Name="Get" Id="{e871223f-e76e-40e1-ac6e-8232b4f33a89}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -40,7 +42,7 @@ END_VAR
       </Set>
     </Property>
     <Property Name="Previous" Id="{391f15bb-7210-4ad5-9151-9a7de912f823}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListItem]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListNode]]></Declaration>
       <Get Name="Get" Id="{855706cd-3426-4a83-93fc-01ff73e63b41}">
         <Declaration><![CDATA[VAR
 END_VAR

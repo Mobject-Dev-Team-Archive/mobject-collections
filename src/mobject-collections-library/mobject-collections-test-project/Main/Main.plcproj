@@ -35,52 +35,16 @@
     <Compile Include="POUs\Lib\Enumerators\I_ForwardEnumerator.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\Events\EventHandlers\EventHandlerItem\EventHandlerItem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\EventHandlers\EventHandlerItem\I_EventHandlerItem.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\EventHandlers\EventGroupItem\EventGroupItem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\EventHandlers\EventGroupItem\I_EventGroupItem.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\EventHandlers\EventEmitter.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\EventHandlers\I_EventHandlers.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\Interface\I_Event.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\Interface\I_EventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Events\Interface\I_GenerateEvents.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Lib\LinkedList\LinkedList.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\LinkedList\LinkedListEnumerator\LinkedListEnumerator.TcPOU">
+    <Compile Include="POUs\Lib\LinkedList\LinkedListEnumerators\LinkedListForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\I_LinkedListItem.TcIO">
+    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\I_LinkedListNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\LinkedListItem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Tests\EventHandlers_Test.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Tests\Mocks\MockEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Tests\Mocks\MockEventHandler.TcPOU">
+    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\LinkedListNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\EnumeratorConnectionPool.TcPOU">
@@ -122,24 +86,14 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Tests.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DUTs" />
-    <Folder Include="GVLs" />
     <Folder Include="POUs\Lib" />
     <Folder Include="POUs\Lib\Enumerators\Base" />
-    <Folder Include="POUs\Lib\Events\EventHandlers" />
-    <Folder Include="POUs\Lib\Events\EventHandlers\EventHandlerItem" />
-    <Folder Include="POUs\Lib\Events\EventHandlers\EventGroupItem" />
-    <Folder Include="POUs\Lib\Events\Interface" />
     <Folder Include="POUs\Lib\LinkedList" />
     <Folder Include="POUs\Lib\LinkedList\LinkedListItem" />
-    <Folder Include="POUs\Lib\LinkedList\LinkedListEnumerator" />
+    <Folder Include="POUs\Lib\LinkedList\LinkedListEnumerators" />
     <Folder Include="POUs\Lib\Enumerators" />
-    <Folder Include="POUs\Lib\Events" />
     <Folder Include="POUs\Lib\Tests" />
     <Folder Include="POUs\Lib\Tests\Mocks" />
     <Folder Include="POUs\Lib\_Pending" />
@@ -154,6 +108,14 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="mobject-disposable">
+      <DefaultResolution>mobject-disposable, * (mobject)</DefaultResolution>
+      <Namespace>mobject_disposable</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="mobject-events">
+      <DefaultResolution>mobject-events, * (mobject)</DefaultResolution>
+      <Namespace>mobject_events</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>

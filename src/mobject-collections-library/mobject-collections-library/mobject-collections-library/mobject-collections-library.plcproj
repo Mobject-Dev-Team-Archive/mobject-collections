@@ -15,6 +15,7 @@
     <Implicit_KindOfTask>{f467fee4-6a74-4491-91b3-f2a2a0c0932b}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{6defb9fb-bc05-4ebe-b4ed-b432139b543b}</Implicit_Jitter_Distribution>
     <LibraryReferences>{20424260-bbf8-4ec7-bdbc-8dd0b783d3b9}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
     <None Include="mobject-collections-library.tmc">

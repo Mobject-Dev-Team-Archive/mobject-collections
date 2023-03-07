@@ -1,11 +1,16 @@
 <p align="center">
-  <img width="460" height="300" src="./docs/images/logo.svg">
+  <img width="460"  src="./docs/images/logo.svg">
 </p>
-Pronounced mob-ject. The open source machine object oriented programming framework and guide.
 
-## Opening Statement
+## The mobject-events Library
 
-A sprinkling of OOP is usually enough to simplify and unclutter procedural code. However, the more you apply OOP, the more you find the need to expand it's scope to accommodate functionality which is missing from the language. For example, writing a simple flashing light class will require its instance to be cyclically called in order for it to update it's hardware output. If you pass this light in to another object then the responsibility of who should cyclic call it becomes hard to reason about. Hence, mobject was conceived. It's a framework, library and mindset of how problems such as this can be resolved using both pre-written code and examples.
+This is one of the many libraries of mobject. This library focuses on dynamic collections.
+
+## What is mobject?
+
+Pronounced mob-ject.
+
+A sprinkling of OOP is usually enough to simplify and unclutter procedural code. However, the more you apply OOP, the more you find the need to expand it's scope to accommodate functionality which is missing from the language. Hence, mobject was conceived. It's a framework, library and mindset of how problems such as this can be resolved using both pre-written code and examples.
 
 mobject's goal is to be a lightweight solution to typical oop problems.
 

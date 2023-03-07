@@ -24,3 +24,8 @@
     margin-top: 0px !important;
 }
 
+
+[data-lang="body"] + [data-lang="declaration"] {
+    border-top: 1px solid lightgrey;
+    margin-top: 0px !important;
+}

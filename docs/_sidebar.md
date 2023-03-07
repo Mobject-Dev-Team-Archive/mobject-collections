@@ -11,4 +11,4 @@
 
 - Guides
 
-  - [Coding Guide](coding-guide.md)
+  - [Coding Guide](https://benhar-dev.github.io/coding-convention/#/)

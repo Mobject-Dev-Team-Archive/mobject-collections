@@ -26,14 +26,19 @@ pre {
     background-color:white;
 }
 
-
-.lang-body {
-    border-top: 1px solid lightgrey;
-    margin-bottom : 18px;
-    margin-top: 0px !important;
+.markdown-section blockquote {
+    border-left: 4px solid #929292;
+    background-color: #f4f4f4;
 }
 
-.lang-body pre {
-    margin-top: -18px !important;
-    border-top: 1px solid lightgrey;
+.sidebar ul li.active>a {
+    color: #29292b;;
+}
+
+.github-corner svg {
+    fill: #383d41;
+}
+
+a {
+    text-decoration: none;
 }

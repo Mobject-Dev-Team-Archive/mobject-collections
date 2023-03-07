@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="LinkedListEnumerator" Id="{c908c57f-ee22-4c86-a594-141eb5e0e7af}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK LinkedListEnumerator EXTENDS EnumeratorBase IMPLEMENTS I_ForwardEnumerator
+  <POU Name="LinkedListForwardEnumerator" Id="{c908c57f-ee22-4c86-a594-141eb5e0e7af}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK LinkedListForwardEnumerator EXTENDS EnumeratorBase IMPLEMENTS I_ForwardEnumerator
 VAR
-	linkedListFirstItem : REFERENCE TO I_LinkedListItem;
-	currentItem : I_LinkedListItem;
-	nextItem : I_LinkedListItem;
+	linkedListFirstItem : REFERENCE TO I_LinkedListNode;
+	currentItem : I_LinkedListNode;
+	nextItem : I_LinkedListNode;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -19,7 +19,7 @@ VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	ConnectionUpdater : I_EnumeratorConnectionUpdater;
-	LinkedListFirstItem : REFERENCE TO I_LinkedListItem;
+	LinkedListFirstItem : REFERENCE TO I_LinkedListNode;
 END_VAR
 ]]></Declaration>
       <Implementation>
