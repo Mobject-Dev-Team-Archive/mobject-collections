@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.35">
-	<Project ProjectGUID="{1F6BC78D-4017-48BC-BBEB-D522E7397515}" Target64Bit="true" ShowHideConfigurations="#x106">
-		<Plc>
-			<Project GUID="{7E7879A0-2302-49FC-A9A0-D1030C011450}" Name="mobject-collections-library" PrjFilePath="mobject-collections-library\mobject-collections-library.plcproj" TmcFilePath="mobject-collections-library\mobject-collections-library.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e"/>
-		</Plc>
-	</Project>
-</TcSmProject>

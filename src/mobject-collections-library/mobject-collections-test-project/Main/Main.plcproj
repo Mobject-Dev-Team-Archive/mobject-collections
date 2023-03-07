@@ -47,18 +47,6 @@
     <Compile Include="POUs\Lib\LinkedList\LinkedListItem\LinkedListNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\EnumeratorConnectionPool.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\_Internal\EnumeratorConnectionPool\I_EnumeratorConnectionUpdater.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\_Internal\EnumeratorConnection\EnumeratorConnection.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\_Internal\EnumeratorConnection\I_EnumeratorConnection.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Lib\_Pending\Dictionary\Dictionary.TcPOU">
       <SubType>Code</SubType>
       <ExcludeFromBuild>true</ExcludeFromBuild>
@@ -97,9 +85,6 @@
     <Folder Include="POUs\Lib\Tests" />
     <Folder Include="POUs\Lib\Tests\Mocks" />
     <Folder Include="POUs\Lib\_Pending" />
-    <Folder Include="POUs\Lib\_Internal" />
-    <Folder Include="POUs\Lib\_Internal\EnumeratorConnectionPool" />
-    <Folder Include="POUs\Lib\_Internal\EnumeratorConnection" />
     <Folder Include="POUs\Lib\_Pending\Dictionary" />
     <Folder Include="POUs\Lib\_Pending\Dictionary\DictionaryItem" />
     <Folder Include="POUs\Lib\_Pending\Queue" />

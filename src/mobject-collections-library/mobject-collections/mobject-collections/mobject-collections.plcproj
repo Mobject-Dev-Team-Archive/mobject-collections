@@ -2,25 +2,33 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7e7879a0-2302-49fc-a9a0-d1030c011450}</ProjectGuid>
+    <ProjectGuid>{cd52aff1-7609-499a-b007-eee60f0f5a0b}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>mobject_collections_library</Name>
+    <Name>mobject_collections</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
-    <Application>{3724dab5-178c-4168-b1a4-be73d46f977b}</Application>
-    <TypeSystem>{d43e12a3-f3db-41dd-a8db-1dd2e3edd057}</TypeSystem>
-    <Implicit_Task_Info>{d7cf4efd-716f-48d8-9d69-856b88618d01}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{f467fee4-6a74-4491-91b3-f2a2a0c0932b}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{6defb9fb-bc05-4ebe-b4ed-b432139b543b}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{20424260-bbf8-4ec7-bdbc-8dd0b783d3b9}</LibraryReferences>
+    <Application>{4603e71c-32ba-45a2-ba7b-c96d287ec7ca}</Application>
+    <TypeSystem>{69fa96ee-ea53-4500-8897-3725affeaf67}</TypeSystem>
+    <Implicit_Task_Info>{24fa7296-d66c-4b1b-944f-6382ea2dc9be}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{da761b86-acc7-461c-86e1-27294fb6c76a}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{4361fc3f-73d9-454a-a809-a2a72ed20408}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{0c5b6efe-6ae8-4b53-9053-ceda452e5d12}</LibraryReferences>
+    <Company>mobject</Company>
     <Released>false</Released>
+    <Title>mobject-collections</Title>
+    <ProjectVersion>0.0.0</ProjectVersion>
+    <DefaultNamespace>mobject-collections</DefaultNamespace>
+    <Placeholder>mobject-collections</Placeholder>
+    <Author>mobject dev team</Author>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="mobject-collections-library.tmc">
-      <SubType>Content</SubType>
-    </None>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
