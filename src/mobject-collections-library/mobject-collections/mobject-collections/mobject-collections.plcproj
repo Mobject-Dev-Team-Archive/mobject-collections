@@ -23,8 +23,26 @@
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
     <CombineIds>true</CombineIds>
+    <LibraryCategories>
+      <LibraryCategory xmlns="">
+        <Id>{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1e}</Id>
+        <Version>1.0.0.0</Version>
+        <DefaultName>mobject</DefaultName>
+      </LibraryCategory>
+    </LibraryCategories>
+    <SelectedLibraryCategories>
+      <Id xmlns="">{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1e}</Id>
+    </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
+    <PlaceholderReference Include="mobject-disposable">
+      <DefaultResolution>mobject-disposable, * (mobject)</DefaultResolution>
+      <Namespace>mobject_disposable</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="mobject-events">
+      <DefaultResolution>mobject-events, * (mobject)</DefaultResolution>
+      <Namespace>mobject_events</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
@@ -42,6 +60,7 @@
     <Folder Include="LinkedList" />
     <Folder Include="LinkedList\LinkedListEnumerators" />
     <Folder Include="LinkedList\LinkedListNode" />
+    <Folder Include="Queue" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerators\I_ForwardEnumerator.TcIO">
@@ -50,7 +69,13 @@
     <Compile Include="Events\LinkedList\I_LinkedListChangedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Events\LinkedList\I_LinkedListDisposedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Events\LinkedList\LinkedListChangedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\LinkedList\LinkedListDisposedEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LinkedList\I_LinkedList.TcIO">
@@ -66,6 +91,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LinkedList\LinkedListNode\LinkedListNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Queue\Queue.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

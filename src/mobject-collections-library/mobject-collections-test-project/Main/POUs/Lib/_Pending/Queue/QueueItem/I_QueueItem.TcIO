@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <Itf Name="I_QueueItem" Id="{21205a69-1823-4afb-90bd-73670b0f507d}">
-    <Declaration><![CDATA[INTERFACE I_QueueItem EXTENDS I_LinkedListItem_ReadWrite
-]]></Declaration>
-  </Itf>
-</TcPlcObject>

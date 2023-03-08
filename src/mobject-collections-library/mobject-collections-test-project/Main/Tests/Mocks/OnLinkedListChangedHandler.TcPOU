@@ -32,7 +32,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[this^.expectedOriginator := ExpectedOriginator;]]></ST>
+        <ST><![CDATA[SetExpectedOriginator(ExpectedOriginator);]]></ST>
       </Implementation>
     </Method>
     <Property Name="FromExpectedOriginator" Id="{4115df43-c1b3-41a9-8397-99718f881682}">
@@ -69,6 +69,16 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_eventReceived := FALSE;
 fromExpected := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetExpectedOriginator" Id="{81554e37-adf6-4986-bdd7-b49945ba620a}">
+      <Declaration><![CDATA[METHOD PUBLIC SetExpectedOriginator
+VAR_INPUT
+	ExpectedOriginator : I_LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[this^.expectedOriginator := ExpectedOriginator;]]></ST>
       </Implementation>
     </Method>
   </POU>

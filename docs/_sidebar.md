@@ -4,10 +4,8 @@
 
 - mobject-collections
 
-  - [Dynamic Array](tba.md)
-  - [Linked List](tba.md)
-  - [Queue](tba.md)
-  - [Stack](tba.md)
+  - [LinkedList](linkedlist.md)
+  - [Queue](queue.md)
 
 - Guides
 

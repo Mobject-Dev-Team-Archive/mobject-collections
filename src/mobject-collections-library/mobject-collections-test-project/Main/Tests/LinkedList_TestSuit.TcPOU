@@ -28,7 +28,8 @@ CheckFind();
 CheckFindLast();
 CheckLinkedListReturnsEnumerator();
 CheckLinkListEmitsOnLinkedListChangedEvent();
-CheckLinkListEmitsOnLinkedListChangedEventUsingOnce();
+CheckLinkListEmitsOnLinkedListDisposedEvent();
+CheckOnceEvent();
 CheckOffEvent();
 CheckCopyTo();]]></ST>
     </Implementation>
@@ -529,29 +530,34 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckLinkListEmitsOnLinkedListChangedEventUsingOnce" Id="{5c7a3338-5b01-465b-8449-bd1f06cd5b47}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckLinkListEmitsOnLinkedListChangedEventUsingOnce
+    <Method Name="CheckLinkListEmitsOnLinkedListDisposedEvent" Id="{10baf34f-379a-4df6-bbbf-1f3f024d44a4}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLinkListEmitsOnLinkedListDisposedEvent
 VAR
 	value : INT := 123;
-	linkedList : LinkedList;
-	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+	pLinkedList : POINTER TO LinkedList;
+	handler : OnLinkedListDisposedHandler(ExpectedOriginator := 0);
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEventUsingOnce');
+        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListDisposedEvent');
 
 // @TEST-FIXTURE
-linkedList.OnceEvent('OnLinkedListChanged',handler);
-linkedList.AddFirst(value);
-handler.Reset();
+pLinkedList := __NEW(LinkedList);
+handler.SetExpectedOriginator(pLinkedList^);
+pLinkedList^.OnEvent('OnLinkedListDisposed',handler);
 
 // @TEST-RUN
-linkedList.AddFirst(value);
+pLinkedList^.Dispose();
 
 // @TEST-ASSSERT
-AssertFalse(
+AssertTrue(
 	Condition := handler.EventReceived,
-	Message := 'OnceEvent emitted the OnLinkedListChanged event more than once'
+	Message := 'Did not emit the OnLinkedListDisposed event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnLinkedListDisposed event'
 );
 
 TEST_FINISHED();]]></ST>
@@ -655,6 +661,34 @@ END_VAR
 // @TEST-FIXTURE
 linkedList.OnEvent('OnLinkedListChanged',handler);
 linkedList.OffEvent('OnLinkedListChanged',handler);
+
+// @TEST-RUN
+linkedList.AddFirst(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnLinkedListChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnceEvent" Id="{5c7a3338-5b01-465b-8449-bd1f06cd5b47}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnceEvent
+VAR
+	value : INT := 123;
+	linkedList : LinkedList;
+	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEventUsingOnce');
+
+// @TEST-FIXTURE
+linkedList.OnceEvent('OnLinkedListChanged',handler);
+linkedList.AddFirst(value);
+handler.Reset();
 
 // @TEST-RUN
 linkedList.AddFirst(value);

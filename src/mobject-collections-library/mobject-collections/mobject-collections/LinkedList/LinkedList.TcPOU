@@ -32,7 +32,7 @@ END_IF
 
 node := CreateNode(Value);
 AddNodeAfter(After,node);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddBefore" Id="{e6c290a5-2465-4f20-b28c-0466beb8b78c}">
@@ -51,7 +51,7 @@ END_IF
 
 node := CreateNode(Value);
 AddNodeBefore(Before,node);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddFirst" Id="{5d981d3a-a50b-4b5c-b059-edb726648924}">
@@ -65,7 +65,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[node := CreateNode(Value);
 AddNodeFirst(node);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddLast" Id="{4f7213b7-04cf-4ecf-9a66-2d5267b89779}">
@@ -79,7 +79,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[node := CreateNode(Value);
 AddNodeLast(node);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddNodeAfter" Id="{f145ce75-428e-488c-8298-631c3e1d9564}" FolderPath="Private\">
@@ -185,7 +185,7 @@ originalLast.Next := Node;]]></ST>
 END_IF
 
 RemoveAllNodes();
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Contains" Id="{4b179de9-eef1-48a2-95a2-a7ca9d0d433e}" FolderPath="Private\">
@@ -286,8 +286,8 @@ END_VAR]]></Declaration>
 CreateNode := pLinkedListItem^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EmitListChangedEvent" Id="{3292f357-a850-4b07-84b8-6ac1bcad29c4}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE EmitListChangedEvent
+    <Method Name="EmitChangedEvent" Id="{3292f357-a850-4b07-84b8-6ac1bcad29c4}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
 VAR
 	pLinkedListChangedEvent : POINTER TO LinkedListChangedEvent;
 END_VAR]]></Declaration>
@@ -295,6 +295,17 @@ END_VAR]]></Declaration>
         <ST><![CDATA[pLinkedListChangedEvent := __NEW(LinkedListChangedEvent(TargetLinkedList := THIS^));
 eventEmitter.Emit('OnLinkedListChanged',pLinkedListChangedEvent^);
 pLinkedListChangedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmitDisposedEvent" Id="{d5c30bcb-5159-4f97-8dde-50d1098331ac}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
+VAR
+	pLinkedListDisposedEvent : POINTER TO LinkedListDisposedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pLinkedListDisposedEvent := __NEW(LinkedListDisposedEvent(TargetLinkedList := THIS^));
+eventEmitter.Emit('OnLinkedListDisposed',pLinkedListDisposedEvent^);
+pLinkedListDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Find" Id="{3ec3889b-b920-463d-a4e7-bdc67da7e105}">
@@ -430,7 +441,8 @@ VAR_INPUT
     CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Clear();]]></ST>
+        <ST><![CDATA[Clear();
+EmitDisposedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnEvent" Id="{7a0112ed-3061-4b02-a40e-eb2b9c06830c}">
@@ -459,7 +471,7 @@ IF foundNode = 0 THEN
 END_IF
 
 RemoveNode(foundNode);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveAllNodes" Id="{0d2ee20c-7757-4ee4-89ad-9f4848a333f1}" FolderPath="Private\">
@@ -481,7 +493,7 @@ END_WHILE]]></ST>
 END_IF
 
 RemoveNode(First);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveLast" Id="{d50cb0c7-635c-475a-9798-a63ab164b5b9}">
@@ -493,7 +505,7 @@ EmitListChangedEvent();]]></ST>
 END_IF
 
 RemoveNode(Last);
-EmitListChangedEvent();]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveNode" Id="{9d398b49-4d1a-4729-b707-0284e2263b5d}" FolderPath="Private\">

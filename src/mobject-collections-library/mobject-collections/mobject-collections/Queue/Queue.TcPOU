@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Queue" Id="{60047339-337c-4be5-ae72-2dad2c213009}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Queue EXTENDS Disposable
+VAR
+	linkedList : LinkedList;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Protected" Id="{fbefcc9a-c9c2-438e-9628-8229d3938620}" />
+    <Method Name="Clear" Id="{be525374-c8c0-4800-8d21-3dedb89b7102}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[linkedList.Clear();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Contains" Id="{41c5234e-0ba0-4792-9541-46f8eba2e5bf}">
+      <Declaration><![CDATA[METHOD PUBLIC Contains : BOOL;
+VAR_INPUT
+	Item : ANY;
+END_VAR
+VAR
+	found : I_LinkedListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[found := linkedList.Find(Item);
+Contains := found <> 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{a5b5dc0d-9136-4d33-8a44-3fd5f4753277}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Get Name="Get" Id="{3a2945f3-109a-481b-88d2-6b143645dca6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := linkedList.Count;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Enqueue" Id="{55f220d0-7765-476a-8e45-859c45790653}">
+      <Declaration><![CDATA[METHOD PUBLIC Enqueue
+VAR_INPUT
+	Item : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[linkedList.AddLast(Item);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEnumerator" Id="{313bc49e-d42c-4e4f-9245-f744dca425c4}">
+      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnDispose" Id="{a91062d0-5445-46e9-b253-d558a10d4f0c}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
+VAR_INPUT
+    CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Clear();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryDequeue" Id="{6a1352f2-9546-44f6-a541-e9c3fd20ae65}">
+      <Declaration><![CDATA[METHOD PUBLIC TryDequeue : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+VAR
+	first : I_LinkedListNode;
+	dequeued : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[first := linkedList.First;
+
+IF first = 0 THEN
+	RETURN;
+END_IF
+
+dequeued := linkedList.First.Get(Destination);
+
+IF NOT dequeued THEN
+	RETURN;
+END_IF
+
+linkedList.RemoveFirst();
+TryDequeue := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryPeek" Id="{c32c66c4-721d-4fa4-8a6a-dc6c4b397149}">
+      <Declaration><![CDATA[METHOD PUBLIC TryPeek : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+VAR
+	first : I_LinkedListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[first := linkedList.First;
+
+IF first = 0 THEN
+	RETURN;
+END_IF
+
+TryPeek := first.Get(Destination);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

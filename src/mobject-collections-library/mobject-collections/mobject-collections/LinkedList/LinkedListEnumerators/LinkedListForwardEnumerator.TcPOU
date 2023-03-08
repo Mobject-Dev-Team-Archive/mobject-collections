@@ -27,6 +27,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[Parent.OnEvent('OnLinkListChanged',THIS^);
+Parent.OnEvent('OnLinkedListDisposed',THIS^);
 this^.parent := Parent;]]></ST>
       </Implementation>
     </Method>
@@ -62,11 +63,14 @@ VAR_INPUT
 END_VAR
 VAR
 	linkedListChangedEvent : I_LinkedListChangedEvent;
+	linkedListDisposedEvent : I_LinkedListDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF __QUERYINTERFACE(Event, linkedListChangedEvent) THEN
 	invalid := TRUE;
 	currentNode := 0;
+ELSIF __QUERYINTERFACE(Event, linkedListDisposedEvent) THEN
+	parent := 0;
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -77,7 +81,7 @@ END_IF]]></ST>
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[IsValid := not invalid;]]></ST>
+          <ST><![CDATA[IsValid := (not invalid and parent <> 0);]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -115,7 +119,12 @@ VAR_INPUT
 	CalledExplicitly : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[parent.OffEvent('OnLinkListChanged',this^);]]></ST>
+        <ST><![CDATA[IF parent = 0 THEN
+	RETURN;
+END_IF
+
+parent.OffEvent('OnLinkListChanged',THIS^);
+Parent.OffEvent('OnLinkListDisposed',THIS^);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{2017d8bc-6ce2-45f9-b0d2-516b5a2f274c}">
@@ -124,7 +133,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[currentNode := 0;
+        <ST><![CDATA[IF parent = 0 THEN
+	RETURN;
+END_IF
+
+currentNode := 0;
 moveNextCalled := FALSE;
 invalid := FALSE; ]]></ST>
       </Implementation>

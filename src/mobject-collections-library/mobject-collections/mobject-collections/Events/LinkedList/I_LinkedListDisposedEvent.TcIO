@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <Itf Name="I_LinkedListChangedEvent" Id="{c85c578b-7217-462a-95bd-f7ca34c5bef6}">
-    <Declaration><![CDATA[INTERFACE I_LinkedListChangedEvent EXTENDS I_Event
+  <Itf Name="I_LinkedListDisposedEvent" Id="{28133386-e3b6-4050-8ebb-01e97c0da9dd}">
+    <Declaration><![CDATA[INTERFACE I_LinkedListDisposedEvent EXTENDS I_Event
 ]]></Declaration>
-    <Property Name="TargetLinkedList" Id="{e2a01b88-797d-426a-be82-58b3bf9e0094}">
+    <Property Name="TargetLinkedList" Id="{d9c40f2b-abbd-40ff-872b-dd59aad32e4c}">
       <Declaration><![CDATA[PROPERTY PUBLIC TargetLinkedList : I_LinkedList]]></Declaration>
-      <Get Name="Get" Id="{b8addeda-d410-4bd2-825d-2eca24e55d07}">
+      <Get Name="Get" Id="{1329a907-adfd-4d2c-ad5a-a0f4a118da38}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
