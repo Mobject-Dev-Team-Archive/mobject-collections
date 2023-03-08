@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="LinkedListForwardEnumerator" Id="{836bc776-d9a4-0444-1c7d-dfc760fc29d0}" SpecialFunc="None">
+  <POU Name="LinkedListForwardEnumerator" Id="{b1356522-2356-47f0-8fc3-88d40e839155}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -15,9 +15,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{14ba335d-9c1b-0e4d-1f25-3aa05a14c497}" />
-    <Folder Name="Protected" Id="{8883b0f4-42ce-0ac6-3004-400daaa3af8f}" />
-    <Method Name="FB_init" Id="{c6449a8e-fe2a-0028-2bb7-5212dfce00be}" FolderPath="Constructor\">
+    <Folder Name="Constructor" Id="{ba00adcc-08d5-4221-8a6d-f1cc9ae85243}" />
+    <Folder Name="Protected" Id="{d11b83b0-e836-463b-a509-88d4395e1f4f}" />
+    <Method Name="FB_init" Id="{9785a5f6-7e4a-4ea0-9517-538d8da73e6a}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -30,7 +30,7 @@ END_VAR
 this^.parent := Parent;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Get" Id="{e1cf9483-2731-02c0-04ae-9e098c748ede}">
+    <Method Name="Get" Id="{00128fb3-0888-4680-baae-fe94bc38c29b}">
       <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
 VAR_INPUT
 	Destination : ANY;
@@ -42,7 +42,7 @@ END_VAR
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetTo" Id="{9b232187-4910-07e3-2ef7-0d7d95ec9de6}">
+    <Method Name="GetTo" Id="{1412ae45-9668-4dda-b44d-6048d41a0a8b}">
       <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
 VAR_INPUT
 	Destination : PVOID;
@@ -55,7 +55,7 @@ END_VAR
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="HandleEvent" Id="{f343a477-dd16-47b3-a2a2-23d9f5529ada}">
+    <Method Name="HandleEvent" Id="{9b82c3a0-a8d9-4f44-aa61-0031448f4819}">
       <Declaration><![CDATA[METHOD PUBLIC HandleEvent
 VAR_INPUT
 	Event : I_Event;
@@ -70,9 +70,9 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Property Name="IsValid" Id="{dd7672dc-7a68-0bce-27a3-96f9d73879b3}">
+    <Property Name="IsValid" Id="{aff8eea1-92fe-4c1a-ab72-6d68ef134bd6}">
       <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
-      <Get Name="Get" Id="{ca7a5abc-74fe-048c-102b-ae5eeb4d4ad7}">
+      <Get Name="Get" Id="{d7fac01e-4fea-4838-8ffe-61ec719ff66c}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -81,7 +81,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MoveNext" Id="{ae488fb0-005d-075d-0129-ba558ad32227}">
+    <Method Name="MoveNext" Id="{6be4d0d4-bc06-473d-8ec1-a047989792d6}">
       <Declaration><![CDATA[METHOD PUBLIC MoveNext : BOOL
 VAR_INPUT
 END_VAR
@@ -109,7 +109,7 @@ if currentNode.Next <> 0 then
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnDispose" Id="{1787e699-1ffe-4ec5-a887-556fd405a3bb}" FolderPath="Protected\">
+    <Method Name="OnDispose" Id="{57098a64-7040-4a4c-ad76-d4e0094e1750}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
 VAR_INPUT
 	CalledExplicitly : BOOL;
@@ -118,7 +118,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[parent.OffEvent('OnLinkListChanged',this^);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Reset" Id="{ca53cfda-c746-0407-20f0-7458ce0b9f56}">
+    <Method Name="Reset" Id="{2017d8bc-6ce2-45f9-b0d2-516b5a2f274c}">
       <Declaration><![CDATA[METHOD PUBLIC Reset
 VAR_INPUT
 END_VAR

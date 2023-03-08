@@ -3,7 +3,10 @@
   <POU Name="MAIN" Id="{4fc6a7e2-9479-48b5-85ef-622583cb9cd0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	linkedList_TestSuit : LinkedList_TestSuit;
+//	test : bool;
 END_VAR
+
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();]]></ST>

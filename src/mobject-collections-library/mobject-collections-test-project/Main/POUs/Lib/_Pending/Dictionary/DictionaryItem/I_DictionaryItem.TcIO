@@ -2,11 +2,5 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_DictionaryItem" Id="{8fcac613-23cc-4863-9d10-212414021dda}">
     <Declaration><![CDATA[INTERFACE I_DictionaryItem EXTENDS I_LinkedListItem_ReadWrite]]></Declaration>
-    <Property Name="Key" Id="{242e2003-5d34-4de4-914b-5eda5cbff1ce}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Key : T_MAXSTRING]]></Declaration>
-      <Get Name="Get" Id="{faf35f6b-250d-44b3-b10d-3009dbf406a6}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
   </Itf>
 </TcPlcObject>

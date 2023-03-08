@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="LinkedList" Id="{07326130-6311-4292-a93f-795944bcaf4e}" SpecialFunc="None">
+  <POU Name="LinkedList" Id="{507bad93-df63-4434-8534-5a0206f239ff}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -14,9 +14,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Private" Id="{f847db7f-59b7-4f5b-85cd-8acc4e90c2ec}" />
-    <Folder Name="Protected" Id="{bdd1bff0-019b-446b-8252-f6f570151864}" />
-    <Method Name="AddAfter" Id="{4cb91ce1-7110-43c2-8a91-99f8115e5172}">
+    <Folder Name="Private" Id="{d051f906-57dd-4f21-9ba9-0b96add6d725}" />
+    <Folder Name="Protected" Id="{220915b8-3663-462c-b027-19e09a6aa56e}" />
+    <Method Name="AddAfter" Id="{31eb6e68-b92d-42da-a9fa-0619a1c414e8}">
       <Declaration><![CDATA[METHOD PUBLIC AddAfter
 VAR_INPUT
 	After : I_LinkedListNode;
@@ -35,7 +35,7 @@ AddNodeAfter(After,node);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddBefore" Id="{05c286f5-d486-4fe5-b982-d4c680e82169}">
+    <Method Name="AddBefore" Id="{e6c290a5-2465-4f20-b28c-0466beb8b78c}">
       <Declaration><![CDATA[METHOD PUBLIC AddBefore
 VAR_INPUT
 	Before : I_LinkedListNode;
@@ -54,7 +54,7 @@ AddNodeBefore(Before,node);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddFirst" Id="{245d047d-fcff-48a4-9b0a-05c4c0371967}">
+    <Method Name="AddFirst" Id="{5d981d3a-a50b-4b5c-b059-edb726648924}">
       <Declaration><![CDATA[METHOD PUBLIC AddFirst
 VAR_INPUT
 	Value : ANY;
@@ -68,7 +68,7 @@ AddNodeFirst(node);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddLast" Id="{5d3a5616-c068-4ac6-9ebc-a2a99f15296e}">
+    <Method Name="AddLast" Id="{4f7213b7-04cf-4ecf-9a66-2d5267b89779}">
       <Declaration><![CDATA[METHOD PUBLIC AddLast
 VAR_INPUT
 	Value : ANY;
@@ -82,7 +82,7 @@ AddNodeLast(node);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddNodeAfter" Id="{8faf8a88-bf70-47e6-b541-245c73df3a19}" FolderPath="Private\">
+    <Method Name="AddNodeAfter" Id="{f145ce75-428e-488c-8298-631c3e1d9564}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddNodeAfter
 VAR_INPUT
 	After : I_LinkedListNode;
@@ -105,7 +105,7 @@ Node.Next := originalNext;
 originalNext.Previous := Node;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddNodeBefore" Id="{d73e300c-5196-4817-9c06-c12d32de86e4}" FolderPath="Private\">
+    <Method Name="AddNodeBefore" Id="{c4f07308-cdfe-41be-a338-d60df89e46b8}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddNodeBefore
 VAR_INPUT
 	Before : I_LinkedListNode;
@@ -128,7 +128,7 @@ Node.Previous := originalBefore;
 originalBefore.Next := Node;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddNodeFirst" Id="{3eede607-a902-4378-a538-43911093edda}" FolderPath="Private\">
+    <Method Name="AddNodeFirst" Id="{42562444-7b33-4a3a-acdb-22871880b743}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddNodeFirst
 VAR_INPUT
 	Node : I_LinkedListNode;
@@ -153,7 +153,7 @@ originalFirst.Previous := Node;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AddNodeLast" Id="{a1d17155-cb81-4d72-8577-aae3dc4416da}" FolderPath="Private\">
+    <Method Name="AddNodeLast" Id="{ccabe999-945e-428a-8630-ad1cc968721d}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddNodeLast
 VAR_INPUT
 	Node : I_LinkedListNode;
@@ -174,7 +174,7 @@ Node.Previous := originalLast;
 originalLast.Next := Node;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Clear" Id="{a1646649-32aa-457e-9d9b-a548c6521917}">
+    <Method Name="Clear" Id="{68eac5b7-8615-47ef-b82b-6d6f6c286291}">
       <Declaration><![CDATA[METHOD PUBLIC Clear
 //VAR
 //	currentItem, nextItem : I_DictionaryItem;
@@ -188,7 +188,7 @@ RemoveAllNodes();
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Contains" Id="{e538d2b2-c617-47d4-881a-6fccfa84426a}" FolderPath="Private\">
+    <Method Name="Contains" Id="{4b179de9-eef1-48a2-95a2-a7ca9d0d433e}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE Contains : BOOL
 VAR_INPUT
 	Node : I_LinkedListNode;
@@ -212,7 +212,7 @@ WHILE current <> 0 DO
 END_WHILE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CopyTo" Id="{fce4e3b2-fbef-4058-9395-9a922338d0c9}">
+    <Method Name="CopyTo" Id="{1aea4900-d688-48e9-9a9f-8b39c70acb8b}">
       <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
 VAR_INPUT
 	Destination : ANY;
@@ -221,7 +221,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[CopyTo := CopyToLocation(Destination.pValue, Destination.diSize);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CopyToLocation" Id="{58960f19-61f7-4524-b4ca-4021884309dd}">
+    <Method Name="CopyToLocation" Id="{01bff3c0-b7f3-43be-b887-cf05759eef58}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
 	Destination : PVOID;
@@ -256,9 +256,9 @@ WHILE currentNode <> 0 DO
 END_WHILE]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Count" Id="{39c6daa4-0670-49aa-9840-5690dc006873}">
+    <Property Name="Count" Id="{2e1031c7-13dc-4afc-9b93-190c74b78f2e}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
-      <Get Name="Get" Id="{963ea714-d90a-426c-b3aa-1e85ce9dad25}">
+      <Get Name="Get" Id="{b563603e-aeda-46d2-9b03-2be7aae4e8ba}">
         <Declaration><![CDATA[VAR
 	current : I_LinkedListNode;
 END_VAR
@@ -273,7 +273,7 @@ END_WHILE]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="CreateNode" Id="{25817449-b8d3-401f-b0c8-8442b773ef7b}" FolderPath="Private\">
+    <Method Name="CreateNode" Id="{bb10087b-6e62-4679-a76c-1d53a0f3ae10}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE CreateNode : I_LinkedListNode
 VAR_INPUT
 	Value : ANY;
@@ -286,7 +286,7 @@ END_VAR]]></Declaration>
 CreateNode := pLinkedListItem^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EmitListChangedEvent" Id="{b8159502-78de-47d0-86d4-f16248e120cc}" FolderPath="Private\">
+    <Method Name="EmitListChangedEvent" Id="{3292f357-a850-4b07-84b8-6ac1bcad29c4}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitListChangedEvent
 VAR
 	pLinkedListChangedEvent : POINTER TO LinkedListChangedEvent;
@@ -297,7 +297,7 @@ eventEmitter.Emit('OnLinkedListChanged',pLinkedListChangedEvent^);
 pLinkedListChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Find" Id="{ce34ac08-eb6a-459f-bb03-b7ad2d3b0018}">
+    <Method Name="Find" Id="{3ec3889b-b920-463d-a4e7-bdc67da7e105}">
       <Declaration><![CDATA[METHOD PUBLIC Find : I_LinkedListNode
 VAR_INPUT
 	Value : ANY;
@@ -306,7 +306,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[Find := FindFirstNodeWithValue(Value);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FindFirstNodeWithValue" Id="{6ade563f-4170-4293-9267-b647d7d93c35}" FolderPath="Private\">
+    <Method Name="FindFirstNodeWithValue" Id="{94e18cd2-5edc-4abb-9ce8-68295aaf4510}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE FindFirstNodeWithValue : I_LinkedListNode
 VAR_INPUT
 	Value : ANY;
@@ -330,7 +330,7 @@ WHILE current <> 0 DO
 END_WHILE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FindLast" Id="{bc8c1af8-5d73-44c4-9a9a-0aebb75cbaaf}">
+    <Method Name="FindLast" Id="{6a5b51b7-d3fd-4b80-a1a1-fb9dd29079d2}">
       <Declaration><![CDATA[METHOD PUBLIC FindLast : I_LinkedListNode
 VAR_INPUT
 	Value : ANY;
@@ -339,7 +339,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[FindLast := FindLastNodeWithValue(Value);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FindLastNodeWithValue" Id="{1eb8ebee-14d2-4dea-bd8f-bd1f14ca491b}" FolderPath="Private\">
+    <Method Name="FindLastNodeWithValue" Id="{8f7b6912-8381-467b-9d2a-55b68810957a}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE FindLastNodeWithValue : I_LinkedListNode
 VAR_INPUT
 	Value : ANY;
@@ -363,9 +363,9 @@ WHILE current <> 0 DO
 END_WHILE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="First" Id="{0a955b42-d027-43e4-a2ce-0ebdd0cd9a87}">
+    <Property Name="First" Id="{15f176b8-eba6-4893-82ba-f8fae375a66e}">
       <Declaration><![CDATA[PROPERTY PUBLIC First : I_LinkedListNode]]></Declaration>
-      <Get Name="Get" Id="{801310d7-8bc5-46bc-b5e4-3b5b8e86cf20}">
+      <Get Name="Get" Id="{5ac29808-a9c8-45f2-be7c-6daabd3e79c7}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -374,7 +374,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="GetEnumerator" Id="{20c05f16-0681-4b0d-af76-fbf219046c03}">
+    <Method Name="GetEnumerator" Id="{d8bb1b0e-587d-4bf0-b6db-128986479dfd}">
       <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
 VAR
 	pLinkedListForwardEnumerator : POINTER TO LinkedListForwardEnumerator;
@@ -384,7 +384,7 @@ END_VAR]]></Declaration>
 GetEnumerator := pLinkedListForwardEnumerator^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsEmpty" Id="{0d076fb5-1050-4fcc-88e5-245a3d8698eb}" FolderPath="Private\">
+    <Method Name="IsEmpty" Id="{8ca337ca-ea3a-4a25-b43a-39c0ede8c147}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsEmpty : BOOL
 VAR_INPUT
 END_VAR
@@ -393,9 +393,9 @@ END_VAR
         <ST><![CDATA[IsEmpty := head = 0;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Last" Id="{e54e07d1-2ab5-4d94-9d6c-21eaebcab82f}">
+    <Property Name="Last" Id="{b4f56a72-14a1-4003-9d24-0596fa4789d3}">
       <Declaration><![CDATA[PROPERTY PUBLIC Last : I_LinkedListNode]]></Declaration>
-      <Get Name="Get" Id="{1555d55e-1035-466d-88b6-c96e51a92959}">
+      <Get Name="Get" Id="{4e4925d3-5504-4666-95bd-648c9e75b01d}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -404,7 +404,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="OffEvent" Id="{cbd47b0f-ecf6-41e5-b816-0c843e3c1be9}">
+    <Method Name="OffEvent" Id="{95eb9567-cd9f-4891-914f-5f286298bc6f}">
       <Declaration><![CDATA[METHOD PUBLIC OffEvent
 VAR_INPUT
 	EventName : T_MaxString;
@@ -414,7 +414,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[eventEmitter.OffEvent(EventName, EventHandler);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnceEvent" Id="{a772b64f-cf3c-4f2f-aa2d-f24400b445d0}">
+    <Method Name="OnceEvent" Id="{c2492a02-8428-4e20-b3a6-aace55b5e0c8}">
       <Declaration><![CDATA[METHOD PUBLIC OnceEvent
 VAR_INPUT
 	EventName : T_MaxString;
@@ -424,7 +424,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[eventEmitter.OnceEvent(EventName, EventHandler);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnDispose" Id="{ea988e34-db36-4496-ae49-45f930093ea9}" FolderPath="Protected\">
+    <Method Name="OnDispose" Id="{244dca6f-22c0-42ea-ac44-d522ff10d011}" FolderPath="Protected\">
       <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
 VAR_INPUT
     CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
@@ -433,7 +433,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[Clear();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnEvent" Id="{1780ab2b-e187-4724-b754-52a390290119}">
+    <Method Name="OnEvent" Id="{7a0112ed-3061-4b02-a40e-eb2b9c06830c}">
       <Declaration><![CDATA[METHOD PUBLIC OnEvent
 VAR_INPUT
 	EventName : T_MaxString;
@@ -443,7 +443,7 @@ END_VAR]]></Declaration>
         <ST><![CDATA[eventEmitter.OnEvent(EventName, EventHandler);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Remove" Id="{73a7dd1b-4d36-4aca-937d-b59a23e30239}">
+    <Method Name="Remove" Id="{eaa992a5-6a55-48db-a185-23ce260d9192}">
       <Declaration><![CDATA[METHOD Remove : BOOL
 VAR_INPUT
 	Value : ANY;
@@ -462,7 +462,7 @@ RemoveNode(foundNode);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveAllNodes" Id="{f87c7a62-d4aa-4da0-80b6-5d5a6c178340}" FolderPath="Private\">
+    <Method Name="RemoveAllNodes" Id="{0d2ee20c-7757-4ee4-89ad-9f4848a333f1}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE RemoveAllNodes
 VAR_INPUT
 END_VAR
@@ -473,7 +473,7 @@ END_VAR
 END_WHILE]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveFirst" Id="{57e4d2d9-bf5c-4130-8acb-cd4a4e9eb7f7}">
+    <Method Name="RemoveFirst" Id="{48f46376-4b16-4840-921a-3d0f98b1990a}">
       <Declaration><![CDATA[METHOD PUBLIC RemoveFirst]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF IsEmpty() THEN
@@ -484,7 +484,7 @@ RemoveNode(First);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveLast" Id="{d15f81c6-727a-4e2a-8258-1a691ae06f1c}">
+    <Method Name="RemoveLast" Id="{d50cb0c7-635c-475a-9798-a63ab164b5b9}">
       <Declaration><![CDATA[METHOD PUBLIC RemoveLast
 ]]></Declaration>
       <Implementation>
@@ -496,7 +496,7 @@ RemoveNode(Last);
 EmitListChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveNode" Id="{9cd380d5-5a46-4d67-a634-1da278d7d6a1}" FolderPath="Private\">
+    <Method Name="RemoveNode" Id="{9d398b49-4d1a-4729-b707-0284e2263b5d}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD RemoveNode : BOOL
 VAR_INPUT
 	Node : I_LinkedListNode;

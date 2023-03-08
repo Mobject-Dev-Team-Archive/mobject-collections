@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <Itf Name="I_ForwardEnumerator" Id="{d85c4fae-2d69-0493-302f-0b18fb8cbd0d}">
+  <Itf Name="I_ForwardEnumerator" Id="{e9757b38-1996-45e6-a6c8-96fd1404a343}">
     <Declaration><![CDATA[INTERFACE I_ForwardEnumerator extends I_Disposable
 ]]></Declaration>
   </Itf>

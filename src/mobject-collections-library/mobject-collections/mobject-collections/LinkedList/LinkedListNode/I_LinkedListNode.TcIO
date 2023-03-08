@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <Itf Name="I_LinkedListNode" Id="{0cff8fbe-58e6-42f0-93b9-bcbf9ae1547a}">
+  <Itf Name="I_LinkedListNode" Id="{947b0a6f-b18c-4037-bae0-12d338be00da}">
     <Declaration><![CDATA[INTERFACE I_LinkedListNode EXTENDS I_Disposable
 ]]></Declaration>
-    <Method Name="Destroy" Id="{63a4bd84-b6d5-48f0-b124-677ef16e8f2b}">
-      <Declaration><![CDATA[METHOD PUBLIC Destroy
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="Equals" Id="{42524c8e-5be9-4ec1-9fd9-53150bfb09c1}">
+    <Property Name="DataSize" Id="{18f9a4c9-70bc-4e4c-9f32-d840e79da13f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC DataSize : UDINT]]></Declaration>
+      <Get Name="Get" Id="{cfeb2235-325a-4950-ac6e-b849773697df}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Equals" Id="{a343db1e-bd0d-40a4-b217-2c35870d68a4}">
       <Declaration><![CDATA[METHOD PUBLIC Equals : BOOL
 VAR_INPUT
 	Symbol : ANY;
 END_VAR]]></Declaration>
     </Method>
-    <Method Name="Get" Id="{3cf610bf-474c-45ea-8852-ef97d7e3e565}">
+    <Method Name="Get" Id="{e3aaadc9-a69b-4db5-8f6e-b807b798613c}">
       <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
 VAR_INPUT
 	Destination : ANY;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="GetTo" Id="{81368b44-2f37-4a7b-af91-c3727dbd41a7}">
+    <Method Name="GetTo" Id="{b3c69cd4-1eac-4cd3-a874-6b8d5dc47719}">
       <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
 VAR_INPUT
 	Destination : PVOID;
@@ -30,25 +30,25 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="Next" Id="{36f7d60e-da19-4ec7-aef7-5f62014911e7}">
+    <Property Name="Next" Id="{04648973-8c2a-4589-8746-2a0ee739b1fb}">
       <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListNode]]></Declaration>
-      <Get Name="Get" Id="{e871223f-e76e-40e1-ac6e-8232b4f33a89}">
+      <Get Name="Get" Id="{1478ef3b-5f53-42fe-ab3e-ac8a03c19848}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
       </Get>
-      <Set Name="Set" Id="{01642d6e-14c4-4289-a99f-8469c57d0bae}">
+      <Set Name="Set" Id="{23c6723b-f3c5-4a63-8385-34ae4ca393b5}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
-    <Property Name="Previous" Id="{391f15bb-7210-4ad5-9151-9a7de912f823}">
+    <Property Name="Previous" Id="{317c7db0-7c68-4af7-b234-bd49ca7cb32d}">
       <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListNode]]></Declaration>
-      <Get Name="Get" Id="{855706cd-3426-4a83-93fc-01ff73e63b41}">
+      <Get Name="Get" Id="{18784a87-ec8d-4104-83b6-770e64bdeb1b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
       </Get>
-      <Set Name="Set" Id="{d562e515-c3b0-4344-956f-865d275d909b}">
+      <Set Name="Set" Id="{30518ff6-4f33-4bcc-bc11-97685f488e23}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>

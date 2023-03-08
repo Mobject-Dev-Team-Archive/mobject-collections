@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_LinkedListNode" Id="{469c8db7-6f60-0a32-2a50-77664ffd9a05}">
+    <Declaration><![CDATA[INTERFACE I_LinkedListNode EXTENDS I_Disposable
+]]></Declaration>
+    <Property Name="DataSize" Id="{e4dfa6a8-bdf1-468d-a72f-298becb828cf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC DataSize : UDINT]]></Declaration>
+      <Get Name="Get" Id="{7c04ea57-3628-4d72-a4c4-98e34e0c2f1c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Equals" Id="{08314e87-6c6f-0603-2630-98ccdee7c7be}">
+      <Declaration><![CDATA[METHOD PUBLIC Equals : BOOL
+VAR_INPUT
+	Symbol : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="Get" Id="{769512b6-70ca-0d28-31bb-244e02ff2b1a}">
+      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTo" Id="{cb55894d-18b1-02b9-1678-08aba8a18fd8}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
+VAR_INPUT
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Next" Id="{7c94d407-ed9f-0605-171e-94bbd455df98}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListNode]]></Declaration>
+      <Get Name="Get" Id="{a2122036-d0e8-0823-1587-49eb61eff4f6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{4b072f67-2342-0a4b-1076-4fb01061c5d1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Previous" Id="{737c17b2-4596-0217-28b8-51a43c0e365c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListNode]]></Declaration>
+      <Get Name="Get" Id="{cf3404c4-03a0-0241-2a15-ca26a6faf53e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{9f01e71c-f436-0b86-2c86-4d84f2415ee4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

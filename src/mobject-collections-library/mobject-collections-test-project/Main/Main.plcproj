@@ -20,19 +20,16 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\Enumerators\Base\EnumeratorBase.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Enumerators\I_EnumerableCollection.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Enumerators\I_Enumerator.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Lib\Enumerators\I_EnumeratorParent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Lib\Enumerators\I_ForwardEnumerator.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\LinkedList\I_LinkedListChangedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Events\LinkedList\LinkedListChangedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\LinkedList\I_LinkedList.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\LinkedList\LinkedList.TcPOU">
@@ -41,10 +38,16 @@
     <Compile Include="POUs\Lib\LinkedList\LinkedListEnumerators\LinkedListForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\I_LinkedListNode.TcIO">
+    <Compile Include="POUs\Lib\LinkedList\LinkedListNode\I_LinkedListNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Lib\LinkedList\LinkedListItem\LinkedListNode.TcPOU">
+    <Compile Include="POUs\Lib\LinkedList\LinkedListNode\LinkedListNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Tests\LinkedList_TestSuit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Lib\Tests\Mocks\OnLinkedListChangedHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Lib\_Pending\Dictionary\Dictionary.TcPOU">
@@ -77,10 +80,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="POUs\Lib" />
-    <Folder Include="POUs\Lib\Enumerators\Base" />
+    <Folder Include="POUs\Lib\Events\LinkedList" />
     <Folder Include="POUs\Lib\LinkedList" />
-    <Folder Include="POUs\Lib\LinkedList\LinkedListItem" />
+    <Folder Include="POUs\Lib\LinkedList\LinkedListNode" />
     <Folder Include="POUs\Lib\LinkedList\LinkedListEnumerators" />
+    <Folder Include="POUs\Lib\Events" />
     <Folder Include="POUs\Lib\Enumerators" />
     <Folder Include="POUs\Lib\Tests" />
     <Folder Include="POUs\Lib\Tests\Mocks" />

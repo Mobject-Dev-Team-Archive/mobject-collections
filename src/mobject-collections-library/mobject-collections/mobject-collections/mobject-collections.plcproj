@@ -30,6 +30,45 @@
       <Namespace>Tc2_System</Namespace>
     </PlaceholderReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="mobject-collections.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enumerators" />
+    <Folder Include="Events" />
+    <Folder Include="Events\LinkedList" />
+    <Folder Include="LinkedList" />
+    <Folder Include="LinkedList\LinkedListEnumerators" />
+    <Folder Include="LinkedList\LinkedListNode" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enumerators\I_ForwardEnumerator.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\LinkedList\I_LinkedListChangedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\LinkedList\LinkedListChangedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LinkedList\I_LinkedList.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LinkedList\LinkedList.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LinkedList\LinkedListEnumerators\LinkedListForwardEnumerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LinkedList\LinkedListNode\I_LinkedListNode.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LinkedList\LinkedListNode\LinkedListNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>

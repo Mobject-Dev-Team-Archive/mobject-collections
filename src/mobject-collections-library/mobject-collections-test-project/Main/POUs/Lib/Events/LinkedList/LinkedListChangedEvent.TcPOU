@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="LinkedListChangedEvent" Id="{6d81792a-95d2-461e-b2e3-712bd0c759ee}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK LinkedListChangedEvent EXTENDS Disposable IMPLEMENTS I_LinkedListChangedEvent, I_Disposable
+VAR
+	_targetLinkedList : I_LinkedList;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{9ceaa2ed-5932-4b41-b216-5a251c54a393}" />
+    <Method Name="FB_init" Id="{0f33d91f-e077-4b92-bff1-2d520790e683}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	TargetLinkedList : I_LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[This^._targetLinkedList := TargetLinkedList;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="TargetLinkedList" Id="{aefd47e7-a653-4032-8dbe-d3601b32eb22}">
+      <Declaration><![CDATA[PROPERTY PUBLIC TargetLinkedList : I_LinkedList]]></Declaration>
+      <Get Name="Get" Id="{61fafa33-d586-4967-9487-61808626d17e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TargetLinkedList := _targetLinkedList;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

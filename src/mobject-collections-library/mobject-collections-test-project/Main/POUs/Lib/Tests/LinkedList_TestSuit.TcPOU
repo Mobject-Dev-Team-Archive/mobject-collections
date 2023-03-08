@@ -1,0 +1,738 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="LinkedList_TestSuit" Id="{c771dd79-b70b-0181-1b27-c5e2c81ee9a4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedList_TestSuit EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// check datatypes are handled correctly
+CheckListWorksWithIntegers();
+CheckListWorksWithStrings();
+CheckListWorksWithArrays();
+
+// all other checks
+CheckFirstIsCorrectWithOneValue();
+CheckFirstIsCorrectWithMultipleValues();
+CheckLastIsCorrectWithOneValue();
+CheckLastIsCorrectWithMultipleValues();
+CheckAddFirst();
+CheckAddLast();
+CheckAddBefore();
+CheckAddAfter();
+CheckClear();
+CheckRemoveFirst();
+CheckRemoveLast();
+CheckCount();
+CheckFind();
+CheckFindLast();
+CheckLinkedListReturnsEnumerator();
+CheckLinkListEmitsOnLinkedListChangedEvent();
+CheckLinkListEmitsOnLinkedListChangedEventUsingOnce();
+CheckOffEvent();
+CheckCopyTo();]]></ST>
+    </Implementation>
+    <Method Name="CheckAddAfter" Id="{7489ba0a-a234-4014-8db4-eb6a82273218}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddAfter
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 789;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddAfter');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.AddAfter(linkedList.Last, in3); // (first->) 456, 123, 789 (<-last)
+linkedList.Last.Get(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckAddBefore" Id="{985950c3-6b45-43f1-af27-ca85e6baa014}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddBefore
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 789;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddBefore');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.AddBefore(linkedList.First, in3); // (first->) 789, 456, 123 (<-last)
+linkedList.First.Get(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckAddFirst" Id="{5b430e6f-f7b3-4165-bfa4-c12f11bb4f3d}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddFirst
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 789;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddFirst');
+
+// @TEST-FIXTURE
+linkedList.AddLast(in1); // (first->) 123 (<-last)
+linkedList.AddLast(in2); // (first->) 123, 456 (<-last)
+
+// @TEST-RUN
+linkedList.AddFirst(in3); // (first->) 789, 123, 456 (<-last)
+linkedList.First.Get(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckAddLast" Id="{e7efe5e7-d346-4353-bc59-4bfd3e1f99bb}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddLast
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 789;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddLast');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.AddLast(in3); // (first->) 456, 123, 789 (<-last)
+linkedList.Last.Get(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckClear" Id="{680b15ec-9863-4137-af1e-5c9d97b766c4}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckClear
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	out : INT;
+	expected : INT := 456;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckClear');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+
+// @TEST-RUN
+linkedList.Clear();
+linkedList.AddFirst(in2); // (first->) 456 (<-last) // if clear did not work then it would have (first->) 456, 123 (<-last)
+linkedList.Last.Get(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCopyTo" Id="{807cde03-055c-4f48-9938-e516baaca9f3}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckCopyTo
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : ARRAY [0..2] OF INT;
+	expected : ARRAY [0..2] OF INT := [789,456,123];
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCopyTo');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.CopyTo(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCopyToLocation" Id="{a662d5b6-7318-4e5d-90f9-557e21a9bbbe}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckCopyToLocation
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : ARRAY [0..2] OF INT;
+	expected : ARRAY [0..2] OF INT := [789,456,123];
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCopyToLocation');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.CopyToLocation(ADR(out),SIZEOF(out));
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCount" Id="{9685e63b-8ca4-404b-a453-d5a7ea12dace}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckCount
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : ULINT;
+	expected : ULINT := 3;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCount');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1);
+linkedList.AddFirst(in2);
+linkedList.AddFirst(in3);
+
+// @TEST-RUN
+out := linkedList.Count;
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckFind" Id="{73aad8b1-9ccf-4ae8-93c6-eb7dc864e0cf}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckFind
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	foundNode : I_LinkedListNode;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckFind');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in1); // (first->) 123, 456, 123 (<-last)
+
+// @TEST-RUN
+foundNode := linkedList.Find(in1);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := (foundNode = linkedList.First),
+	Message := 'Did find the correct node'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckFindLast" Id="{6a33a333-7a16-496d-934d-00d46ef15e30}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckFindLast
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	foundNode : I_LinkedListNode;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckFindLast');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in1); // (first->) 123, 456, 123 (<-last)
+
+// @TEST-RUN
+foundNode := linkedList.FindLast(in1);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := (foundNode = linkedList.Last),
+	Message := 'Did find the correct node'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckFirstIsCorrectWithMultipleValues" Id="{882dfac4-11c5-4239-92ce-dc5a23e8ad74}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckFirstIsCorrectWithMultipleValues
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 789;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckFirstIsCorrectWithMultipleValues');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+linkedList.First.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckFirstIsCorrectWithOneValue" Id="{6f968a81-0a57-03c6-3348-3b3f43b11e67}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckFirstIsCorrectWithOneValue
+VAR
+	in : INT := 123;
+	out : INT;
+	expected : INT := 123;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckFirstIsCorrectWithOneValue');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in);
+linkedList.First.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckLastIsCorrectWithMultipleValues" Id="{cb72729b-6622-4597-b69b-a299ef790c61}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLastIsCorrectWithMultipleValues
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 123;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLastIsCorrectWithMultipleValues');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+linkedList.Last.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckLastIsCorrectWithOneValue" Id="{e1107bb3-7675-4db7-94f2-3ba50519ead1}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLastIsCorrectWithOneValue
+VAR
+	in : INT := 123;
+	out : INT;
+	expected : INT := 123;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLastIsCorrectWithOneValue');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in);
+linkedList.Last.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckLinkedListReturnsEnumerator" Id="{764e3a2b-4f98-4165-a522-6388a318e7ea}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLinkedListReturnsEnumerator
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	enumerator : I_ForwardEnumerator;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLinkedListReturnsEnumerator');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+
+// @TEST-RUN
+enumerator := linkedList.GetEnumerator();
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := (enumerator <> 0),
+	Message := 'Did not return an enumerator'
+);
+
+// @TEST-DISPOSE
+enumerator.Dispose();
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckLinkListEmitsOnLinkedListChangedEvent" Id="{b74e5db6-9f98-497b-9a22-341080bb15f6}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLinkListEmitsOnLinkedListChangedEvent
+VAR
+	value : INT := 123;
+	linkedList : LinkedList;
+	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEvent');
+
+// @TEST-FIXTURE
+linkedList.OnEvent('OnLinkedListChanged',handler);
+
+// @TEST-RUN
+linkedList.AddFirst(value);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnLinkedListChanged event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnLinkedListChanged event'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckLinkListEmitsOnLinkedListChangedEventUsingOnce" Id="{5c7a3338-5b01-465b-8449-bd1f06cd5b47}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLinkListEmitsOnLinkedListChangedEventUsingOnce
+VAR
+	value : INT := 123;
+	linkedList : LinkedList;
+	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEventUsingOnce');
+
+// @TEST-FIXTURE
+linkedList.OnceEvent('OnLinkedListChanged',handler);
+linkedList.AddFirst(value);
+handler.Reset();
+
+// @TEST-RUN
+linkedList.AddFirst(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnLinkedListChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckListWorksWithArrays" Id="{ba70b24f-730e-4f7d-b9c3-524286503a4c}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckListWorksWithArrays
+VAR
+	in : ARRAY [0..1] OF REAL := [0.1,2.3];
+	out : ARRAY [0..1] OF REAL;
+	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckListWorksWithArrays');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in);
+linkedList.First.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckListWorksWithIntegers" Id="{314f7755-04ef-4bec-9507-4d69f0bafe43}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckListWorksWithIntegers
+VAR
+	in : INT := 123;
+	out : INT;
+	expected : INT := 123;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckListWorksWithIntegers');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in);
+linkedList.First.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckListWorksWithStrings" Id="{18e1a940-7ab6-4df4-8c57-d406f6ce6ac1}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckListWorksWithStrings
+VAR
+	in : STRING := 'test';
+	out : STRING;
+	expected : STRING := 'test';
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckListWorksWithStrings');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in);
+linkedList.First.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOffEvent" Id="{d7bbd2f5-5cbb-42cd-bad8-9f83013bfa28}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOffEvent
+VAR
+	value : INT := 123;
+	linkedList : LinkedList;
+	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOffEvent');
+
+// @TEST-FIXTURE
+linkedList.OnEvent('OnLinkedListChanged',handler);
+linkedList.OffEvent('OnLinkedListChanged',handler);
+
+// @TEST-RUN
+linkedList.AddFirst(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnLinkedListChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRemoveFirst" Id="{dfa11c69-7532-4936-bd8f-863fbc8f3cb3}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveFirst
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 456;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckRemoveFirst');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+linkedList.RemoveFirst(); // (first->) 456, 123 (<-last)
+linkedList.First.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRemoveLast" Id="{7481eed2-c74d-4027-bb52-484e7223c487}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveLast
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 456;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckRemoveLast');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+linkedList.RemoveLast(); // (first->) 789, 456 (<-last)
+linkedList.Last.Get(out);
+
+// @TEST-RUN
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

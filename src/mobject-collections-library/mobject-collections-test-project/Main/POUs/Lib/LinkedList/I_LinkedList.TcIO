@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_LinkedList" Id="{8587f34a-07dd-466f-bd7c-8c29c97d235d}">
+    <Declaration><![CDATA[INTERFACE I_LinkedList EXTENDS I_EventEmitter, I_Disposable
+]]></Declaration>
+    <Method Name="AddAfter" Id="{b3dc5ec1-7ebf-453e-bcea-dcb9656802bf}">
+      <Declaration><![CDATA[METHOD PUBLIC AddAfter
+VAR_INPUT
+	After : I_LinkedListNode;
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="AddBefore" Id="{ae03912c-08de-4cbb-ac57-4ec75fa01063}">
+      <Declaration><![CDATA[METHOD PUBLIC AddBefore
+VAR_INPUT
+	Before : I_LinkedListNode;
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="AddFirst" Id="{72a65bb4-fa99-413c-9e31-64a494450f9b}">
+      <Declaration><![CDATA[METHOD PUBLIC AddFirst
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="AddLast" Id="{30520d26-3b40-408d-9703-1849a4163e33}">
+      <Declaration><![CDATA[METHOD PUBLIC AddLast
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="Clear" Id="{6471849d-ca55-4a80-87ab-6a814b8bcc62}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear]]></Declaration>
+    </Method>
+    <Method Name="CopyTo" Id="{7a26070e-9e56-4af9-9797-ef38e7ab0353}">
+      <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
+VAR_INPUT
+	Destination : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="CopyToLocation" Id="{d07831f6-0d46-41f9-8461-a32161e668d2}">
+      <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
+VAR_INPUT
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR]]></Declaration>
+    </Method>
+    <Property Name="Count" Id="{8f82e557-bc6f-40c5-9483-f19d6e81d2d1}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Get Name="Get" Id="{9e4e770c-8f60-4342-9a33-6efdd30f64d3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Find" Id="{e65844f6-6a17-4db3-87bc-163a9de72ac2}">
+      <Declaration><![CDATA[METHOD PUBLIC Find : I_LinkedListNode
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="FindLast" Id="{219ec832-db8b-4094-834c-350552ddd752}">
+      <Declaration><![CDATA[METHOD PUBLIC FindLast : I_LinkedListNode
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Property Name="First" Id="{3a3f22e4-5d57-40de-b91f-477b70e12f7c}">
+      <Declaration><![CDATA[PROPERTY PUBLIC First : I_LinkedListNode]]></Declaration>
+      <Get Name="Get" Id="{699b6ae0-a3e1-47ab-9048-4b321020685f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="GetEnumerator" Id="{276a5176-4aa5-4129-bf13-6e95d52936b3}">
+      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Last" Id="{609e1475-7a6c-4a5e-95fb-e598b4dda136}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Last : I_LinkedListNode]]></Declaration>
+      <Get Name="Get" Id="{1efaf0b8-d01a-42be-b3f7-1e1be12750af}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Remove" Id="{4ba8d54b-9562-46a4-ad3f-c0fbffd05925}">
+      <Declaration><![CDATA[METHOD Remove : BOOL
+VAR_INPUT
+	Value : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="RemoveFirst" Id="{cd6fa905-2fc0-473d-a332-ca1da17c60d4}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveFirst]]></Declaration>
+    </Method>
+    <Method Name="RemoveLast" Id="{9adf42f1-68b6-4aca-be69-2af3a6e2dc4b}">
+      <Declaration><![CDATA[METHOD PUBLIC RemoveLast
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
