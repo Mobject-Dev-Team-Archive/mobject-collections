@@ -28,6 +28,8 @@ Using the LinkedList class can help you to efficiently manage collections of obj
 
 ### Queue
 
+<img src="./images/queue-example.svg">
+
 The Queue class is a data structure that follows the First-In-First-Out (FIFO) principle. Items are added to the back of the queue and removed from the front of the queue, in the order they were added. Queues are particularly useful for managing tasks that need to be processed in the order they were received, such as a set of instructions or a sequence of events.
 
 Using the Queue class can help you to manage your system's tasks in an organized and efficient manner, ensuring that they are processed in the correct order and without any unnecessary delays.

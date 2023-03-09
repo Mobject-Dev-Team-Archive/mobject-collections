@@ -13,6 +13,8 @@
 
 The Queue Class is a general-purpose first in, first out, queue (FIFO). It supports enumerators and implements the GetEnumerator method, consistent with other collection classes in the mobject-collections library.
 
+<img src="./images/queue-example.svg">
+
 ## Example
 
 ```declaration
