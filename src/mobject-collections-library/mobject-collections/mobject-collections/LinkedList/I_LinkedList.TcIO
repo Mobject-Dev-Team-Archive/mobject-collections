@@ -82,7 +82,7 @@ END_VAR
       </Get>
     </Property>
     <Method Name="Remove" Id="{167b799a-ab40-42b3-8911-4d654fc3d1e9}">
-      <Declaration><![CDATA[METHOD Remove : BOOL
+      <Declaration><![CDATA[METHOD Remove
 VAR_INPUT
 	Value : ANY;
 END_VAR]]></Declaration>

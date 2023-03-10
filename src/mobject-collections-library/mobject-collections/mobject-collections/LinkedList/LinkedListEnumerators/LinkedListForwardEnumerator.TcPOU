@@ -26,7 +26,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Parent.OnEvent('OnLinkListChanged',THIS^);
+        <ST><![CDATA[Parent.OnEvent('OnLinkedListChanged',THIS^);
 Parent.OnEvent('OnLinkedListDisposed',THIS^);
 this^.parent := Parent;]]></ST>
       </Implementation>
@@ -98,8 +98,8 @@ END_VAR]]></Declaration>
 	RETURN;
 END_IF
 
-parent.OffEvent('OnLinkListChanged',THIS^);
-Parent.OffEvent('OnLinkListDisposed',THIS^);]]></ST>
+parent.OffEvent('OnLinkedListChanged',THIS^);
+parent.OffEvent('OnLinkedListDisposed',THIS^);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{2017d8bc-6ce2-45f9-b0d2-516b5a2f274c}">

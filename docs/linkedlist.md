@@ -35,6 +35,16 @@ linkedList.AddFirst(value1); // (first->) 123 (<-last)
 linkedList.AddFirst(value2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(value3); // (first->) 789, 456, 123  (<-last)
 
+enumerator := linkedList.GetEnumerator();
+// the enumerator follows the .net style, which means you must call MoveNext once to
+// move to the first item.  This allows you to directly use the enumerator in a while
+// loop.
+WHILE enumerator.MoveNext() DO
+	enumerator.TryGet(output); // 1st pass output = 789, 2nd pass output = 456, 3rd pass output = 123
+END_WHILE;
+// you must dispose enumerators as they are new objects.
+enumerator.Dispose();
+
 allowed := linkedList.First.Get(output); // allowed = true, output = 789
 linkedList.RemoveFirst(); // (first->) 456, 123  (<-last)
 allowed := linkedList.First.Get(output); // allowed = true, output = 456
