@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.0
+
+- Initial commit
+- Supports LinkedList, ForwardEnumerators, Queue's.
+
 ## 0.1.0
 
 ### Queue
