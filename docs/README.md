@@ -4,7 +4,7 @@
 
 > A framework and guide for writing object oriented programs in structured text.
 
-## The mobject-events Library
+## The mobject-collections Library
 
 This is one of the many libraries of mobject. This library focuses on dynamic collections.
 
