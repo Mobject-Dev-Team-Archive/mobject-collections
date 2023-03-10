@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Queue_TestSuit" Id="{c41f47d3-a2b8-484b-b4af-3c85798258c7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuit EXTENDS TcUnit.FB_TestSuite
+  <POU Name="Stack_TestSuit" Id="{20dd6e3e-1cc3-43f4-aecb-d08b82736d74}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Stack_TestSuit EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -15,64 +15,64 @@ CheckListWorksWithArrays();
 CheckContains();
 CheckClear();
 CheckCount();
-CheckTryDequeueRemovesTheItem();
-CheckTryDequeueReturnsTheCorrectValue();
+CheckTryPopRemovesTheItem();
+CheckTryPopReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
 CheckTryPeekDoesNotRemoveTheItem();
 CheckCopyTo();
 CheckCopyToLocation();
-CheckQueueOrderIsCorrect();
+CheckStackOrderIsCorrect();
 CheckListReturnsEnumerator();]]></ST>
     </Implementation>
-    <Method Name="CheckClear" Id="{c6f4460f-af5e-463d-bba5-c9e0dd8655a4}">
+    <Method Name="CheckClear" Id="{b0101d26-1872-4bfd-a283-d74e6cd3858e}">
       <Declaration><![CDATA[METHOD PUBLIC CheckClear
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckClear');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in2); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in2); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-queue.Clear();
+stack.Clear();
 
 // @TEST-ASSSERT
 AssertTrue(
-	Condition := queue.Count = 0,
+	Condition := stack.Count = 0,
 	Message := 'The count is not zero'
 );
 
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckContains" Id="{f3daaa11-a787-4beb-91dd-f4f45d24f2ee}">
+    <Method Name="CheckContains" Id="{0ee28faa-13ca-4639-ba25-962325dddf5b}">
       <Declaration><![CDATA[METHOD PUBLIC CheckContains
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckContains');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in2); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in2); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-result := queue.Contains(in2);
+result := stack.Contains(in2);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -83,27 +83,27 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckCopyTo" Id="{04c00048-c9dd-4eab-b8e3-21029b5d2dc4}">
+    <Method Name="CheckCopyTo" Id="{9fb697c0-ab92-46cd-a4a2-bcf09ce6d767}">
       <Declaration><![CDATA[METHOD PUBLIC CheckCopyTo
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [123,456,789];
-	queue : Queue;
+	expected : ARRAY [0..2] OF INT := [789,456,123];
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckCopyTo');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in3); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-queue.CopyTo(out);
+stack.CopyTo(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -115,27 +115,27 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckCopyToLocation" Id="{fe0722f1-f253-4ea9-a57d-4f42b174587b}">
+    <Method Name="CheckCopyToLocation" Id="{04778451-d673-4ad2-9578-d96bcc13484c}">
       <Declaration><![CDATA[METHOD PUBLIC CheckCopyToLocation
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [123,456,789];
-	queue : Queue;
+	expected : ARRAY [0..2] OF INT := [789,456,123];
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckCopyToLocation');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in3); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-queue.CopyToLocation(ADR(out),SIZEOF(out));
+stack.CopyToLocation(ADR(out),SIZEOF(out));
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -147,27 +147,27 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckCount" Id="{068a5bfe-f9bd-4c86-a6e1-0ee9f56527ec}">
+    <Method Name="CheckCount" Id="{bc7bc879-21cf-45b0-a93e-f33a33d1da30}">
       <Declaration><![CDATA[METHOD PUBLIC CheckCount
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
-	in3 : INT := 789;
+	in3 : INT := 567;
 	total : ULINT;
 	expected : ULINT := 3;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckCount');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in2); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in2); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-total := queue.Count;
+total := stack.Count;
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -179,26 +179,26 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckListReturnsEnumerator" Id="{8b35ed46-67be-4f33-a0bf-11fecd2d0834}">
+    <Method Name="CheckListReturnsEnumerator" Id="{039328e2-24d9-41db-9ec3-f971c7e671c5}">
       <Declaration><![CDATA[METHOD PUBLIC CheckListReturnsEnumerator
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	enumerator : I_ForwardEnumerator;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckListReturnsEnumerator');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in2); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in2); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-enumerator := queue.GetEnumerator();
+enumerator := stack.GetEnumerator();
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -212,24 +212,24 @@ enumerator.Dispose();
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckListWorksWithArrays" Id="{5ec8f9f0-3b5f-462d-a511-41f1ec1b218b}">
+    <Method Name="CheckListWorksWithArrays" Id="{83af885a-a18c-42cb-bd82-f0d76d1607bc}">
       <Declaration><![CDATA[METHOD PUBLIC CheckListWorksWithArrays
 VAR
 	in : ARRAY [0..1] OF REAL := [0.1,2.3];
 	out : ARRAY [0..1] OF REAL;
 	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
 	result : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckListWorksWithArrays');
 
 // @TEST-FIXTURE
-queue.Enqueue(in);
+stack.Push(in);
 
 // @TEST-RUN
-result := queue.TryDequeue(out);
+result := stack.TryPop(out);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -246,24 +246,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckListWorksWithIntegers" Id="{47cc71b5-2813-4448-8b37-434d0a261e89}">
+    <Method Name="CheckListWorksWithIntegers" Id="{97fd0eb1-152a-4c37-8535-1f0c9b6ad96e}">
       <Declaration><![CDATA[METHOD PUBLIC CheckListWorksWithIntegers
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckListWorksWithIntegers');
 
 // @TEST-FIXTURE
-queue.Enqueue(in);
+stack.Push(in);
 
 // @TEST-RUN
-result := queue.TryDequeue(out);
+result := stack.TryPop(out);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -280,24 +280,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckListWorksWithStrings" Id="{0c977089-cc99-4e30-b5c8-f45f552686f2}">
+    <Method Name="CheckListWorksWithStrings" Id="{ccf32e88-5da2-478a-9695-4c326aa1d0e5}">
       <Declaration><![CDATA[METHOD PUBLIC CheckListWorksWithStrings
 VAR
 	in : STRING := 'test';
 	out : STRING;
 	expected : STRING := 'test';
 	result : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckListWorksWithStrings');
 
 // @TEST-FIXTURE
-queue.Enqueue(in);
+stack.Push(in);
 
 // @TEST-RUN
-result := queue.TryDequeue(out);
+result := stack.TryPop(out);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -314,32 +314,32 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckQueueOrderIsCorrect" Id="{a4976c2e-be64-478d-b82c-2eeb96e3bfdb}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckQueueOrderIsCorrect
+    <Method Name="CheckStackOrderIsCorrect" Id="{4a59aa65-bb7d-4586-a02b-3fa85c6041bb}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckStackOrderIsCorrect
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	out1, out2, out3 : INT;
-	expected1 : INT := 123;
+	expected1 : INT := 789;
 	expected2 : INT := 456;
-	expected3 : INT := 789;
+	expected3 : INT := 123;
 	result1, result2, result3 : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckQueueOrderIsCorrect');
+        <ST><![CDATA[TEST('CheckStackOrderIsCorrect');
 
 // @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in3); // (lifo->) 123, 456, 789
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
 
 // @TEST-RUN
-result1 := queue.TryDequeue(out1); // (lifo->) 456, 789
-result2 := queue.TryDequeue(out2); // (lifo->) 789
-result3 := queue.TryDequeue(out3); // (lifo->) 
+result1 := stack.TryPop(out1);
+result2 := stack.TryPop(out2);
+result3 := stack.TryPop(out3);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -368,24 +368,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryDequeueRemovesTheItem" Id="{f9332718-bb4a-4b5f-bb20-19baf3e48339}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckTryDequeueRemovesTheItem
+    <Method Name="CheckTryPeekDoesNotRemoveTheItem" Id="{053db073-1601-4d48-9295-6aa12fe00b15}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryPeekDoesNotRemoveTheItem
 VAR
 	in : INT := 123;
 	out : INT;
 	total : ULINT;
-	expected : ULINT := 0;
-	queue : Queue;
+	expected : ULINT := 1;
+	stack : Stack;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckTryDequeueDoesNotRemoveTheItem');
+        <ST><![CDATA[TEST('CheckTryPeekDoesNotRemoveTheItem');
 
 // @TEST-FIXTURE
-queue.Enqueue(in); // (lifo->) 123
+stack.Push(in); // (fifo->) 123
 
 // @TEST-RUN
-queue.TryDequeue(out);
-total := queue.Count;
+stack.TryPeek(out);
+total := stack.Count;
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -397,24 +397,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryDequeueReturnsTheCorrectValue" Id="{3212a1ed-a16d-4092-b546-e4e124026bbf}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckTryDequeueReturnsTheCorrectValue
+    <Method Name="CheckTryPeekReturnsTheCorrectValue" Id="{25897b35-6be7-4f51-bd32-fc4fb9b1f72c}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryPeekReturnsTheCorrectValue
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckTryDequeueReturnsTheCorrectValue');
+        <ST><![CDATA[TEST('CheckTryPeekReturnsTheCorrectValue');
 
 // @TEST-FIXTURE
-queue.Enqueue(in);
+stack.Push(in); // (fifo->) 123
 
 // @TEST-RUN
-result := queue.TryPeek(out);
+result := stack.TryPeek(out);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -431,24 +431,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryPeekDoesNotRemoveTheItem" Id="{89a7f76f-ad55-47e0-b86e-b358a9f8227e}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckTryPeekDoesNotRemoveTheItem
+    <Method Name="CheckTryPopRemovesTheItem" Id="{3cdfc80c-9761-474c-9852-90031bfc446a}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryPopRemovesTheItem
 VAR
 	in : INT := 123;
 	out : INT;
 	total : ULINT;
-	expected : ULINT := 1;
-	queue : Queue;
+	expected : ULINT := 0;
+	stack : Stack;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckTryPeekDoesNotRemoveTheItem');
+        <ST><![CDATA[TEST('CheckTryPopRemovesTheItem');
 
 // @TEST-FIXTURE
-queue.Enqueue(in); // (lifo->) 123
+stack.Push(in); // (fifo->) 123
 
 // @TEST-RUN
-queue.TryPeek(out);
-total := queue.Count;
+stack.TryPop(out);
+total := stack.Count;
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -460,24 +460,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryPeekReturnsTheCorrectValue" Id="{6b3ed807-a9c6-4c0b-bb7f-23a317345240}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckTryPeekReturnsTheCorrectValue
+    <Method Name="CheckTryPopReturnsTheCorrectValue" Id="{0dabd0b8-5f08-450c-9c2f-0bcd0e95d783}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryPopReturnsTheCorrectValue
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	queue : Queue;
+	stack : Stack;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckTryPeekReturnsTheCorrectValue');
+        <ST><![CDATA[TEST('CheckTryDequeueReturnsTheCorrectValue');
 
 // @TEST-FIXTURE
-queue.Enqueue(in);
+stack.Push(in); // (fifo->) 123
 
 // @TEST-RUN
-result := queue.TryPeek(out);
+result := stack.TryPop(out);
 
 // @TEST-ASSSERT
 AssertTrue(

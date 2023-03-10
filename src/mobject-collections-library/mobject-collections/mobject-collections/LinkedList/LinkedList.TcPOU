@@ -456,7 +456,7 @@ END_VAR]]></Declaration>
       </Implementation>
     </Method>
     <Method Name="Remove" Id="{eaa992a5-6a55-48db-a185-23ce260d9192}">
-      <Declaration><![CDATA[METHOD Remove : BOOL
+      <Declaration><![CDATA[METHOD Remove
 VAR_INPUT
 	Value : ANY;
 END_VAR

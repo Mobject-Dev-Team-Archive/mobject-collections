@@ -20,10 +20,6 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Unfinished\Pre-library Development\Dictionary\Dictionary.TcPOU">
-      <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -39,11 +35,11 @@
     <Compile Include="Tests\Mocks\OnLinkedListDisposedHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Stack_TestSuit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="POUs\Unfinished" />
-    <Folder Include="POUs\Unfinished\Pre-library Development" />
-    <Folder Include="POUs\Unfinished\Pre-library Development\Dictionary" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
     <Folder Include="VISUs" />

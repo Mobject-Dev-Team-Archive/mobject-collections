@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.0.0</ProjectVersion>
+    <ProjectVersion>0.1.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -61,6 +61,7 @@
     <Folder Include="LinkedList\LinkedListEnumerators" />
     <Folder Include="LinkedList\LinkedListNode" />
     <Folder Include="Queue" />
+    <Folder Include="Stack" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerators\I_ForwardEnumerator.TcIO">
@@ -94,6 +95,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Queue\Queue.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Stack\Stack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -31,31 +31,6 @@ Parent.OnEvent('OnLinkedListDisposed',THIS^);
 this^.parent := Parent;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Get" Id="{00128fb3-0888-4680-baae-fe94bc38c29b}">
-      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
-VAR_INPUT
-	Destination : ANY;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF currentNode <> 0 THEN
-	Get := currentNode.Get(Destination);
-END_IF]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetTo" Id="{1412ae45-9668-4dda-b44d-6048d41a0a8b}">
-      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
-VAR_INPUT
-	Destination : PVOID;
-	DestinationSize : UDINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF currentNode <> 0 THEN
-	GetTo := currentNode.GetTo(Destination,DestinationSize);
-END_IF]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="HandleEvent" Id="{9b82c3a0-a8d9-4f44-aa61-0031448f4819}">
       <Declaration><![CDATA[METHOD PUBLIC HandleEvent
 VAR_INPUT
@@ -140,6 +115,31 @@ END_IF
 currentNode := 0;
 moveNextCalled := FALSE;
 invalid := FALSE; ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGet" Id="{00128fb3-0888-4680-baae-fe94bc38c29b}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF currentNode <> 0 THEN
+	TryGet := currentNode.Get(Destination);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetTo" Id="{1412ae45-9668-4dda-b44d-6048d41a0a8b}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL;
+VAR_INPUT
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF currentNode <> 0 THEN
+	TryGetTo := currentNode.GetTo(Destination,DestinationSize);
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>
