@@ -38,6 +38,9 @@
     <Compile Include="Tests\Stack_TestSuit.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\ForwardEnumerator_TestSuit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests" />

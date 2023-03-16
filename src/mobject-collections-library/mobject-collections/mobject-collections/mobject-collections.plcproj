@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.1.0</ProjectVersion>
+    <ProjectVersion>0.2.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -100,6 +100,14 @@
     <Compile Include="Stack\Stack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="mobject-disposable">
+      <Resolution>mobject-disposable, 0.3.0 (mobject)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="mobject-events">
+      <Resolution>mobject-events, 0.4.0 (mobject)</Resolution>
+    </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

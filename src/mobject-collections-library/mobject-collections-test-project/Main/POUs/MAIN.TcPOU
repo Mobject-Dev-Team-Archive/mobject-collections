@@ -6,6 +6,7 @@ VAR
 	linkedList_TestSuit : LinkedList_TestSuit;
 	queue_TestSuit : Queue_TestSuit;
 	stack_TestSuit : Stack_TestSuit;
+	forwardEnumerator_TestSuit : ForwardEnumerator_TestSuit;
 	
 	// variables used in examples	
 	linkedList : LinkedList;
@@ -17,7 +18,6 @@ VAR
 	enumerator : I_ForwardEnumerator;
 	output : INT;
 	allowed : BOOL;
-	
 END_VAR
 
 ]]></Declaration>

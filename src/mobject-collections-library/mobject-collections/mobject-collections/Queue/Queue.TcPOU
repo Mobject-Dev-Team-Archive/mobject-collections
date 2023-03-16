@@ -13,7 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Protected" Id="{fbefcc9a-c9c2-438e-9628-8229d3938620}" />
+    <Folder Name="Destructor" Id="{62d87962-2cf7-4a17-898b-21ae6a43eedf}" />
     <Method Name="Clear" Id="{be525374-c8c0-4800-8d21-3dedb89b7102}">
       <Declaration><![CDATA[METHOD PUBLIC Clear
 VAR_INPUT
@@ -74,20 +74,25 @@ END_VAR]]></Declaration>
         <ST><![CDATA[linkedList.AddLast(Item);]]></ST>
       </Implementation>
     </Method>
+    <Method Name="FB_exit" Id="{7b2a3bda-d078-45e7-a397-f44960e647ab}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+Clear();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetEnumerator" Id="{313bc49e-d42c-4e4f-9245-f744dca425c4}">
       <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDispose" Id="{a91062d0-5445-46e9-b253-d558a10d4f0c}" FolderPath="Protected\">
-      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
-VAR_INPUT
-    CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Clear();]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryDequeue" Id="{6a1352f2-9546-44f6-a541-e9c3fd20ae65}">

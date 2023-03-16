@@ -22,7 +22,9 @@ CheckTryPeekDoesNotRemoveTheItem();
 CheckCopyTo();
 CheckCopyToLocation();
 CheckQueueOrderIsCorrect();
-CheckListReturnsEnumerator();]]></ST>
+CheckListReturnsEnumerator();
+CheckEnumeratorIsInvalidAfterChange();
+CheckEnumeratorIsInvalidAfterDispose();]]></ST>
     </Implementation>
     <Method Name="CheckClear" Id="{c6f4460f-af5e-463d-bba5-c9e0dd8655a4}">
       <Declaration><![CDATA[METHOD PUBLIC CheckClear
@@ -174,6 +176,65 @@ AssertEquals(
 	Expected := expected,
 	Actual := total,
 	Message := 'Incorrect count'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckEnumeratorIsInvalidAfterChange" Id="{0bf8eff4-369b-46ac-83bc-7ace289cb54b}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterChange
+VAR
+	in : INT := 123;
+	result : BOOL;
+	queue : Queue;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterChange');
+
+// @TEST-FIXTURE
+enumerator := queue.GetEnumerator();
+queue.Enqueue(in);
+
+// @TEST-RUN
+result := enumerator.IsValid;
+enumerator.Dispose();
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckEnumeratorIsInvalidAfterDispose" Id="{8bf8f48d-8511-4d45-8b30-77260100e14c}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterDispose
+VAR
+	in : INT := 123;
+	result : BOOL;
+	pQueue : POINTER TO Queue;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterDispose');
+
+// @TEST-FIXTURE
+//pQueue := __NEW(queue);
+//enumerator := pQueue^.GetEnumerator();
+//pQueue^.Dispose();
+
+//// @TEST-RUN
+//result := enumerator.IsValid;
+//enumerator.Dispose();
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
 );
 
 TEST_FINISHED();]]></ST>

@@ -17,8 +17,8 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Constructor" Id="{20b6c8a5-1664-49d8-b5bd-9c1711ef40ca}" />
+    <Folder Name="Destructor" Id="{11cc8ede-e096-43a1-8b10-0aa5baa00abd}" />
     <Folder Name="Private" Id="{22c2c466-04ff-4ebc-8087-51bcece35ac8}" />
-    <Folder Name="Protected" Id="{223e3d77-96be-4662-b47a-97dc0994fc9a}" />
     <Method Name="CopyInternalBufferToDestination" Id="{fa8fa4ca-2673-4587-b20a-5d8baba6e8e2}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE CopyInternalBufferToDestination
 VAR_INPUT
@@ -73,6 +73,20 @@ END_VAR]]></Declaration>
 END_IF
 
 Equals := memcmp(Symbol.pValue,internalBuffer,Symbol.diSize) = 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{8bebc509-1cf0-4449-be85-11d2862d71e7}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+DeleteInternalBuffer();]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{773c76da-ef84-49fb-b4c4-dad69385c1c1}" FolderPath="Constructor\">
@@ -164,15 +178,6 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Method Name="OnDispose" Id="{93e1c3fa-df69-4ace-b8ca-e6037e92a66c}" FolderPath="Protected\">
-      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
-VAR_INPUT
-	CalledExplicitly : BOOL;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[DeleteInternalBuffer();]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Previous" Id="{e0c608ca-4ce5-46c6-9f68-957bb0262213}">
       <Declaration><![CDATA[PROPERTY PUBLIC Previous : I_LinkedListNode]]></Declaration>
       <Get Name="Get" Id="{5bc37a05-92b7-4f4f-b921-88dbf94828f9}">

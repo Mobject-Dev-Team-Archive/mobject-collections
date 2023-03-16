@@ -14,8 +14,8 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Destructor" Id="{1bcbd990-0de3-4d8e-8ce3-3e188f32ba03}" />
     <Folder Name="Private" Id="{d051f906-57dd-4f21-9ba9-0b96add6d725}" />
-    <Folder Name="Protected" Id="{220915b8-3663-462c-b027-19e09a6aa56e}" />
     <Method Name="AddAfter" Id="{31eb6e68-b92d-42da-a9fa-0619a1c414e8}">
       <Declaration><![CDATA[METHOD PUBLIC AddAfter
 VAR_INPUT
@@ -308,6 +308,21 @@ eventEmitter.Emit('OnLinkedListDisposed',pLinkedListDisposedEvent^);
 pLinkedListDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="FB_exit" Id="{74c302ee-e82a-4710-93c1-dd7b92517af2}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+Clear();
+EmitDisposedEvent();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Find" Id="{3ec3889b-b920-463d-a4e7-bdc67da7e105}">
       <Declaration><![CDATA[METHOD PUBLIC Find : I_LinkedListNode
 VAR_INPUT
@@ -433,16 +448,6 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[eventEmitter.OnceEvent(EventName, EventHandler);]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDispose" Id="{244dca6f-22c0-42ea-ac44-d522ff10d011}" FolderPath="Protected\">
-      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
-VAR_INPUT
-    CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Clear();
-EmitDisposedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnEvent" Id="{7a0112ed-3061-4b02-a40e-eb2b9c06830c}">

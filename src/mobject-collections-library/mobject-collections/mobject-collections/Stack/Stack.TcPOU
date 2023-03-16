@@ -13,7 +13,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Protected" Id="{cfbdc69c-c35e-47df-9655-8180f0a6b883}" />
+    <Folder Name="Destructor" Id="{ecde9bfc-90e9-4c79-9e97-0d04fb8b2852}" />
     <Method Name="Clear" Id="{75e9b203-44b9-46cb-9b54-1e02ee5d7b99}">
       <Declaration><![CDATA[METHOD PUBLIC Clear
 VAR_INPUT
@@ -65,20 +65,25 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="FB_exit" Id="{c81b88b1-11a0-4579-8948-ed09528861a4}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+Clear();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetEnumerator" Id="{40757687-c6f0-426e-be33-fde6ea7dbab6}">
       <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDispose" Id="{c7d4f371-0cdc-4589-a504-8d46e1406072}" FolderPath="Protected\">
-      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
-VAR_INPUT
-    CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Clear();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Push" Id="{1a16ddc8-f918-4565-8544-bf1a2ae21019}">
