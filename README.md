@@ -2,7 +2,7 @@
   <img width="460"  src="./docs/images/logo.svg">
 </p>
 
-## The mobject-events Library
+## The mobject-collections Library
 
 This is one of the many libraries of mobject. This library focuses on dynamic collections.
 
