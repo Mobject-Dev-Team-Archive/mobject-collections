@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Updated to support mobject-disposable v0.3.1-alpha
+- Updated to support mobject-events v0.4.1-alpha
+
 ## 0.2.0
 
 - Updated to support mobject-disposable v0.3.0-alpha

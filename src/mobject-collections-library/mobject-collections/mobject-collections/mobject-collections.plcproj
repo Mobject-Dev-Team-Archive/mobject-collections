@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.2.0</ProjectVersion>
+    <ProjectVersion>0.2.1</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -103,10 +103,10 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="mobject-disposable">
-      <Resolution>mobject-disposable, 0.3.0 (mobject)</Resolution>
+      <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-events">
-      <Resolution>mobject-events, 0.4.0 (mobject)</Resolution>
+      <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>

@@ -83,6 +83,17 @@
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="mobject-collections">
+      <Resolution>mobject-collections, 0.2.1 (mobject)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="mobject-disposable">
+      <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="mobject-events">
+      <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>
+    </PlaceholderResolution>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
