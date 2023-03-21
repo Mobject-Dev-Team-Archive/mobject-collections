@@ -6,7 +6,7 @@
 | ----------- | -------------------------------------------------------------------------- |
 | Namespace   | mobject-collections                                                        |
 | Library     | mobject-collections                                                        |
-| Inheritance | [Disposable](https://benhar-dev.github.io/mobject-disposable/#/disposable) |
+| Inheritance | [Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/disposable) |
 | Implements  |                                                                            |
 
 ## Remarks
