@@ -6,7 +6,7 @@
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Namespace   | mobject-collections                                                                                                                                             |
 | Library     | mobject-collections                                                                                                                                             |
-| Inheritance | [I_EventEmitter](https://benhar-dev.github.io/mobject-events/#/i-event-emitter), [I_Disposable](https://benhar-dev.github.io/mobject-disposable/#/i-disposable) |
+| Inheritance | [I_EventEmitter](https://mobject-dev-team.github.io/mobject-events/#/i-event-emitter), [I_Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/i-disposable) |
 | Implements  | I_LinkedList                                                                                                                                                    |
 
 ## Remarks
