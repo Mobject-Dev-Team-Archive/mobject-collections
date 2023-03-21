@@ -6,7 +6,7 @@
 | ----------- | -------------------------------------------------------------------------- |
 | Namespace   | mobject-collections                                                        |
 | Library     | mobject-collections                                                        |
-| Inheritance | [Disposable](https://benhar-dev.github.io/mobject-disposable/#/disposable) |
+| Inheritance | [Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/disposable) |
 | Implements  | I_LinkedList                                                               |
 
 ## Remarks
@@ -384,7 +384,7 @@ Registers an event handler for the given event name. See [events](#events) for t
 | Parameters   | Datatype                                                                        | Description                    |
 | ------------ | ------------------------------------------------------------------------------- | ------------------------------ |
 | EventName    | T_MAXSTRING                                                                     | The name of the event.         |
-| EventHandler | [I_EventHandler](https://benhar-dev.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
+| EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
 
 #### Return
 
@@ -405,7 +405,7 @@ Registers an event handler for the given event name which is triggered only once
 | Parameters   | Datatype                                                                        | Description                    |
 | ------------ | ------------------------------------------------------------------------------- | ------------------------------ |
 | EventName    | T_MAXSTRING                                                                     | The name of the event.         |
-| EventHandler | [I_EventHandler](https://benhar-dev.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
+| EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
 
 #### Return
 
@@ -426,7 +426,7 @@ Unregisters an event handler for the given event name. See [events](#events) for
 | Parameters   | Datatype                                                                        | Description                      |
 | ------------ | ------------------------------------------------------------------------------- | -------------------------------- |
 | EventName    | T_MAXSTRING                                                                     | The name of the event.           |
-| EventHandler | [I_EventHandler](https://benhar-dev.github.io/mobject-events/#/i-event-handler) | The event handler to unregister. |
+| EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to unregister. |
 
 #### Return
 
