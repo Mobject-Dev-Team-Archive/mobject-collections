@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="mobject-collections">
-      <Resolution>mobject-collections, 0.4.0 (mobject)</Resolution>
+      <Resolution>mobject-collections, 0.3.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
