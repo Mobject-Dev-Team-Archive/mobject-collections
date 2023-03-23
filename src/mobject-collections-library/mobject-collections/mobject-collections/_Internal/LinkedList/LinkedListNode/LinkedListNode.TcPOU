@@ -72,7 +72,8 @@ END_VAR]]></Declaration>
 	RETURN;
 END_IF
 
-Equals := memcmp(Symbol.pValue,internalBuffer,Symbol.diSize) = 0;]]></ST>
+Equals := memcmp(Symbol.pValue,internalBuffer, DINT_TO_UDINT(Symbol.diSize)) = 0;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{8bebc509-1cf0-4449-be85-11d2862d71e7}" FolderPath="Destructor\">
@@ -108,7 +109,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Get := GetTo(Destination.pValue,Destination.diSize);]]></ST>
+        <ST><![CDATA[Get := GetTo(Destination.pValue, DINT_TO_UDINT(Destination.diSize));
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetTo" Id="{fc1682a2-75fe-45fb-bb00-791b41822df9}">

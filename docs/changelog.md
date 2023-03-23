@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.3.0
+
+- Added I_Enumerable interface
+- Added I_Collection interface
+- Added I_Queue interface
+- Added I_Stack interface
+
 ## 0.2.1
 
 - Updated to support mobject-disposable v0.3.1-alpha
@@ -20,7 +27,7 @@
 
 ### NEW - Stack
 
-- Added the stack (fifo) class.
+- Added the Stack (fifo) class.
 
 ## 0.0.0
 

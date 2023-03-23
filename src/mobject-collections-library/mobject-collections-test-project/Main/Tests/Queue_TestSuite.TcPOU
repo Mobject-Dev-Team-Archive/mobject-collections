@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Queue_TestSuit" Id="{c41f47d3-a2b8-484b-b4af-3c85798258c7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuit EXTENDS TcUnit.FB_TestSuite
+  <POU Name="Queue_TestSuite" Id="{c41f47d3-a2b8-484b-b4af-3c85798258c7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -12,9 +12,12 @@ CheckListWorksWithStrings();
 CheckListWorksWithArrays();
 
 // all other checks
+CheckQueueImplementsI_Queue();
 CheckContains();
 CheckClear();
 CheckCount();
+CheckAddItem();
+CheckRemoveItem();
 CheckTryDequeueRemovesTheItem();
 CheckTryDequeueReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
@@ -24,8 +27,40 @@ CheckCopyToLocation();
 CheckQueueOrderIsCorrect();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();]]></ST>
+CheckEnumeratorIsInvalidAfterDispose();
+]]></ST>
     </Implementation>
+    <Method Name="CheckAddItem" Id="{59e4bf74-6319-49c6-a1e4-c45e3bba7cdb}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	queue : Queue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddItem');
+
+// @TEST-FIXTURE
+queue.Enqueue(in1); // (lifo->) 123
+queue.Enqueue(in2); // (lifo->) 123, 456
+
+// @TEST-RUN
+queue.AddItem(in3); // (lifo->) 123, 456, 789
+result := queue.Contains(in3);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckClear" Id="{c6f4460f-af5e-463d-bba5-c9e0dd8655a4}">
       <Declaration><![CDATA[METHOD PUBLIC CheckClear
 VAR
@@ -375,6 +410,31 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CheckQueueImplementsI_Queue" Id="{9df566ea-6134-416b-a1c2-9bc445aa6242}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckQueueImplementsI_Queue
+VAR
+	queue : Queue;
+    iQueue : I_Queue := queue;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckQueueImplementsI_Queue');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := iQueue <> 0;
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Did not implement I_Queue'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckQueueOrderIsCorrect" Id="{a4976c2e-be64-478d-b82c-2eeb96e3bfdb}">
       <Declaration><![CDATA[METHOD PUBLIC CheckQueueOrderIsCorrect
 VAR
@@ -427,6 +487,38 @@ AssertEquals(
 );
 
 TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRemoveItem" Id="{b3b564ce-6e3d-430b-94e8-9a658b1622f8}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	queue : Queue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckRemoveItem');
+
+// @TEST-FIXTURE
+queue.Enqueue(in1); // (lifo->) 123
+queue.Enqueue(in2); // (lifo->) 123, 456
+queue.Enqueue(in3); // (lifo->) 123, 456, 789
+
+// @TEST-RUN
+queue.RemoveItem(in2); // (lifo->) 123, 789
+result := queue.Contains(in2);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckTryDequeueRemovesTheItem" Id="{f9332718-bb4a-4b5f-bb20-19baf3e48339}">

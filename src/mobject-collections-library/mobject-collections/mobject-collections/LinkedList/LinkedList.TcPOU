@@ -26,7 +26,7 @@ VAR
 	node : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Contains(After) THEN
+        <ST><![CDATA[IF NOT ContainsLinkedListNode(After) THEN
 	RETURN;
 END_IF
 
@@ -45,7 +45,7 @@ VAR
 	node : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT Contains(Before) THEN
+        <ST><![CDATA[IF NOT ContainsLinkedListNode(Before) THEN
 	RETURN;
 END_IF
 
@@ -66,6 +66,18 @@ END_VAR]]></Declaration>
         <ST><![CDATA[node := CreateNode(Value);
 AddNodeFirst(node);
 EmitChangedEvent();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AddItem" Id="{de50626d-ddda-4fc3-b7bc-aaf9055f4f75}">
+      <Declaration><![CDATA[METHOD AddItem
+VAR_INPUT
+	Item : ANY;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddLast(Item);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddLast" Id="{4f7213b7-04cf-4ecf-9a66-2d5267b89779}">
@@ -188,14 +200,29 @@ RemoveAllNodes();
 EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Contains" Id="{4b179de9-eef1-48a2-95a2-a7ca9d0d433e}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE Contains : BOOL
+    <Method Name="Contains" Id="{4b179de9-eef1-48a2-95a2-a7ca9d0d433e}">
+      <Declaration><![CDATA[METHOD PUBLIC Contains : BOOL
 VAR_INPUT
-	Node : I_LinkedListNode;
+    Item : ANY;
+END_VAR
+VAR
+    found : I_LinkedListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[found := Find(Item);
+Contains := found <> 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ContainsLinkedListNode" Id="{9c3093fa-1190-4721-b415-48f901dd3daa}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE ContainsLinkedListNode : BOOL
+VAR_INPUT
+    Node : I_LinkedListNode;
 END_VAR
 VAR
 	current : I_LinkedListNode;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF IsEmpty() THEN	
 	RETURN;
@@ -205,11 +232,12 @@ current := head;
 
 WHILE current <> 0 DO
 	IF current = Node THEN
-		Contains := TRUE;
+		ContainsLinkedListNode := TRUE;
 		RETURN;
 	END_IF
 	current := current.next; 
-END_WHILE;]]></ST>
+END_WHILE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="CopyTo" Id="{1aea4900-d688-48e9-9a9f-8b39c70acb8b}">
@@ -218,7 +246,8 @@ VAR_INPUT
 	Destination : ANY;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyTo := CopyToLocation(Destination.pValue, Destination.diSize);]]></ST>
+        <ST><![CDATA[CopyTo := CopyToLocation(Destination.pValue, DINT_TO_UDINT(Destination.diSize));
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="CopyToLocation" Id="{01bff3c0-b7f3-43be-b887-cf05759eef58}">
@@ -465,18 +494,10 @@ END_VAR]]></Declaration>
 VAR_INPUT
 	Value : ANY;
 END_VAR
-VAR
-	foundNode : I_LinkedListNode;
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[foundNode := FindFirstNodeWithValue(Value);
-
-IF foundNode = 0 THEN
-	RETURN;
-END_IF
-
-RemoveNode(foundNode);
-EmitChangedEvent();]]></ST>
+        <ST><![CDATA[RemoveItem(Value);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveAllNodes" Id="{0d2ee20c-7757-4ee4-89ad-9f4848a333f1}" FolderPath="Private\">
@@ -499,6 +520,28 @@ END_IF
 
 RemoveNode(First);
 EmitChangedEvent();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveItem" Id="{742d63a8-24ea-40db-b03c-82ad814ca21b}">
+      <Declaration><![CDATA[METHOD RemoveItem : BOOL
+VAR_INPUT
+	Item : ANY;
+END_VAR
+VAR
+	foundNode : I_LinkedListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundNode := FindFirstNodeWithValue(Item);
+
+IF foundNode = 0 THEN
+	RETURN;
+END_IF
+
+RemoveNode(foundNode);
+EmitChangedEvent();
+
+RemoveItem := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveLast" Id="{d50cb0c7-635c-475a-9798-a63ab164b5b9}">

@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Stack EXTENDS Disposable
+FUNCTION_BLOCK Stack EXTENDS Disposable IMPLEMENTS I_Stack
 VAR
 	linkedList : LinkedList;
 END_VAR
@@ -14,6 +14,18 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Destructor" Id="{ecde9bfc-90e9-4c79-9e97-0d04fb8b2852}" />
+    <Method Name="AddItem" Id="{910eb6dd-325c-43ba-8aee-45fa4160cf67}">
+      <Declaration><![CDATA[METHOD AddItem
+VAR_INPUT
+	Item : ANY;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Push(Item);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Clear" Id="{75e9b203-44b9-46cb-9b54-1e02ee5d7b99}">
       <Declaration><![CDATA[METHOD PUBLIC Clear
 VAR_INPUT
@@ -93,6 +105,17 @@ VAR_INPUT
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[linkedList.AddFirst(Item);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveItem" Id="{ac74a60b-f8ed-4206-aa41-4c071a5aba0b}">
+      <Declaration><![CDATA[METHOD RemoveItem : BOOL
+VAR_INPUT
+	Item : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[RemoveItem := linkedList.RemoveItem(Item);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryPeek" Id="{e0200c18-235c-43fd-8c04-d6e1cbe0445e}">

@@ -18,7 +18,7 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 ## Why use mobject-collections?
 
-The mobject-collections library provides a set of efficient and flexible data structures that can be used to manage collections of objects in your industrial control system. The library currently includes two classes: LinkedList and Queue, with Dynamic Array, Dictionary, and Stack coming soon.
+The mobject-collections library provides a set of efficient and flexible data structures that can be used to manage collections of objects in your industrial control system. The library currently includes threr classes: LinkedList Stack and Queue, with Dynamic Array and Dictionary coming soon.
 
 ### LinkedList
 
@@ -34,8 +34,16 @@ The Queue class is a data structure that follows the First-In-First-Out (FIFO) p
 
 Using the Queue class can help you to manage your system's tasks in an organized and efficient manner, ensuring that they are processed in the correct order and without any unnecessary delays.
 
-### Dynamic Array, Dictionary, and Stack
+### Stack
 
-The mobject-collections library will soon be expanding to include additional classes: Dynamic Array, Dictionary, and Stack. Dynamic arrays are similar to regular arrays, but with the added benefit of being able to dynamically resize themselves as needed. Dictionaries are a data structure that allow for efficient key-value lookups, while stacks are a data structure that follow the Last-In-First-Out (LIFO) principle.
+<img src="./images/stack-example.svg">
+
+The Stack class is a data structure that follows the Last-In-First-Out (LIFO) principle. Items are added and to the front of the stack and removed from the front of the stack also, in the order they were added. Stacks are particularly useful for managing tasks that need to be processed in the most recent order they were received, such as a set of instructions or a sequence of events.
+
+Using the Stack class can help you to manage your system's tasks in an organized and efficient manner, ensuring that they are processed in the correct order and without any unnecessary delays.
+
+### Dynamic Array and Dictionary
+
+The mobject-collections library will soon be expanding to include additional classes: Dynamic Array and Dictionary. Dynamic arrays are similar to regular arrays, but with the added benefit of being able to dynamically resize themselves as needed. Dictionaries are a data structure that allow for efficient key-value lookups.
 
 With the addition of these classes, the mobject-collections library will provide a comprehensive set of data structures that can be used to manage collections of objects in a wide range of scenarios.

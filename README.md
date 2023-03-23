@@ -20,4 +20,4 @@ The documentation for this project can be found [here](https://mobject-dev-team.
 
 ## Versions
 
-- TcXaeShell 3.1.4024.35
+- TcXaeShell 3.1.4024.42

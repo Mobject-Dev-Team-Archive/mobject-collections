@@ -6,8 +6,8 @@
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Namespace   | mobject-collections                                                                                                                                             |
 | Library     | mobject-collections                                                                                                                                             |
-| Inheritance | [I_EventEmitter](https://mobject-dev-team.github.io/mobject-events/#/i-event-emitter), [I_Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/i-disposable) |
-| Implements  | I_LinkedList                                                                                                                                                    |
+| Inheritance | [I_Collection](i-collection.md) |, [I_EventEmitter](https://mobject-dev-team.github.io/mobject-events/#/i-event-emitter)                                       |
+| Implements  |                                                                                                                                                                 |
 
 ## Remarks
 
@@ -131,18 +131,6 @@ N/A
 | Datatype                                |
 | --------------------------------------- |
 | [I_LinkedListNode](i-linkedlistnode.md) |
-
-### GetEnumerator()
-
-#### Parameters
-
-N/A
-
-#### Return
-
-| Datatype                                      |
-| --------------------------------------------- |
-| [I_ForwardEnumerator](i-forwardenumerator.md) |
 
 ### Remove(Value)
 

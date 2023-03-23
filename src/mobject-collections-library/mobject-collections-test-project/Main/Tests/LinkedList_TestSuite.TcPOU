@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="LinkedList_TestSuit" Id="{c771dd79-b70b-0181-1b27-c5e2c81ee9a4}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedList_TestSuit EXTENDS TcUnit.FB_TestSuite
+  <POU Name="LinkedList_TestSuite" Id="{c771dd79-b70b-0181-1b27-c5e2c81ee9a4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedList_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -12,16 +12,20 @@ CheckListWorksWithStrings();
 CheckListWorksWithArrays();
 
 // all other checks
+CheckLinkedListImplementsI_LinkedList();
 CheckFirstIsCorrectWithOneValue();
 CheckFirstIsCorrectWithMultipleValues();
 CheckLastIsCorrectWithOneValue();
 CheckLastIsCorrectWithMultipleValues();
-CheckAddFirst();
-CheckAddLast();
-CheckAddBefore();
 CheckAddAfter();
+CheckAddBefore();
+CheckAddFirst();
+CheckAddItem();
+CheckAddLast();
 CheckClear();
+CheckRemove();
 CheckRemoveFirst();
+CheckRemoveItem();
 CheckRemoveLast();
 CheckCount();
 CheckFind();
@@ -127,6 +131,39 @@ AssertEquals(
 );
 
 TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckAddItem" Id="{db0267d3-5b7f-4fa8-9ebb-f262c84e8c6f}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	expected : INT := 789;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddItem');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.AddItem(in3); // (first->) 456, 123, 789 (<-last)
+linkedList.Last.Get(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckAddLast" Id="{e7efe5e7-d346-4353-bc59-4bfd3e1f99bb}">
@@ -466,6 +503,31 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CheckLinkedListImplementsI_LinkedList" Id="{edb5ba0a-4e4a-432b-8a69-4528be0e20ff}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckLinkedListImplementsI_LinkedList
+VAR
+	linkedList : LinkedList;
+    iLinkedList : I_LinkedList := linkedList;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckLinkedListImplementsI_LinkedList');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := iLinkedList <> 0;
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Did not implement I_LinkedList'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckLinkedListReturnsEnumerator" Id="{764e3a2b-4f98-4165-a522-6388a318e7ea}">
       <Declaration><![CDATA[METHOD PUBLIC CheckLinkedListReturnsEnumerator
 VAR
@@ -702,6 +764,38 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CheckRemove" Id="{64478a70-a842-48c0-99ce-28a18d35bc81}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckRemove
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckRemove');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.Remove(in2); // (first->) 789, 123 (<-last)
+result := linkedList.Contains(in2);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckRemoveFirst" Id="{dfa11c69-7532-4936-bd8f-863fbc8f3cb3}">
       <Declaration><![CDATA[METHOD PUBLIC CheckRemoveFirst
 VAR
@@ -733,6 +827,38 @@ AssertEquals(
 );
 
 TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRemoveItem" Id="{2ed0a132-95ea-4687-aa2b-3ebbb2650bdf}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckRemoveItem');
+
+// @TEST-FIXTURE
+linkedList.AddFirst(in1); // (first->) 123 (<-last)
+linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
+linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+
+// @TEST-RUN
+linkedList.RemoveItem(in2); // (first->) 789, 123 (<-last)
+result := linkedList.Contains(in2);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckRemoveLast" Id="{7481eed2-c74d-4027-bb52-484e7223c487}">

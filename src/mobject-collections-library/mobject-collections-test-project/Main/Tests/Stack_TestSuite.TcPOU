@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Stack_TestSuit" Id="{20dd6e3e-1cc3-43f4-aecb-d08b82736d74}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Stack_TestSuit EXTENDS TcUnit.FB_TestSuite
+  <POU Name="Stack_TestSuite" Id="{20dd6e3e-1cc3-43f4-aecb-d08b82736d74}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Stack_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -12,9 +12,12 @@ CheckListWorksWithStrings();
 CheckListWorksWithArrays();
 
 // all other checks
+CheckStackImplementsI_Stack();
 CheckContains();
 CheckClear();
 CheckCount();
+CheckAddItem();
+CheckRemoveItem();
 CheckTryPopRemovesTheItem();
 CheckTryPopReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
@@ -22,8 +25,40 @@ CheckTryPeekDoesNotRemoveTheItem();
 CheckCopyTo();
 CheckCopyToLocation();
 CheckStackOrderIsCorrect();
-CheckListReturnsEnumerator();]]></ST>
+CheckListReturnsEnumerator();
+]]></ST>
     </Implementation>
+    <Method Name="CheckAddItem" Id="{b1407b4b-116a-428f-9dec-c1ea8851de1a}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	stack : Stack;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckAddItem');
+
+// @TEST-FIXTURE
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+
+// @TEST-RUN
+stack.AddItem(in3); // fifo->) 789, 456, 123
+result := stack.Contains(in3);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckClear" Id="{b0101d26-1872-4bfd-a283-d74e6cd3858e}">
       <Declaration><![CDATA[METHOD PUBLIC CheckClear
 VAR
@@ -152,7 +187,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
-	in3 : INT := 567;
+	in3 : INT := 789;
 	total : ULINT;
 	expected : ULINT := 3;
 	stack : Stack;
@@ -309,6 +344,63 @@ AssertEquals(
 	Expected := expected,
 	Actual := out,
 	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckRemoveItem" Id="{f25f826b-ad0f-4bf1-8859-5179bf9b1e64}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	stack : Stack;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckRemoveItem');
+
+// @TEST-FIXTURE
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
+
+// @TEST-RUN
+stack.RemoveItem(in2); // (lifo->) 789, 123
+result := stack.Contains(in2);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckStackImplementsI_Stack" Id="{9f17d6e7-99b9-48b8-a1f6-f977c9a72060}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckStackImplementsI_Stack
+VAR
+	stack : Stack;
+    iStack : I_Stack := stack;
+    result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckStackImplementsI_Stack');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := iStack <> 0;
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Did not implement I_Stack'
 );
 
 TEST_FINISHED();]]></ST>
