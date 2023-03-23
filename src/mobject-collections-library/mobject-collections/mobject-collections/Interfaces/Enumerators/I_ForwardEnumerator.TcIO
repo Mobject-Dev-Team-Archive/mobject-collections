@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_ForwardEnumerator" Id="{e9757b38-1996-45e6-a6c8-96fd1404a343}">
-    <Declaration><![CDATA[INTERFACE I_ForwardEnumerator extends I_Disposable
+    <Declaration><![CDATA[INTERFACE I_ForwardEnumerator EXTENDS I_Disposable
 ]]></Declaration>
     <Property Name="IsValid" Id="{ca3b8f11-a3d3-4a38-972a-a72264c1ee16}">
       <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
