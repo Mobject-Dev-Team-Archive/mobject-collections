@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Queue EXTENDS Disposable
+FUNCTION_BLOCK Queue EXTENDS Disposable IMPLEMENTS I_Queue
 VAR
 	linkedList : LinkedList;
 END_VAR
@@ -14,6 +14,18 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Destructor" Id="{62d87962-2cf7-4a17-898b-21ae6a43eedf}" />
+    <Method Name="AddItem" Id="{50300d84-c466-44f9-ac93-88f7eb39d43d}">
+      <Declaration><![CDATA[METHOD AddItem
+VAR_INPUT
+	Item : ANY;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Enqueue(Item);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Clear" Id="{be525374-c8c0-4800-8d21-3dedb89b7102}">
       <Declaration><![CDATA[METHOD PUBLIC Clear
 VAR_INPUT
@@ -93,6 +105,17 @@ Clear();]]></ST>
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveItem" Id="{8d5fb1bb-9563-472f-98a8-85ffcecd9667}">
+      <Declaration><![CDATA[METHOD RemoveItem : BOOL
+VAR_INPUT
+	Item : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[RemoveItem := linkedList.RemoveItem(Item);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryDequeue" Id="{6a1352f2-9546-44f6-a541-e9c3fd20ae65}">
