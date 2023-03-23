@@ -8,9 +8,14 @@
 
     - [LinkedList](linkedlist.md)
     - [Queue](queue.md)
+    - [Stack](stack.md)
 
   - Interfaces
 
+    - [I_Enumerable](i-enumerable.md)
+    - [I_Collection](i-collection.md)
+    - [I_Queue](i-queue.md)
+    - [I_Stack](i-stack.md)
     - [I_LinkedList](i-linkedlist.md)
     - [I_LinkedListNode](i-linkedlistnode.md)
     - [I_LinkedListChangedEvent](i-linkedlistchangedevent.md)

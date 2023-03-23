@@ -7,7 +7,7 @@
 | Namespace   | mobject-collections                                                        |
 | Library     | mobject-collections                                                        |
 | Inheritance | [Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/disposable) |
-| Implements  | I_LinkedList                                                               |
+| Implements  | [I_LinkedList](i-linkedlist.md)                                            |
 
 ## Remarks
 
