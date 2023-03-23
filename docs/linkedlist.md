@@ -2,16 +2,18 @@
 
 ## Definition
 
-|             |                                                                            |
-| ----------- | -------------------------------------------------------------------------- |
-| Namespace   | mobject-collections                                                        |
-| Library     | mobject-collections                                                        |
+|             |                                                                                  |
+| ----------- | -------------------------------------------------------------------------------- |
+| Namespace   | mobject-collections                                                              |
+| Library     | mobject-collections                                                              |
 | Inheritance | [Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/disposable) |
-| Implements  | [I_LinkedList](i-linkedlist.md)                                            |
+| Implements  | [I_LinkedList](i-linkedlist.md)                                                  |
 
 ## Remarks
 
 The LinkedList is a general-purpose linked list. It supports enumerators and implements the GetEnumerator method, consistent with other collection classes in the mobject-collections library.
+
+<img src="./images/linkedlist-example.svg">
 
 ## Example
 
@@ -141,6 +143,31 @@ value : INT := 123;
 linkedList.AddFirst(value);
 ```
 
+### AddItem(Item)
+
+Add an item to the collection. This is a requirement of the [I_Collection](i-collection.md) interface and is the same as calling AddLast.
+
+#### Parameters
+
+| Parameters | Datatype | Description                          |
+| ---------- | -------- | ------------------------------------ |
+| Item       | ANY      | The item to store in the collection. |
+
+#### Return
+
+N/A
+
+#### Usage
+
+```declaration
+linkedList : LinkedList;
+value : INT := 123;
+```
+
+```body
+linkedList.AddItem(value);
+```
+
 ### AddLast(Value)
 
 Add an item to the end of the linked list.
@@ -186,6 +213,35 @@ linkedList : LinkedList;
 
 ```body
 linkedList.Clear();
+```
+
+### Contains(Item)
+
+Checks to see if an item is contained in the collection.
+
+#### Parameters
+
+| Parameters | Datatype | Description                          |
+| ---------- | -------- | ------------------------------------ |
+| Item       | ANY      | The item to store in the collection. |
+
+#### Return
+
+| Datatype | Description                                             |
+| -------- | ------------------------------------------------------- |
+| BOOL     | Returns true if the item is contained in the collection |
+
+#### Usage
+
+```declaration
+linkedList : LinkedList;
+value : INT := 123;
+result : BOOL;
+```
+
+```body
+linkedList.AddLast(value);
+result := linkedList.Contains(value); // result = TRUE
 ```
 
 ### CopyTo(Destination)
@@ -381,9 +437,9 @@ Registers an event handler for the given event name. See [events](#events) for t
 
 #### Parameters
 
-| Parameters   | Datatype                                                                        | Description                    |
-| ------------ | ------------------------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                                     | The name of the event.         |
+| Parameters   | Datatype                                                                              | Description                    |
+| ------------ | ------------------------------------------------------------------------------------- | ------------------------------ |
+| EventName    | T_MAXSTRING                                                                           | The name of the event.         |
 | EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
 
 #### Return
@@ -402,9 +458,9 @@ Registers an event handler for the given event name which is triggered only once
 
 #### Parameters
 
-| Parameters   | Datatype                                                                        | Description                    |
-| ------------ | ------------------------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                                     | The name of the event.         |
+| Parameters   | Datatype                                                                              | Description                    |
+| ------------ | ------------------------------------------------------------------------------------- | ------------------------------ |
+| EventName    | T_MAXSTRING                                                                           | The name of the event.         |
 | EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
 
 #### Return
@@ -423,9 +479,9 @@ Unregisters an event handler for the given event name. See [events](#events) for
 
 #### Parameters
 
-| Parameters   | Datatype                                                                        | Description                      |
-| ------------ | ------------------------------------------------------------------------------- | -------------------------------- |
-| EventName    | T_MAXSTRING                                                                     | The name of the event.           |
+| Parameters   | Datatype                                                                              | Description                      |
+| ------------ | ------------------------------------------------------------------------------------- | -------------------------------- |
+| EventName    | T_MAXSTRING                                                                           | The name of the event.           |
 | EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to unregister. |
 
 #### Return
@@ -494,6 +550,36 @@ linkedList.AddLast(value1); // (first->) 123 (<-last)
 linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
 linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
 linkedList.RemoveFirst(); // (first->) 456, 789 (<-last)
+```
+
+### RemoveItem(Item)
+
+Removes the first matching item from the linked list. This is a requirement of the [I_Collection](i-collection.md) interface and is the same as calling Remove.
+
+#### Parameters
+
+| Parameters | Datatype | Description                                 |
+| ---------- | -------- | ------------------------------------------- |
+| Item       | ANY      | The item to be removed from the collection. |
+
+#### Return
+
+N/A
+
+#### Usage
+
+```declaration
+linkedList : LinkedList;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+```
+
+```body
+linkedList.AddLast(value1); // (first->) 123 (<-last)
+linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
+linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
+linkedList.RemoveItem(value2); // (first->) 123, 789 (<-last)
 ```
 
 ### RemoveLast()

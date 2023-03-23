@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                                                                                                                                 |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Namespace   | mobject-collections                                                                                                                                             |
-| Library     | mobject-collections                                                                                                                                             |
-| Inheritance | [I_Collection](i-collection.md) |, [I_EventEmitter](https://mobject-dev-team.github.io/mobject-events/#/i-event-emitter)                                       |
-| Implements  |                                                                                                                                                                 |
+|             |                                 |
+| ----------- | ------------------------------- | --------------------------------------------------------------------------------------- |
+| Namespace   | mobject-collections             |
+| Library     | mobject-collections             |
+| Inheritance | [I_Collection](i-collection.md) | , [I_EventEmitter](https://mobject-dev-team.github.io/mobject-events/#/i-event-emitter) |
+| Implements  |                                 |
 
 ## Remarks
 
@@ -64,45 +64,6 @@ N/A
 #### Return
 
 N/A
-
-### Clear()
-
-#### Parameters
-
-N/A
-
-#### Return
-
-N/A
-
-### CopyTo(Destination)
-
-#### Parameters
-
-| Parameters  | Datatype |
-| ----------- | -------- |
-| Destination | ANY      |
-
-#### Return
-
-| Datatype |
-| -------- |
-| BOOL     |
-
-### CopyToLocation(Destination)
-
-#### Parameters
-
-| Parameters      | Datatype |
-| --------------- | -------- |
-| Destination     | PVOID    |
-| DestinationSize | UDINT    |
-
-#### Return
-
-| Datatype |
-| -------- |
-| BOOL     |
 
 ### Find(Value)
 
@@ -165,14 +126,6 @@ N/A
 N/A
 
 ## Properties
-
-### Count
-
-#### Return
-
-| Datatype |
-| -------- |
-| ULINT    |
 
 ### First
 

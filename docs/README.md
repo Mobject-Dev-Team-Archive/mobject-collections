@@ -20,11 +20,15 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 The mobject-collections library provides a set of efficient and flexible data structures that can be used to manage collections of objects in your industrial control system. The library currently includes threr classes: LinkedList Stack and Queue, with Dynamic Array and Dictionary coming soon.
 
-### LinkedList
+### LinkedList (Double linked list)
+
+<img src="./images/linkedlist-example.svg">
 
 The LinkedList class is a data structure that allows for efficient insertion, deletion, and traversal of items in a collection. Linked lists are particularly useful when you need to insert or delete items frequently. Additionally, linked lists can be easily be converted to static arrays.
 
 Using the LinkedList class can help you to efficiently manage collections of objects in your industrial control system, particularly when frequent insertions and deletions are required.
+
+The image above depicts a double linked list, which it the term given to a linked list who tracks both the head and tail. The benefit of a double linked list is that both forward and backwards traversing is possible.
 
 ### Queue
 
