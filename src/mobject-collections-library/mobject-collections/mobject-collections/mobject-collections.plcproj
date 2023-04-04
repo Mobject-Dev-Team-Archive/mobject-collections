@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.3.0</ProjectVersion>
+    <ProjectVersion>0.4.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -39,6 +39,10 @@
       <DefaultResolution>mobject-disposable, * (mobject)</DefaultResolution>
       <Namespace>mobject_disposable</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="mobject-enumerable">
+      <DefaultResolution>mobject-enumerable, * (mobject)</DefaultResolution>
+      <Namespace>mobject_enumerable</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="mobject-events">
       <DefaultResolution>mobject-events, * (mobject)</DefaultResolution>
       <Namespace>mobject_events</Namespace>
@@ -55,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\Collections\Nodes" />
-    <Folder Include="Interfaces\Enumerators" />
     <Folder Include="Interfaces\Collections" />
     <Folder Include="Interfaces\Events" />
     <Folder Include="LinkedList" />
@@ -73,9 +76,6 @@
     <Compile Include="Interfaces\Collections\I_Collection.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\Collections\I_Enumerable.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Interfaces\Collections\I_LinkedList.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -86,9 +86,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\Collections\Nodes\I_LinkedListNode.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Interfaces\Enumerators\I_ForwardEnumerator.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\Events\I_LinkedListChangedEvent.TcIO">

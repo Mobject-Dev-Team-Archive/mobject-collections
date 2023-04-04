@@ -58,6 +58,10 @@
       <DefaultResolution>mobject-disposable, * (mobject)</DefaultResolution>
       <Namespace>mobject_disposable</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="mobject-enumerable">
+      <DefaultResolution>mobject-enumerable, * (mobject)</DefaultResolution>
+      <Namespace>mobject_enumerable</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="mobject-events">
       <DefaultResolution>mobject-events, * (mobject)</DefaultResolution>
       <Namespace>mobject_events</Namespace>
@@ -77,6 +81,12 @@
     <PlaceholderReference Include="TcUnit">
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
       <Namespace>TcUnit</Namespace>
+      <Parameters>
+        <Parameter ListName="GVL_PARAM_TCUNIT" xmlns="">
+          <Key>LOGEXTENDEDRESULTS</Key>
+          <Value>FALSE</Value>
+        </Parameter>
+      </Parameters>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
@@ -86,10 +96,13 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="mobject-collections">
-      <Resolution>mobject-collections, 0.3.0 (mobject)</Resolution>
+      <Resolution>mobject-collections, 0.4.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="mobject-enumerable">
+      <Resolution>mobject-enumerable, 0.0.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-events">
       <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>

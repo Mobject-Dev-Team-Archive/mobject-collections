@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.4.0
+
+- Remove I_Enumerable interface to mobject-enumerable
+- Added mobject-enumerable 0.0.0
+
 # 0.3.0
 
 - Added I_Enumerable interface

@@ -389,7 +389,7 @@ foundNode := linkedList.FindLast(value1);
 
 ### GetEnumerator()
 
-Returns a forward enumerator for the linked list. More information on the enumerators can be found [here](i-forwardenumerator.md)
+Returns a forward enumerator for the linked list. More information on the enumerators can be found [here](https://mobject-dev-team.github.io/mobject-enumerable/#/i-forward-enumerator)
 
 !> Enumerators are \_\_NEW objects, which means you must dispose of any enumerators you make once you are finished using them. Failure to do so will result in a memory leak.
 
@@ -399,9 +399,9 @@ N/A
 
 #### Return
 
-| Datatype                                      | Description                                                     |
-| --------------------------------------------- | --------------------------------------------------------------- |
-| [I_ForwardEnumerator](i-forwardenumerator.md) | The method will return a forward enumerator for the linked list |
+| Datatype                                                                                            | Description                                                     |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [I_ForwardEnumerator](https://mobject-dev-team.github.io/mobject-enumerable/#/i-forward-enumerator) | The method will return a forward enumerator for the linked list |
 
 #### Usage
 

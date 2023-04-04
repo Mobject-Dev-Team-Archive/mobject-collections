@@ -12,7 +12,6 @@
 
   - Interfaces
 
-    - [I_Enumerable](i-enumerable.md)
     - [I_Collection](i-collection.md)
     - [I_Queue](i-queue.md)
     - [I_Stack](i-stack.md)
