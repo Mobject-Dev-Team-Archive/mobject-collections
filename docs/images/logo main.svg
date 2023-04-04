@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   data-v-fde0c5aa=""
+   viewBox="0 0 373 53"
+   class="iconAboveSlogan"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="logo.svg"
+   width="373"
+   height="53"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview28"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="2.91"
+     inkscape:cx="208.76289"
+     inkscape:cy="70.446735"
+     inkscape:window-width="3440"
+     inkscape:window-height="1356"
+     inkscape:window-x="1072"
+     inkscape:window-y="413"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg26">
+    <sodipodi:guide
+       position="143.38488,32.810997"
+       orientation="0,-1"
+       id="guide32834" />
+    <sodipodi:guide
+       position="139.73368,13.996564"
+       orientation="0,-1"
+       id="guide32836" />
+    <sodipodi:guide
+       position="109.96564,6.2646048"
+       orientation="0,-1"
+       id="guide32838" />
+    <sodipodi:guide
+       position="122.68041,45.439863"
+       orientation="0,-1"
+       id="guide32840" />
+  </sodipodi:namedview>
+  <!---->
+  <defs
+     data-v-fde0c5aa=""
+     id="defs2">
+    <rect
+       x="206.18558"
+       y="94.501717"
+       width="184.87973"
+       height="40.206184"
+       id="rect5108" />
+    <!---->
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#0a8ec2f5-8e4c-49ea-94d9-1aa2e987f009"
+       id="linearGradient28183"
+       gradientTransform="scale(0.95097465,1.0515527)"
+       x1="5.2346296"
+       y1="8.1175194"
+       x2="228.71272"
+       y2="8.1175194"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#0a8ec2f5-8e4c-49ea-94d9-1aa2e987f009"
+       id="linearGradient28185"
+       gradientTransform="scale(0.95097465,1.0515527)"
+       x1="5.2346296"
+       y1="8.1175194"
+       x2="228.71272"
+       y2="8.1175194"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <defs
+     data-v-fde0c5aa=""
+     id="defs6">
+    <!---->
+  </defs>
+  <defs
+     data-v-fde0c5aa=""
+     id="defs16">
+    <linearGradient
+       data-v-fde0c5aa=""
+       gradientTransform="rotate(25)"
+       id="0a8ec2f5-8e4c-49ea-94d9-1aa2e987f009"
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0">
+      <stop
+         data-v-fde0c5aa=""
+         offset="0%"
+         stop-color="#EA1F59"
+         stop-opacity="1"
+         id="stop11" />
+      <stop
+         data-v-fde0c5aa=""
+         offset="100%"
+         stop-color="#FA9169"
+         stop-opacity="1"
+         id="stop13" />
+    </linearGradient>
+  </defs>
+  <g
+     data-v-fde0c5aa=""
+     id="d198cab2-8cfc-4285-8167-c466766b5eca"
+     stroke="none"
+     fill="url(#0a8ec2f5-8e4c-49ea-94d9-1aa2e987f009)"
+     transform="matrix(0.16670394,0,0,0.16670394,146.65681,6.1371532)"
+     style="fill:url(#linearGradient28185)">
+    <path
+       d="M 113.793,8.536 4.978,66.264 V 185.806 L 111.75,243.535 217.5,185.806 V 66.264 Z M 98.467,190.569 50.446,164.209 V 89.046 L 98.467,117.35 Z M 109.58488,103.23669 67.931491,79.310509 114.248,56.229 156.285,79.897 Z M 173.055,162.006 116.645,191.381 V 117.35 L 144.62135,103.62058 173.055,89.339 Z"
+       id="path18"
+       sodipodi:nodetypes="ccccccccccccccccccccccc"
+       style="fill:url(#linearGradient28183)" />
+  </g>
+  <defs
+     data-v-fde0c5aa=""
+     id="defs21">
+    <!---->
+  </defs>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:#000000;fill-opacity:1;stroke:none"
+     x="5.8419356"
+     y="38.187279"
+     id="text13650"><tspan
+       sodipodi:role="line"
+       x="5.8419356"
+       y="38.187279"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan26453">mobject</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none"
+     x="190.43094"
+     y="38.18676"
+     id="text13650-6"><tspan
+       sodipodi:role="line"
+       x="190.43094"
+       y="38.18676"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:'Futura Lt BT';-inkscape-font-specification:'Futura Lt BT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan26453-3">collections</tspan></text>
+</svg>
