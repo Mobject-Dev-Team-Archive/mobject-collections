@@ -6,6 +6,7 @@
 
   - Classes
 
+    - [Collection](collection.md)
     - [LinkedList](linkedlist.md)
     - [Queue](queue.md)
     - [Stack](stack.md)

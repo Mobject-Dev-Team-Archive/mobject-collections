@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.4.0</ProjectVersion>
+    <ProjectVersion>0.5.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -63,6 +63,7 @@
     <Folder Include="Interfaces\Events" />
     <Folder Include="LinkedList" />
     <Folder Include="Interfaces" />
+    <Folder Include="Collection" />
     <Folder Include="_Internal" />
     <Folder Include="Queue" />
     <Folder Include="Stack" />
@@ -73,6 +74,9 @@
     <Folder Include="_Internal\LinkedList\LinkedListNode" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collection\Collection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\Collections\I_Collection.TcIO">
       <SubType>Code</SubType>
     </Compile>

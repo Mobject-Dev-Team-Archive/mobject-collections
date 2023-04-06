@@ -36,6 +36,9 @@
     <Compile Include="Tests\Mocks\OnLinkedListDisposedHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Collection_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Stack_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -96,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="mobject-collections">
-      <Resolution>mobject-collections, 0.4.0 (mobject)</Resolution>
+      <Resolution>mobject-collections, 0.5.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>

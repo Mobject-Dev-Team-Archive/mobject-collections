@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.5.0
+
+- Added Collection
+- Added further tests for collection and enumerators
+
 # 0.4.0
 
 - Remove I_Enumerable interface to mobject-enumerable

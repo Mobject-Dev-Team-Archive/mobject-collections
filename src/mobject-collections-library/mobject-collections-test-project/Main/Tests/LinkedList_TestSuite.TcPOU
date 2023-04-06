@@ -35,7 +35,9 @@ CheckLinkListEmitsOnLinkedListChangedEvent();
 CheckLinkListEmitsOnLinkedListDisposedEvent();
 CheckOnceEvent();
 CheckOffEvent();
-CheckCopyTo();]]></ST>
+CheckCopyTo();
+CheckEnumeratorIsInvalidAfterChange();
+CheckEnumeratorIsInvalidAfterDispose();]]></ST>
     </Implementation>
     <Method Name="CheckAddAfter" Id="{7489ba0a-a234-4014-8db4-eb6a82273218}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddAfter
@@ -320,6 +322,65 @@ AssertEquals(
 	Expected := expected,
 	Actual := out,
 	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckEnumeratorIsInvalidAfterChange" Id="{5051e943-ab48-43bb-a3c5-abeb792b6762}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterChange
+VAR
+	in : INT := 123;
+	result : BOOL;
+	linkedList : LinkedList;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterChange');
+
+// @TEST-FIXTURE
+enumerator := linkedList.GetEnumerator();
+linkedList.AddItem(in);
+
+// @TEST-RUN
+result := enumerator.IsValid;
+enumerator.Dispose();
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckEnumeratorIsInvalidAfterDispose" Id="{f73d4c69-dcf3-4e43-93f8-251ce39b4615}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterDispose
+VAR
+	in : INT := 123;
+	result : BOOL;
+	pLinkedList : POINTER TO LinkedList;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterDispose');
+
+// @TEST-FIXTURE
+pLinkedList := __NEW(LinkedList);
+enumerator := pLinkedList^.GetEnumerator();
+__DELETE(pLinkedList);
+
+// @TEST-RUN
+result := enumerator.IsValid;
+enumerator.Dispose();
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
 );
 
 TEST_FINISHED();]]></ST>

@@ -258,13 +258,13 @@ END_VAR
         <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterDispose');
 
 // @TEST-FIXTURE
-//pQueue := __NEW(queue);
-//enumerator := pQueue^.GetEnumerator();
-//pQueue^.Dispose();
+pQueue := __NEW(queue);
+enumerator := pQueue^.GetEnumerator();
+__DELETE(pQueue);
 
-//// @TEST-RUN
-//result := enumerator.IsValid;
-//enumerator.Dispose();
+// @TEST-RUN
+result := enumerator.IsValid;
+enumerator.Dispose();
 
 // @TEST-ASSSERT
 AssertFalse(
