@@ -7,8 +7,7 @@
 FUNCTION_BLOCK LinkedListChangedEvent EXTENDS Disposable IMPLEMENTS I_LinkedListChangedEvent
 VAR
 	_targetLinkedList : I_LinkedList;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
@@ -19,8 +18,7 @@ VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	TargetLinkedList : I_LinkedList;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[This^._targetLinkedList := TargetLinkedList;]]></ST>
       </Implementation>
@@ -28,9 +26,7 @@ END_VAR
     <Property Name="TargetLinkedList" Id="{af9c3577-5c7c-47cf-b981-2d76dda3372a}">
       <Declaration><![CDATA[PROPERTY PUBLIC TargetLinkedList : I_LinkedList]]></Declaration>
       <Get Name="Get" Id="{02433bd2-0877-4583-83d2-4366515e4d88}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
+        <Declaration><![CDATA[PUBLIC]]></Declaration>
         <Implementation>
           <ST><![CDATA[TargetLinkedList := _targetLinkedList;]]></ST>
         </Implementation>

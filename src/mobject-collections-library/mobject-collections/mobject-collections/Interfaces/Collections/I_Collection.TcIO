@@ -1,26 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_Collection" Id="{70b2accb-118c-42f5-8104-6faad2c2cfc3}">
-    <Declaration><![CDATA[INTERFACE I_Collection EXTENDS I_Enumerable, I_Disposable
-]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_Collection EXTENDS I_Enumerable, I_Disposable]]></Declaration>
     <Method Name="AddItem" Id="{a46b464a-5713-4157-a163-d646e3425e8a}">
-      <Declaration><![CDATA[METHOD AddItem
+      <Declaration><![CDATA[METHOD PUBLIC AddItem
 VAR_INPUT
 	Item : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     </Method>
     <Method Name="Clear" Id="{2344e2f1-4366-439e-9beb-a53fd977a5f8}">
-      <Declaration><![CDATA[METHOD PUBLIC Clear
-VAR_INPUT
-END_VAR]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Clear]]></Declaration>
     </Method>
     <Method Name="Contains" Id="{d98372c5-fc17-44bf-b841-3f3f44b5c96e}">
       <Declaration><![CDATA[METHOD PUBLIC Contains : BOOL;
 VAR_INPUT
 	Item : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     </Method>
     <Method Name="CopyTo" Id="{eabb38d8-11ef-4981-b5dc-084a365b6ffd}">
       <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
@@ -45,8 +40,7 @@ END_VAR]]></Declaration>
       <Declaration><![CDATA[METHOD RemoveItem : BOOL
 VAR_INPUT
 	Item : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     </Method>
   </Itf>
 </TcPlcObject>
