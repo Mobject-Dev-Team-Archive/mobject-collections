@@ -56,7 +56,7 @@ VAR_INPUT
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination,DestinationSize);]]></ST>
+        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{c1dc2608-40b9-4aa8-ba2d-52b671666be1}">

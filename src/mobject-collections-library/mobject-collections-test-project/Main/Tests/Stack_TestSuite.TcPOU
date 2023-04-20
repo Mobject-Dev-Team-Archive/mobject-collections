@@ -22,13 +22,14 @@ CheckTryPopRemovesTheItem();
 CheckTryPopReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
 CheckTryPeekDoesNotRemoveTheItem();
+CheckOnceEvent();
+CheckOffEvent();
 CheckCopyTo();
 CheckCopyToLocation();
 CheckStackOrderIsCorrect();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();
-]]></ST>
+CheckEnumeratorIsInvalidAfterDispose();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{b1407b4b-116a-428f-9dec-c1ea8851de1a}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
@@ -405,6 +406,61 @@ AssertEquals(
 	Expected := expected,
 	Actual := out,
 	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOffEvent" Id="{7e76ba36-d58a-4258-a1a3-1e4adb55809d}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOffEvent
+VAR
+	value : INT := 123;
+	stack : Stack;
+	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOffEvent');
+
+// @TEST-FIXTURE
+stack.OnEvent('OnStackChanged',handler);
+stack.OffEvent('OnStackChanged',handler);
+
+// @TEST-RUN
+stack.Push(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnStackChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnceEvent" Id="{81289ad1-c5f1-40c5-8d7e-a09c23f59ef5}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnceEvent
+VAR
+	value : INT := 123;
+	stack : Stack;
+	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnceEvent');
+
+// @TEST-FIXTURE
+stack.OnceEvent('OnStackChanged',handler);
+stack.Push(value);
+handler.Reset();
+
+// @TEST-RUN
+stack.Push(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnStackChanged event more than once'
 );
 
 TEST_FINISHED();]]></ST>

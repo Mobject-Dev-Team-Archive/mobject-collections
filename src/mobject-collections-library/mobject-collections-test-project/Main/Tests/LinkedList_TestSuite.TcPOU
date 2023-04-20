@@ -806,7 +806,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEventUsingOnce');
+        <ST><![CDATA[TEST('CheckOnceEvent');
 
 // @TEST-FIXTURE
 linkedList.OnceEvent('OnLinkedListChanged',handler);

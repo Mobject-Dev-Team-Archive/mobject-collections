@@ -37,7 +37,7 @@ END_VAR]]></Declaration>
       </Get>
     </Property>
     <Method Name="RemoveItem" Id="{fb9c7199-d4c2-4354-af03-01593a2b4090}">
-      <Declaration><![CDATA[METHOD RemoveItem : BOOL
+      <Declaration><![CDATA[METHOD PUBLIC RemoveItem : BOOL
 VAR_INPUT
 	Item : ANY;
 END_VAR]]></Declaration>

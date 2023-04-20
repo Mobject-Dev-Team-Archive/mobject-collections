@@ -19,9 +19,7 @@ VAR
 	enumerator : I_ForwardEnumerator;
 	output : INT;
 	allowed : BOOL;
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();
 

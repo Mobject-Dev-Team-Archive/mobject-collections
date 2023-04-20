@@ -4,9 +4,10 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Queue EXTENDS Disposable IMPLEMENTS I_Queue
+FUNCTION_BLOCK Queue EXTENDS Disposable IMPLEMENTS I_Queue, I_EventEmitter
 VAR
 	linkedList : LinkedList;
+	eventEmitter : EventEmitter;
 END_VAR
 
 ]]></Declaration>
@@ -14,24 +15,21 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Destructor" Id="{62d87962-2cf7-4a17-898b-21ae6a43eedf}" />
+    <Folder Name="Private" Id="{7fe06b3b-f22d-49c2-9990-ae701782d606}" />
     <Method Name="AddItem" Id="{50300d84-c466-44f9-ac93-88f7eb39d43d}">
-      <Declaration><![CDATA[METHOD AddItem
+      <Declaration><![CDATA[METHOD PUBLIC AddItem
 VAR_INPUT
 	Item : ANY;
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Enqueue(Item);
-]]></ST>
+        <ST><![CDATA[Enqueue(Item);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Clear" Id="{be525374-c8c0-4800-8d21-3dedb89b7102}">
-      <Declaration><![CDATA[METHOD PUBLIC Clear
-VAR_INPUT
-END_VAR]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Clear]]></Declaration>
       <Implementation>
-        <ST><![CDATA[linkedList.Clear();]]></ST>
+        <ST><![CDATA[linkedList.Clear();
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Contains" Id="{41c5234e-0ba0-4792-9541-46f8eba2e5bf}">
@@ -63,7 +61,7 @@ VAR_INPUT
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination,DestinationSize);]]></ST>
+        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{a5b5dc0d-9136-4d33-8a44-3fd5f4753277}">
@@ -77,13 +75,36 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="EmitChangedEvent" Id="{a6048129-b7ce-419d-be09-f26280bb5507}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
+VAR
+	pQueueChangedEvent : POINTER TO QueueChangedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pQueueChangedEvent := __NEW(QueueChangedEvent(TargetQueue := THIS^));
+eventEmitter.Emit('OnQueueChanged', pQueueChangedEvent^);
+pQueueChangedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmitDisposedEvent" Id="{4677d73c-3a8b-4d90-963d-9bea8dda6ba9}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
+VAR
+	pQueueChangedEvent : POINTER TO QueueDisposedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pQueueChangedEvent := __NEW(QueueDisposedEvent(TargetQueue := THIS^));
+eventEmitter.Emit('OnQueueDisposed', pQueueChangedEvent^);
+pQueueChangedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Enqueue" Id="{55f220d0-7765-476a-8e45-859c45790653}">
       <Declaration><![CDATA[METHOD PUBLIC Enqueue
 VAR_INPUT
 	Item : ANY;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[linkedList.AddLast(Item);]]></ST>
+        <ST><![CDATA[linkedList.AddLast(Item);
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{7b2a3bda-d078-45e7-a397-f44960e647ab}" FolderPath="Destructor\">
@@ -97,25 +118,54 @@ END_VAR
 	RETURN;
 END_IF
 
-Clear();]]></ST>
+Clear();
+EmitDisposedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetEnumerator" Id="{313bc49e-d42c-4e4f-9245-f744dca425c4}">
-      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
-]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="OffEvent" Id="{2cb4ce4a-f4a1-4b48-9e09-eba0541704b2}">
+      <Declaration><![CDATA[METHOD PUBLIC OffEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[linkedList.OffEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnceEvent" Id="{73bb3886-7843-40cb-b574-aab6ac82154c}">
+      <Declaration><![CDATA[METHOD PUBLIC OnceEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[linkedList.OnceEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnEvent" Id="{a3a3f31f-2584-4fde-99c8-11fa034204dd}">
+      <Declaration><![CDATA[METHOD PUBLIC OnEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[linkedList.OnEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RemoveItem" Id="{8d5fb1bb-9563-472f-98a8-85ffcecd9667}">
-      <Declaration><![CDATA[METHOD RemoveItem : BOOL
+      <Declaration><![CDATA[METHOD PUBLIC RemoveItem : BOOL
 VAR_INPUT
 	Item : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[RemoveItem := linkedList.RemoveItem(Item);
-]]></ST>
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryDequeue" Id="{6a1352f2-9546-44f6-a541-e9c3fd20ae65}">
@@ -141,6 +191,7 @@ IF NOT dequeued THEN
 END_IF
 
 linkedList.RemoveFirst();
+EmitChangedEvent();
 TryDequeue := TRUE;]]></ST>
       </Implementation>
     </Method>

@@ -27,13 +27,37 @@
     <Compile Include="Tests\LinkedList_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Mocks\LinkedList\OnLinkedListChangedHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\LinkedList\OnLinkedListDisposedHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\LinkedList\OnLinkedListEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\MockEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\Queue\OnQueueChangedHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\Queue\OnQueueDisposedHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\Queue\OnQueueEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\Stack\OnStackChangedHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\Stack\OnStackDisposedHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\Stack\OnStackEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Queue_TestSuite.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\OnLinkedListChangedHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\OnLinkedListDisposedHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Collection_TestSuite.TcPOU">
@@ -49,6 +73,9 @@
   <ItemGroup>
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
+    <Folder Include="Tests\Mocks\LinkedList" />
+    <Folder Include="Tests\Mocks\Stack" />
+    <Folder Include="Tests\Mocks\Queue" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

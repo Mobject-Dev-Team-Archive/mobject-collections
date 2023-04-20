@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK LinkedList EXTENDS Disposable IMPLEMENTS I_LinkedList
+FUNCTION_BLOCK LinkedList EXTENDS Disposable IMPLEMENTS I_LinkedList, I_EventEmitter
 VAR
 	head : I_LinkedListNode;
 	tail : I_LinkedListNode;
@@ -317,7 +317,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[pLinkedListChangedEvent := __NEW(LinkedListChangedEvent(TargetLinkedList := THIS^));
-eventEmitter.Emit('OnLinkedListChanged',pLinkedListChangedEvent^);
+eventEmitter.Emit('OnLinkedListChanged', pLinkedListChangedEvent^);
 pLinkedListChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
@@ -328,7 +328,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[pLinkedListDisposedEvent := __NEW(LinkedListDisposedEvent(TargetLinkedList := THIS^));
-eventEmitter.Emit('OnLinkedListDisposed',pLinkedListDisposedEvent^);
+eventEmitter.Emit('OnLinkedListDisposed', pLinkedListDisposedEvent^);
 pLinkedListDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>

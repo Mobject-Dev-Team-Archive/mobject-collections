@@ -1,28 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="OnLinkedListChangedHandler" Id="{624d4e7f-4cae-4871-b4f1-8321a9ffcc81}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK OnLinkedListChangedHandler IMPLEMENTS I_EventHandler
-VAR
-	expectedOriginator : I_LinkedList;
-	_eventReceived : BOOL;
-	fromExpected : BOOL;
-END_VAR
-]]></Declaration>
+    <Declaration><![CDATA[FUNCTION_BLOCK OnLinkedListChangedHandler EXTENDS OnLinkedListEventHandler]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Constructor" Id="{ec17492d-00d9-4fd5-b491-0cd3eba4e243}" />
-    <Property Name="EventReceived" Id="{0c5b5b1e-ae6f-47f5-a0eb-647efc7c77b6}">
-      <Declaration><![CDATA[PROPERTY PUBLIC EventReceived : BOOL]]></Declaration>
-      <Get Name="Get" Id="{ae6a466a-a62e-42cb-a47e-fd1f687ce1c6}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[EventReceived := _eventReceived;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Method Name="FB_init" Id="{faf05151-4d3d-4158-a290-ad0b87a7a5c3}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -35,17 +18,6 @@ END_VAR
         <ST><![CDATA[SetExpectedOriginator(ExpectedOriginator);]]></ST>
       </Implementation>
     </Method>
-    <Property Name="FromExpectedOriginator" Id="{4115df43-c1b3-41a9-8397-99718f881682}">
-      <Declaration><![CDATA[PROPERTY PUBLIC FromExpectedOriginator : BOOL]]></Declaration>
-      <Get Name="Get" Id="{39f84cde-518a-44ee-8c03-548ffc38dd3b}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[FromExpectedOriginator := fromExpected;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Method Name="HandleEvent" Id="{d6b42d48-9627-422d-af26-eee80c59dc1d}">
       <Declaration><![CDATA[METHOD PUBLIC HandleEvent
 VAR_INPUT
@@ -61,22 +33,11 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Reset" Id="{2e6c2f99-e06e-4d4a-8d59-448660c53c36}">
-      <Declaration><![CDATA[METHOD PUBLIC Reset
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_eventReceived := FALSE;
-fromExpected := FALSE;]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="SetExpectedOriginator" Id="{81554e37-adf6-4986-bdd7-b49945ba620a}">
       <Declaration><![CDATA[METHOD PUBLIC SetExpectedOriginator
 VAR_INPUT
 	ExpectedOriginator : I_LinkedList;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[this^.expectedOriginator := ExpectedOriginator;]]></ST>
       </Implementation>

@@ -24,7 +24,7 @@ VAR_INPUT
 	DestinationAddress : PVOID;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[memcpy(DestinationAddress,internalBuffer,internalBufferSize);]]></ST>
+        <ST><![CDATA[memcpy(DestinationAddress, internalBuffer, internalBufferSize);]]></ST>
       </Implementation>
     </Method>
     <Method Name="CopySourceToInternalBuffer" Id="{18cfb4cb-e3f8-45eb-a9a7-ca95cb406a85}" FolderPath="Private\">
@@ -33,7 +33,7 @@ VAR_INPUT
 	SourceAddress : PVOID;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[memcpy(internalBuffer,SourceAddress,internalBufferSize);]]></ST>
+        <ST><![CDATA[memcpy(internalBuffer, SourceAddress, internalBufferSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="DataSize" Id="{32500e6c-c7d3-4d2c-84c1-5f4f96b638ab}">
@@ -63,7 +63,7 @@ END_VAR]]></Declaration>
 	RETURN;
 END_IF
 
-Equals := memcmp(Symbol.pValue,internalBuffer, DINT_TO_UDINT(Symbol.diSize)) = 0;
+Equals := memcmp(Symbol.pValue, internalBuffer, DINT_TO_UDINT(Symbol.diSize)) = 0;
 ]]></ST>
       </Implementation>
     </Method>
