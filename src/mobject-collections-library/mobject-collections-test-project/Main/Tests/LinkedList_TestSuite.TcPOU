@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="LinkedList_TestSuite" Id="{c771dd79-b70b-0181-1b27-c5e2c81ee9a4}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedList_TestSuite EXTENDS TcUnit.FB_TestSuite
-VAR
-END_VAR
-]]></Declaration>
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedList_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[// check datatypes are handled correctly
 CheckListWorksWithIntegers();
@@ -59,7 +56,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddAfter(linkedList.Last, in3); // (first->) 456, 123, 789 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -91,7 +88,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddBefore(linkedList.First, in3); // (first->) 789, 456, 123 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -123,7 +120,7 @@ linkedList.AddLast(in2); // (first->) 123, 456 (<-last)
 
 // @TEST-RUN
 linkedList.AddFirst(in3); // (first->) 789, 123, 456 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -155,7 +152,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddItem(in3); // (first->) 456, 123, 789 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -188,7 +185,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddLast(in3); // (first->) 456, 123, 789 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -219,7 +216,7 @@ linkedList.AddFirst(in1); // (first->) 123 (<-last)
 // @TEST-RUN
 linkedList.Clear();
 linkedList.AddFirst(in2); // (first->) 456 (<-last) // if clear did not work then it would have (first->) 456, 123 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -462,7 +459,7 @@ END_VAR
 linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -490,7 +487,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -522,7 +519,7 @@ END_VAR
 linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-RUN
 
@@ -550,7 +547,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-RUN
 
@@ -634,7 +631,7 @@ END_VAR
         <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEvent');
 
 // @TEST-FIXTURE
-linkedList.OnEvent('OnLinkedListChanged',handler);
+linkedList.OnEvent('OnLinkedListChanged', handler);
 
 // @TEST-RUN
 linkedList.AddFirst(value);
@@ -667,7 +664,7 @@ END_VAR
 // @TEST-FIXTURE
 pLinkedList := __NEW(LinkedList);
 handler.SetExpectedOriginator(pLinkedList^);
-pLinkedList^.OnEvent('OnLinkedListDisposed',handler);
+pLinkedList^.OnEvent('OnLinkedListDisposed', handler);
 
 // @TEST-RUN
 pLinkedList^.Dispose();
@@ -700,7 +697,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -728,7 +725,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -756,7 +753,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -806,7 +803,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckLinkListEmitsOnLinkedListChangedEventUsingOnce');
+        <ST><![CDATA[TEST('CheckOnceEvent');
 
 // @TEST-FIXTURE
 linkedList.OnceEvent('OnLinkedListChanged',handler);
@@ -876,7 +873,7 @@ linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
 linkedList.RemoveFirst(); // (first->) 456, 123 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -941,7 +938,7 @@ linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
 linkedList.RemoveLast(); // (first->) 789, 456 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-RUN
 

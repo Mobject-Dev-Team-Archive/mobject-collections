@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Queue_TestSuite" Id="{c41f47d3-a2b8-484b-b4af-3c85798258c7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuite EXTENDS TcUnit.FB_TestSuite
-VAR
-END_VAR
-]]></Declaration>
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[// check datatypes are handled correctly
 CheckListWorksWithIntegers();
@@ -22,13 +19,16 @@ CheckTryDequeueRemovesTheItem();
 CheckTryDequeueReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
 CheckTryPeekDoesNotRemoveTheItem();
+CheckQueueEmitsOnQueueChangedEvent();
+CheckQueueEmitsOnQueueDisposedEvent();
+CheckOnceEvent();
+CheckOffEvent();
 CheckCopyTo();
 CheckCopyToLocation();
 CheckQueueOrderIsCorrect();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();
-]]></ST>
+CheckEnumeratorIsInvalidAfterDispose();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{59e4bf74-6319-49c6-a1e4-c45e3bba7cdb}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
@@ -405,6 +405,125 @@ AssertEquals(
 	Expected := expected,
 	Actual := out,
 	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOffEvent" Id="{e4b0701b-2346-4473-99e5-6f76f9c9b609}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOffEvent
+VAR
+	value : INT := 123;
+	queue : queue;
+	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOffEvent');
+
+// @TEST-FIXTURE
+queue.OnEvent('OnQueueChanged',handler);
+queue.OffEvent('OnQueueChanged',handler);
+
+// @TEST-RUN
+queue.Enqueue(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnQueueChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnceEvent" Id="{3616b47d-e960-41c9-97f4-c2d4e2918b22}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnceEvent
+VAR
+	value : INT := 123;
+	queue : Queue;
+	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnceEvent');
+
+// @TEST-FIXTURE
+queue.OnceEvent('OnQueueChanged',handler);
+queue.Enqueue(value);
+handler.Reset();
+
+// @TEST-RUN
+queue.Enqueue(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnQueueChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckQueueEmitsOnQueueChangedEvent" Id="{c0919b9b-ad9a-4e1a-b9d0-9a077e4c569a}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckQueueEmitsOnQueueChangedEvent
+VAR
+	value : INT := 123;
+	queue : Queue;
+	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckQueueEmitsOnQueueChangedEvent');
+
+// @TEST-FIXTURE
+queue.OnEvent('OnQueueChanged', handler);
+
+// @TEST-RUN
+queue.Enqueue(value);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnQueueChanged event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnQueueChanged event'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckQueueEmitsOnQueueDisposedEvent" Id="{ea991d19-3b70-47cf-8594-e9b14585f872}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckQueueEmitsOnQueueDisposedEvent
+VAR
+	value : INT := 123;
+	pQueue : POINTER TO Queue;
+	handler : OnQueueDisposedHandler(ExpectedOriginator := 0);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckQueueEmitsOnQueueDisposedEvent');
+
+// @TEST-FIXTURE
+pQueue := __NEW(Queue);
+handler.SetExpectedOriginator(pQueue^);
+pQueue^.OnEvent('OnQueueDisposed', handler);
+
+// @TEST-RUN
+pQueue^.Dispose();
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnQueueDisposed event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnQueueDisposed event'
 );
 
 TEST_FINISHED();]]></ST>

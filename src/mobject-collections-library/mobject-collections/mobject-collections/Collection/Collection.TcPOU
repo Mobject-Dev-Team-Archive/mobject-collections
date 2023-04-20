@@ -7,28 +7,22 @@
 FUNCTION_BLOCK Collection EXTENDS Disposable IMPLEMENTS I_Collection
 VAR
 	linkedList : LinkedList;
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Destructor" Id="{440fd707-36a1-4231-814c-4260b3a77c94}" />
     <Method Name="AddItem" Id="{41518e04-0c64-4bc8-b5d6-07b793d81d8f}">
-      <Declaration><![CDATA[METHOD AddItem
+      <Declaration><![CDATA[METHOD PUBLIC AddItem
 VAR_INPUT
 	Item : ANY;
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[linkedList.AddLast(Item);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Clear" Id="{5a5ff28f-8b9e-4823-a7a9-d8120cde8058}">
-      <Declaration><![CDATA[METHOD PUBLIC Clear
-VAR_INPUT
-END_VAR]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Clear]]></Declaration>
       <Implementation>
         <ST><![CDATA[linkedList.Clear();]]></ST>
       </Implementation>
@@ -62,15 +56,13 @@ VAR_INPUT
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination,DestinationSize);]]></ST>
+        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{c1dc2608-40b9-4aa8-ba2d-52b671666be1}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
       <Get Name="Get" Id="{4254f1fb-bbf3-4a13-a860-009d211704df}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
+        <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[Count := linkedList.Count;]]></ST>
         </Implementation>
@@ -80,8 +72,7 @@ END_VAR
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF bInCopyCode THEN
 	RETURN;
@@ -91,8 +82,7 @@ Clear();]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetEnumerator" Id="{3a50b611-1a11-468e-980e-9b675fd835e6}">
-      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator
-]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC GetEnumerator : I_ForwardEnumerator]]></Declaration>
       <Implementation>
         <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
       </Implementation>
@@ -101,11 +91,9 @@ Clear();]]></ST>
       <Declaration><![CDATA[METHOD RemoveItem : BOOL
 VAR_INPUT
 	Item : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[RemoveItem := linkedList.RemoveItem(Item);
-]]></ST>
+        <ST><![CDATA[RemoveItem := linkedList.RemoveItem(Item);]]></ST>
       </Implementation>
     </Method>
   </POU>
