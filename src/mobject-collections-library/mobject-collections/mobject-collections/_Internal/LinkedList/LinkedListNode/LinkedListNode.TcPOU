@@ -102,33 +102,6 @@ END_VAR]]></Declaration>
 CopySourceToInternalBuffer(Source.pValue);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Get" Id="{2e237f93-18af-4ede-ae4f-657387db0b35}">
-      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
-VAR_INPUT
-	Destination : ANY;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Get := GetTo(Destination.pValue, DINT_TO_UDINT(Destination.diSize));
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetTo" Id="{fc1682a2-75fe-45fb-bb00-791b41822df9}">
-      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
-VAR_INPUT
-	Destination : PVOID;
-	DestinationSize : UDINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF NOT IsInternalBufferSameSizeAs(DestinationSize) THEN
-	RETURN;
-END_IF
-
-CopyInternalBufferToDestination(Destination);
-GetTo := TRUE;]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="IsInternalBufferSameSizeAs" Id="{a201d221-4e92-47cb-a8e4-b5611ad88721}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsInternalBufferSameSizeAs : BOOL
 VAR_INPUT
@@ -200,5 +173,29 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Method Name="TryGet" Id="{2e237f93-18af-4ede-ae4f-657387db0b35}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TryGet := TryGetTo(Destination.pValue, DINT_TO_UDINT(Destination.diSize));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetTo" Id="{fc1682a2-75fe-45fb-bb00-791b41822df9}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL;
+VAR_INPUT
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT IsInternalBufferSameSizeAs(DestinationSize) THEN
+	RETURN;
+END_IF
+
+CopyInternalBufferToDestination(Destination);
+TryGetTo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

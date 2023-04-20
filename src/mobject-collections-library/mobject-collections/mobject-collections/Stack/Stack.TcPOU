@@ -133,7 +133,7 @@ IF first = 0 THEN
 	RETURN;
 END_IF
 
-TryPeek := first.Get(Destination);]]></ST>
+TryPeek := first.TryGet(Destination);]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryPop" Id="{5057eaf3-9ed3-4dc9-ada0-912b0844cda6}">
@@ -152,7 +152,7 @@ IF first = 0 THEN
 	RETURN;
 END_IF
 
-popped := linkedList.First.Get(Destination);
+popped := linkedList.First.TryGet(Destination);
 
 IF NOT popped THEN
 	RETURN;

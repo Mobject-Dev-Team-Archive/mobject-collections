@@ -130,7 +130,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF currentNode <> 0 THEN
-	TryGet := currentNode.Get(Destination);
+	TryGet := currentNode.TryGet(Destination);
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -143,7 +143,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF currentNode <> 0 THEN
-	TryGetTo := currentNode.GetTo(Destination,DestinationSize);
+	TryGetTo := currentNode.TryGetTo(Destination,DestinationSize);
 END_IF]]></ST>
       </Implementation>
     </Method>

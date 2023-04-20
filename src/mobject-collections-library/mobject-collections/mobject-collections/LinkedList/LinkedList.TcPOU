@@ -279,7 +279,7 @@ currentPointer := Destination;
 currentNode := First;
 
 WHILE currentNode <> 0 DO
-	currentNode.GetTo(currentPointer,currentNode.DataSize);
+	currentNode.TryGetTo(currentPointer,currentNode.DataSize);
 	currentPointer := currentPointer + currentNode.DataSize;
 	currentNode := currentNode.Next;
 END_WHILE]]></ST>

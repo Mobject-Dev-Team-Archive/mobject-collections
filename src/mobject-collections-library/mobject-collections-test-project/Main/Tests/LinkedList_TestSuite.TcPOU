@@ -59,7 +59,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddAfter(linkedList.Last, in3); // (first->) 456, 123, 789 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -91,7 +91,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddBefore(linkedList.First, in3); // (first->) 789, 456, 123 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -123,7 +123,7 @@ linkedList.AddLast(in2); // (first->) 123, 456 (<-last)
 
 // @TEST-RUN
 linkedList.AddFirst(in3); // (first->) 789, 123, 456 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -155,7 +155,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddItem(in3); // (first->) 456, 123, 789 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -188,7 +188,7 @@ linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 
 // @TEST-RUN
 linkedList.AddLast(in3); // (first->) 456, 123, 789 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -219,7 +219,7 @@ linkedList.AddFirst(in1); // (first->) 123 (<-last)
 // @TEST-RUN
 linkedList.Clear();
 linkedList.AddFirst(in2); // (first->) 456 (<-last) // if clear did not work then it would have (first->) 456, 123 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-ASSSERT
 AssertEquals(
@@ -462,7 +462,7 @@ END_VAR
 linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -490,7 +490,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -522,7 +522,7 @@ END_VAR
 linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-RUN
 
@@ -550,7 +550,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-RUN
 
@@ -700,7 +700,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -728,7 +728,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -756,7 +756,7 @@ END_VAR
 
 // @TEST-FIXTURE
 linkedList.AddFirst(in);
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -876,7 +876,7 @@ linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
 linkedList.RemoveFirst(); // (first->) 456, 123 (<-last)
-linkedList.First.Get(out);
+linkedList.First.TryGet(out);
 
 // @TEST-RUN
 
@@ -941,7 +941,7 @@ linkedList.AddFirst(in1); // (first->) 123 (<-last)
 linkedList.AddFirst(in2); // (first->) 456, 123 (<-last)
 linkedList.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
 linkedList.RemoveLast(); // (first->) 789, 456 (<-last)
-linkedList.Last.Get(out);
+linkedList.Last.TryGet(out);
 
 // @TEST-RUN
 

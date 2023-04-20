@@ -134,7 +134,7 @@ IF first = 0 THEN
 	RETURN;
 END_IF
 
-dequeued := linkedList.First.Get(Destination);
+dequeued := linkedList.First.TryGet(Destination);
 
 IF NOT dequeued THEN
 	RETURN;
@@ -159,7 +159,7 @@ IF first = 0 THEN
 	RETURN;
 END_IF
 
-TryPeek := first.Get(Destination);]]></ST>
+TryPeek := first.TryGet(Destination);]]></ST>
       </Implementation>
     </Method>
   </POU>

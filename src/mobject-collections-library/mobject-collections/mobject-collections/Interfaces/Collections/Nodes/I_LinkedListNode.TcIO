@@ -15,21 +15,6 @@ VAR_INPUT
 	Symbol : ANY;
 END_VAR]]></Declaration>
     </Method>
-    <Method Name="Get" Id="{e3aaadc9-a69b-4db5-8f6e-b807b798613c}">
-      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL;
-VAR_INPUT
-	Destination : ANY;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetTo" Id="{b3c69cd4-1eac-4cd3-a874-6b8d5dc47719}">
-      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL;
-VAR_INPUT
-	Destination : PVOID;
-	DestinationSize : UDINT;
-END_VAR
-]]></Declaration>
-    </Method>
     <Property Name="Next" Id="{04648973-8c2a-4589-8746-2a0ee739b1fb}">
       <Declaration><![CDATA[PROPERTY PUBLIC Next : I_LinkedListNode]]></Declaration>
       <Get Name="Get" Id="{1478ef3b-5f53-42fe-ab3e-ac8a03c19848}">
@@ -52,5 +37,20 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Method Name="TryGet" Id="{e3aaadc9-a69b-4db5-8f6e-b807b798613c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
+VAR_INPUT
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="TryGetTo" Id="{b3c69cd4-1eac-4cd3-a874-6b8d5dc47719}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL;
+VAR_INPUT
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>
