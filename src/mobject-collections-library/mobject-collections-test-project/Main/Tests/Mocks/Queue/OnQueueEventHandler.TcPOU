@@ -24,10 +24,9 @@ END_VAR]]></Declaration>
       <Declaration><![CDATA[METHOD PUBLIC SetExpectedOriginator
 VAR_INPUT
 	ExpectedOriginator : I_Queue;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[this^.expectedOriginator := ExpectedOriginator;]]></ST>
+        <ST><![CDATA[THIS^.expectedOriginator := ExpectedOriginator;]]></ST>
       </Implementation>
     </Method>
   </POU>

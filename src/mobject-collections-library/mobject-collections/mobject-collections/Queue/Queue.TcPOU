@@ -8,9 +8,7 @@ FUNCTION_BLOCK Queue EXTENDS Disposable IMPLEMENTS I_Queue, I_EventEmitter
 VAR
 	linkedList : LinkedList;
 	eventEmitter : EventEmitter;
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
@@ -135,7 +133,7 @@ VAR_INPUT
 	EventHandler : I_EventHandler;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[linkedList.OffEvent(EventName, EventHandler);]]></ST>
+        <ST><![CDATA[eventEmitter.OffEvent(EventName, EventHandler);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnceEvent" Id="{73bb3886-7843-40cb-b574-aab6ac82154c}">
@@ -145,7 +143,7 @@ VAR_INPUT
 	EventHandler : I_EventHandler;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[linkedList.OnceEvent(EventName, EventHandler);]]></ST>
+        <ST><![CDATA[eventEmitter.OnceEvent(EventName, EventHandler);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnEvent" Id="{a3a3f31f-2584-4fde-99c8-11fa034204dd}">
@@ -155,7 +153,7 @@ VAR_INPUT
 	EventHandler : I_EventHandler;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[linkedList.OnEvent(EventName, EventHandler);]]></ST>
+        <ST><![CDATA[eventEmitter.OnEvent(EventName, EventHandler);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveItem" Id="{8d5fb1bb-9563-472f-98a8-85ffcecd9667}">

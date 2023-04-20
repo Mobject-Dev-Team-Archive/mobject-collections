@@ -11,12 +11,12 @@ VAR_INPUT
 	Event : I_Event;
 END_VAR
 VAR
-	linkedListDisposedEvent : I_LinkedListDisposedEvent;
+	stackDisposedEvent : I_StackDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF __QUERYINTERFACE(Event, linkedListDisposedEvent) THEN
+        <ST><![CDATA[IF __QUERYINTERFACE(Event, stackDisposedEvent) THEN
 	_eventReceived := TRUE;
-	fromExpected := linkedListDisposedEvent.TargetLinkedList = expectedOriginator;
+	fromExpected := stackDisposedEvent.TargetStack = expectedOriginator;
 END_IF]]></ST>
       </Implementation>
     </Method>

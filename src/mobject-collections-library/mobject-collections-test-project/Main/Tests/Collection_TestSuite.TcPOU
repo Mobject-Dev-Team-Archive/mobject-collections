@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Collection_TestSuite" Id="{d3a93d34-2153-4b75-80c9-80ae7908bda9}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Collection_TestSuite EXTENDS TcUnit.FB_TestSuite
-VAR
-END_VAR
-]]></Declaration>
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Collection_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[// check datatypes are handled correctly
 CheckListWorksWithIntegers();
@@ -22,8 +19,7 @@ CheckCopyTo();
 CheckCopyToLocation();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();
-]]></ST>
+CheckEnumeratorIsInvalidAfterDispose();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{f7f09435-7116-4853-9bcc-8be52c2fa36b}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem

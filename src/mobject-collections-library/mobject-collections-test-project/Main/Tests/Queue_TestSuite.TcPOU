@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Queue_TestSuite" Id="{c41f47d3-a2b8-484b-b4af-3c85798258c7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuite EXTENDS TcUnit.FB_TestSuite
-VAR
-END_VAR
-]]></Declaration>
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Queue_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[// check datatypes are handled correctly
 CheckListWorksWithIntegers();
@@ -22,6 +19,8 @@ CheckTryDequeueRemovesTheItem();
 CheckTryDequeueReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
 CheckTryPeekDoesNotRemoveTheItem();
+CheckQueueEmitsOnQueueChangedEvent();
+CheckQueueEmitsOnQueueDisposedEvent();
 CheckOnceEvent();
 CheckOffEvent();
 CheckCopyTo();
@@ -470,18 +469,18 @@ TEST_FINISHED();]]></ST>
       <Declaration><![CDATA[METHOD PUBLIC CheckQueueEmitsOnQueueChangedEvent
 VAR
 	value : INT := 123;
-	linkedList : LinkedList;
-	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+	queue : Queue;
+	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckQueueEmitsOnQueueChangedEvent');
 
 // @TEST-FIXTURE
-linkedList.OnEvent('OnQueueChanged',handler);
+queue.OnEvent('OnQueueChanged', handler);
 
 // @TEST-RUN
-linkedList.AddFirst(value);
+queue.Enqueue(value);
 
 // @TEST-ASSSERT
 AssertTrue(
@@ -511,7 +510,7 @@ END_VAR
 // @TEST-FIXTURE
 pQueue := __NEW(Queue);
 handler.SetExpectedOriginator(pQueue^);
-pQueue^.OnEvent('OnQueueDisposed',handler);
+pQueue^.OnEvent('OnQueueDisposed', handler);
 
 // @TEST-RUN
 pQueue^.Dispose();

@@ -5,19 +5,6 @@
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{ec17492d-00d9-4fd5-b491-0cd3eba4e243}" />
-    <Method Name="FB_init" Id="{faf05151-4d3d-4158-a290-ad0b87a7a5c3}" FolderPath="Constructor\">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
-VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	ExpectedOriginator : I_LinkedList;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[SetExpectedOriginator(ExpectedOriginator);]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="HandleEvent" Id="{d6b42d48-9627-422d-af26-eee80c59dc1d}">
       <Declaration><![CDATA[METHOD PUBLIC HandleEvent
 VAR_INPUT
@@ -31,15 +18,6 @@ END_VAR]]></Declaration>
 	_eventReceived := TRUE;
 	fromExpected := linkedListChangedEvent.TargetLinkedList = expectedOriginator;
 END_IF]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetExpectedOriginator" Id="{81554e37-adf6-4986-bdd7-b49945ba620a}">
-      <Declaration><![CDATA[METHOD PUBLIC SetExpectedOriginator
-VAR_INPUT
-	ExpectedOriginator : I_LinkedList;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[this^.expectedOriginator := ExpectedOriginator;]]></ST>
       </Implementation>
     </Method>
   </POU>
