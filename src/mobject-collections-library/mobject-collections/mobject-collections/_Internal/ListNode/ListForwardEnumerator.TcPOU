@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ListForwardEnumerator" Id="{71cbcc34-b058-4022-8d0f-92c2cf91e030}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ListForwardEnumerator EXTENDS Disposable IMPLEMENTS I_ForwardEnumerator
+VAR
+	_store : I_List;
+	_index : UDINT;
+	_invalid : BOOL := FALSE;
+	_moveNextCalled : BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{cdeb2947-3a90-4b8f-a836-b2e28e3f7057}" />
+    <Method Name="Dispose" Id="{7950b6f8-3e37-4611-83db-d617ec757528}">
+      <Declaration><![CDATA[METHOD Dispose
+VAR
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_invalid := TRUE;
+SUPER^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{561615b3-2102-4e89-85a3-3eb981a30740}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	list : I_List;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_store := list;
+_index := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsValid" Id="{0eb1db84-cd2b-4f80-9b94-dc9f9847529f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{7fc3be42-663f-4bd2-bee5-b34cca659a44}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := (NOT _invalid AND _store <> 0);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MoveNext" Id="{124806d4-b465-483c-825d-a72774a6ff60}">
+      <Declaration><![CDATA[METHOD MoveNext : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _invalid OR _store = 0 OR _store.Count = 0 THEN
+    RETURN;
+END_IF
+
+IF NOT _moveNextCalled THEN
+	MoveNext := _moveNextCalled := TRUE;
+	RETURN;
+END_IF
+
+IF _index < _store.Count - 1 THEN
+    _index := _index + 1;
+    MoveNext := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{f422f349-f379-43b1-b232-77cd4258d20c}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _invalid OR _store = 0 THEN
+	RETURN;
+END_IF
+
+_moveNextCalled := FALSE;
+_index := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGet" Id="{fc9b3816-84f5-4733-83b3-f353243e6fb9}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL
+VAR_INPUT
+	destination	: ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _invalid OR _store = 0 OR NOT _moveNextCalled THEN
+	RETURN;
+END_IF
+
+TryGet := _store.GetByIndex(_index, destination);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetTo" Id="{c779c4e7-cbea-4286-b465-4d39f43aee99}">
+      <Declaration><![CDATA[METHOD TryGetTo : BOOL
+VAR_INPUT
+	Destination	: PVOID;
+	DestinationSize	: UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _invalid OR _store = 0 OR NOT _moveNextCalled THEN
+	RETURN;
+END_IF
+
+TryGetTo := _store.GetToByIndex(_index, Destination, DestinationSize);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
