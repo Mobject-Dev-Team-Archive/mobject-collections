@@ -53,6 +53,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_DynamicMemory">
       <DefaultResolution>Tc3_DynamicMemory, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_DynamicMemory</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
