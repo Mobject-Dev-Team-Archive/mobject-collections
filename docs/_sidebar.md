@@ -6,7 +6,6 @@
 
   - Classes
 
-    - [Collection](collection.md)
     - [LinkedList](linkedlist.md)
     - [Queue](queue.md)
     - [Stack](stack.md)
@@ -23,7 +22,7 @@
 
 - Guides
 
-  - [Coding Guide](https://benhar-dev.github.io/coding-convention/#/)
+  - [Coding Guide](https://mobject-dev-team.github.io/mobject-coding-convention/#/)
 
 - Versions
 

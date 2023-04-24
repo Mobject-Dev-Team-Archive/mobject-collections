@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Queue EXTENDS Disposable IMPLEMENTS I_Queue, I_EventEmitter
+FUNCTION_BLOCK Queue EXTENDS Disposable IMPLEMENTS I_Queue
 VAR
 	linkedList : LinkedList;
 	eventEmitter : EventEmitter;
@@ -80,19 +80,19 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[pQueueChangedEvent := __NEW(QueueChangedEvent(TargetQueue := THIS^));
-eventEmitter.Emit('OnQueueChanged', pQueueChangedEvent^);
+eventEmitter.Emit('OnChanged', pQueueChangedEvent^);
 pQueueChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="EmitDisposedEvent" Id="{4677d73c-3a8b-4d90-963d-9bea8dda6ba9}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
 VAR
-	pQueueChangedEvent : POINTER TO QueueDisposedEvent;
+	pQueueDisposedEvent : POINTER TO QueueDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pQueueChangedEvent := __NEW(QueueDisposedEvent(TargetQueue := THIS^));
-eventEmitter.Emit('OnQueueDisposed', pQueueChangedEvent^);
-pQueueChangedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pQueueDisposedEvent := __NEW(QueueDisposedEvent(TargetQueue := THIS^));
+eventEmitter.Emit('OnDisposed', pQueueDisposedEvent^);
+pQueueDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Enqueue" Id="{55f220d0-7765-476a-8e45-859c45790653}">

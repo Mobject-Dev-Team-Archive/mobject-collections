@@ -1,5 +1,16 @@
 # Changelog
 
+# 0.6.0
+
+- Library built using 4024.44.
+- Queue and Stack support events 'OnChanged' and 'OnDisposed'.
+
+!> This update contains the following breaking changes.
+
+- LinkedListNode methods Get and GetTo have been renamed to TryGet and TryGetTo.
+- LinkedList events 'OnLinkedListChanged' and 'OnLinkedListDisposed' renamed to 'OnChanged' and 'OnDisposed'. This will allow all collections to use the same name and for the event emitter to move to the I_Collection interface on a future release.
+- Removed Collection but kept I_Collection
+
 # 0.5.0
 
 - Added Collection

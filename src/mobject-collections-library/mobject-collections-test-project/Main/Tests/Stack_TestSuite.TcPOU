@@ -19,8 +19,8 @@ CheckTryPopRemovesTheItem();
 CheckTryPopReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
 CheckTryPeekDoesNotRemoveTheItem();
-CheckStackEmitsOnStackChangedEvent();
-CheckStackEmitsOnStackDisposedEvent();
+CheckOnChangedEvent();
+CheckOnDisposedEvent();
 CheckOnceEvent();
 CheckOffEvent();
 CheckCopyTo();
@@ -422,8 +422,8 @@ END_VAR
         <ST><![CDATA[TEST('CheckOffEvent');
 
 // @TEST-FIXTURE
-stack.OnEvent('OnStackChanged',handler);
-stack.OffEvent('OnStackChanged',handler);
+stack.OnEvent('OnChanged',handler);
+stack.OffEvent('OnChanged',handler);
 
 // @TEST-RUN
 stack.Push(value);
@@ -431,7 +431,7 @@ stack.Push(value);
 // @TEST-ASSSERT
 AssertFalse(
 	Condition := handler.EventReceived,
-	Message := 'OnceEvent emitted the OnStackChanged event more than once'
+	Message := 'OnceEvent emitted the OnChanged event more than once'
 );
 
 TEST_FINISHED();]]></ST>
@@ -449,7 +449,7 @@ END_VAR
         <ST><![CDATA[TEST('CheckOnceEvent');
 
 // @TEST-FIXTURE
-stack.OnceEvent('OnStackChanged',handler);
+stack.OnceEvent('OnChanged',handler);
 stack.Push(value);
 handler.Reset();
 
@@ -459,7 +459,71 @@ stack.Push(value);
 // @TEST-ASSSERT
 AssertFalse(
 	Condition := handler.EventReceived,
-	Message := 'OnceEvent emitted the OnStackChanged event more than once'
+	Message := 'OnceEvent emitted the OnChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnChangedEvent" Id="{1af5bf6d-61b4-43ba-831e-4df7a2d2d7c8}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnChangedEvent
+VAR
+	value : INT := 123;
+	stack : Stack;
+	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnChangedEvent');
+
+// @TEST-FIXTURE
+stack.OnEvent('OnChanged',handler);
+
+// @TEST-RUN
+stack.Push(value);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnChanged event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnChanged event'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnDisposedEvent" Id="{ea24f3ac-3f0f-4991-a1be-349effc958b4}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnDisposedEvent
+VAR
+	value : INT := 123;
+	pStack : POINTER TO Stack;
+	handler : OnStackDisposedHandler(ExpectedOriginator := 0);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnDisposedEvent');
+
+// @TEST-FIXTURE
+pStack := __NEW(Stack);
+handler.SetExpectedOriginator(pStack^);
+pStack^.OnEvent('OnDisposed',handler);
+
+// @TEST-RUN
+pStack^.Dispose();
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnDisposed event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnDisposed event'
 );
 
 TEST_FINISHED();]]></ST>
@@ -495,70 +559,6 @@ AssertFalse(
 
 TEST_FINISHED();
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckStackEmitsOnStackChangedEvent" Id="{1af5bf6d-61b4-43ba-831e-4df7a2d2d7c8}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckStackEmitsOnStackChangedEvent
-VAR
-	value : INT := 123;
-	stack : Stack;
-	handler : OnStackChangedHandler(ExpectedOriginator := stack);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckStackEmitsOnStackChangedEvent');
-
-// @TEST-FIXTURE
-stack.OnEvent('OnStackChanged',handler);
-
-// @TEST-RUN
-stack.Push(value);
-
-// @TEST-ASSSERT
-AssertTrue(
-	Condition := handler.EventReceived,
-	Message := 'Did not emit the OnStackChanged event'
-);
-
-AssertTrue(
-	Condition := handler.FromExpectedOriginator,
-	Message := 'Did not include itself in the OnStackChanged event'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckStackEmitsOnStackDisposedEvent" Id="{ea24f3ac-3f0f-4991-a1be-349effc958b4}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckStackEmitsOnStackDisposedEvent
-VAR
-	value : INT := 123;
-	pStack : POINTER TO Stack;
-	handler : OnStackDisposedHandler(ExpectedOriginator := 0);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckStackEmitsOnStackDisposedEvent');
-
-// @TEST-FIXTURE
-pStack := __NEW(Stack);
-handler.SetExpectedOriginator(pStack^);
-pStack^.OnEvent('OnStackDisposed',handler);
-
-// @TEST-RUN
-pStack^.Dispose();
-
-// @TEST-ASSSERT
-AssertTrue(
-	Condition := handler.EventReceived,
-	Message := 'Did not emit the OnStackDisposed event'
-);
-
-AssertTrue(
-	Condition := handler.FromExpectedOriginator,
-	Message := 'Did not include itself in the OnStackDisposed event'
-);
-
-TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckStackImplementsI_Stack" Id="{9f17d6e7-99b9-48b8-a1f6-f977c9a72060}">

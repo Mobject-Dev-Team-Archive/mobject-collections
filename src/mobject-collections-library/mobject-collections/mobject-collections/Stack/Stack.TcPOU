@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK Stack EXTENDS Disposable IMPLEMENTS I_Stack, I_EventEmitter
+FUNCTION_BLOCK Stack EXTENDS Disposable IMPLEMENTS I_Stack
 VAR
 	linkedList : LinkedList;
 	eventEmitter : EventEmitter;
@@ -74,12 +74,12 @@ END_VAR]]></Declaration>
     <Method Name="EmitChangedEvent" Id="{9d07ef5c-4c9e-463e-b22b-f07159dcf6ac}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
 VAR
-	pStackDisposedEvent : POINTER TO StackChangedEvent;
+	pStackChangedEvent : POINTER TO StackChangedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pStackDisposedEvent := __NEW(StackChangedEvent(TargetStack := THIS^));
-eventEmitter.Emit('OnStackChanged', pStackDisposedEvent^);
-pStackDisposedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pStackChangedEvent := __NEW(StackChangedEvent(TargetStack := THIS^));
+eventEmitter.Emit('OnChanged', pStackChangedEvent^);
+pStackChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="EmitDisposedEvent" Id="{01539f57-7401-48e9-8a15-acbae7d00ba9}" FolderPath="Private\">
@@ -89,7 +89,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[pStackDisposedEvent := __NEW(StackDisposedEvent(TargetStack := THIS^));
-eventEmitter.Emit('OnStackDisposed', pStackDisposedEvent^);
+eventEmitter.Emit('OnDisposed', pStackDisposedEvent^);
 pStackDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>

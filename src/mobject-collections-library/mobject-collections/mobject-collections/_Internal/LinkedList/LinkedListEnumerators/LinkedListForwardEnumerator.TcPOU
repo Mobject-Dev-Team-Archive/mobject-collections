@@ -31,8 +31,8 @@ IF parent = 0 THEN
 	RETURN;
 END_IF
 
-parent.OffEvent('OnLinkedListChanged',THIS^);
-parent.OffEvent('OnLinkedListDisposed',THIS^);]]></ST>
+parent.OffEvent('OnChanged',THIS^);
+parent.OffEvent('OnDisposed',THIS^);]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{9785a5f6-7e4a-4ea0-9517-538d8da73e6a}" FolderPath="Constructor\">
@@ -43,8 +43,8 @@ VAR_INPUT
 	Parent : I_LinkedList;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Parent.OnEvent('OnLinkedListChanged',THIS^);
-Parent.OnEvent('OnLinkedListDisposed',THIS^);
+        <ST><![CDATA[Parent.OnEvent('OnChanged',THIS^);
+Parent.OnEvent('OnDisposed',THIS^);
 this^.parent := Parent;]]></ST>
       </Implementation>
     </Method>
