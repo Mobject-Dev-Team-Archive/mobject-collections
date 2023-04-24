@@ -21,8 +21,7 @@ END_VAR
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF bInCopyCode THEN
 	RETURN;
@@ -32,8 +31,8 @@ IF parent = 0 THEN
 	RETURN;
 END_IF
 
-parent.OffEvent('OnLinkedListChanged',THIS^);
-parent.OffEvent('OnLinkedListDisposed',THIS^);]]></ST>
+parent.OffEvent('OnChanged',THIS^);
+parent.OffEvent('OnDisposed',THIS^);]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{9785a5f6-7e4a-4ea0-9517-538d8da73e6a}" FolderPath="Constructor\">
@@ -42,11 +41,10 @@ VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 	Parent : I_LinkedList;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Parent.OnEvent('OnLinkedListChanged',THIS^);
-Parent.OnEvent('OnLinkedListDisposed',THIS^);
+        <ST><![CDATA[Parent.OnEvent('OnChanged',THIS^);
+Parent.OnEvent('OnDisposed',THIS^);
 this^.parent := Parent;]]></ST>
       </Implementation>
     </Method>
@@ -71,19 +69,14 @@ END_IF]]></ST>
     <Property Name="IsValid" Id="{aff8eea1-92fe-4c1a-ab72-6d68ef134bd6}">
       <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
       <Get Name="Get" Id="{d7fac01e-4fea-4838-8ffe-61ec719ff66c}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
+        <Declaration><![CDATA[PUBLIC]]></Declaration>
         <Implementation>
           <ST><![CDATA[IsValid := (not invalid and parent <> 0);]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Method Name="MoveNext" Id="{6be4d0d4-bc06-473d-8ec1-a047989792d6}">
-      <Declaration><![CDATA[METHOD PUBLIC MoveNext : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC MoveNext : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF invalid THEN
 	RETURN;
@@ -108,10 +101,7 @@ END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{2017d8bc-6ce2-45f9-b0d2-516b5a2f274c}">
-      <Declaration><![CDATA[METHOD PUBLIC Reset
-VAR_INPUT
-END_VAR
-]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Reset]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF parent = 0 THEN
 	RETURN;
@@ -126,11 +116,10 @@ invalid := FALSE; ]]></ST>
       <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
 VAR_INPUT
 	Destination : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF currentNode <> 0 THEN
-	TryGet := currentNode.Get(Destination);
+	TryGet := currentNode.TryGet(Destination);
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -139,11 +128,10 @@ END_IF]]></ST>
 VAR_INPUT
 	Destination : PVOID;
 	DestinationSize : UDINT;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF currentNode <> 0 THEN
-	TryGetTo := currentNode.GetTo(Destination,DestinationSize);
+	TryGetTo := currentNode.TryGetTo(Destination,DestinationSize);
 END_IF]]></ST>
       </Implementation>
     </Method>

@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------ |
-| Namespace   | mobject-collections                                                                  |
-| Library     | mobject-collections                                                                  |
-| Inheritance | [I_Enumerable](https://mobject-dev-team.github.io/mobject-enumerable/#/i-enumerable) |
-| Implements  |                                                                                      |
+|             |                                                              |
+| ----------- | ------------------------------------------------------------ |
+| Namespace   | mobject-collections                                          |
+| Library     | mobject-collections                                          |
+| Inheritance | [I_Enumerable](http://enumerable.mobject.org/#/i-enumerable) |
+| Implements  |                                                              |
 
 ## Remarks
 

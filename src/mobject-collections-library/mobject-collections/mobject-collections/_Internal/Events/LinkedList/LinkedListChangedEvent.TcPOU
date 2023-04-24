@@ -4,37 +4,9 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK LinkedListChangedEvent EXTENDS Disposable IMPLEMENTS I_LinkedListChangedEvent
-VAR
-	_targetLinkedList : I_LinkedList;
-END_VAR
-]]></Declaration>
+FUNCTION_BLOCK LinkedListChangedEvent EXTENDS LinkedListEvent IMPLEMENTS I_LinkedListChangedEvent]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{96f7420d-ef8b-4a36-bac7-923e9ebf4e3c}" />
-    <Method Name="FB_init" Id="{a156c7fb-49bc-41cc-8bf0-976196f15949}" FolderPath="Constructor\">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
-VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	TargetLinkedList : I_LinkedList;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[This^._targetLinkedList := TargetLinkedList;]]></ST>
-      </Implementation>
-    </Method>
-    <Property Name="TargetLinkedList" Id="{af9c3577-5c7c-47cf-b981-2d76dda3372a}">
-      <Declaration><![CDATA[PROPERTY PUBLIC TargetLinkedList : I_LinkedList]]></Declaration>
-      <Get Name="Get" Id="{02433bd2-0877-4583-83d2-4366515e4d88}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[TargetLinkedList := _targetLinkedList;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
   </POU>
 </TcPlcObject>

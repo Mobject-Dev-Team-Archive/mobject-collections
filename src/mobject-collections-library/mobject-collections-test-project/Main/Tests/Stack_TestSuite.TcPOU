@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Stack_TestSuite" Id="{20dd6e3e-1cc3-43f4-aecb-d08b82736d74}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Stack_TestSuite EXTENDS TcUnit.FB_TestSuite
-VAR
-END_VAR
-]]></Declaration>
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Stack_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[// check datatypes are handled correctly
 CheckListWorksWithIntegers();
@@ -22,13 +19,16 @@ CheckTryPopRemovesTheItem();
 CheckTryPopReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
 CheckTryPeekDoesNotRemoveTheItem();
+CheckOnChangedEvent();
+CheckOnDisposedEvent();
+CheckOnceEvent();
+CheckOffEvent();
 CheckCopyTo();
 CheckCopyToLocation();
 CheckStackOrderIsCorrect();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();
-]]></ST>
+CheckEnumeratorIsInvalidAfterDispose();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{b1407b4b-116a-428f-9dec-c1ea8851de1a}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
@@ -405,6 +405,125 @@ AssertEquals(
 	Expected := expected,
 	Actual := out,
 	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOffEvent" Id="{7e76ba36-d58a-4258-a1a3-1e4adb55809d}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOffEvent
+VAR
+	value : INT := 123;
+	stack : Stack;
+	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOffEvent');
+
+// @TEST-FIXTURE
+stack.OnEvent('OnChanged',handler);
+stack.OffEvent('OnChanged',handler);
+
+// @TEST-RUN
+stack.Push(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnceEvent" Id="{81289ad1-c5f1-40c5-8d7e-a09c23f59ef5}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnceEvent
+VAR
+	value : INT := 123;
+	stack : Stack;
+	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnceEvent');
+
+// @TEST-FIXTURE
+stack.OnceEvent('OnChanged',handler);
+stack.Push(value);
+handler.Reset();
+
+// @TEST-RUN
+stack.Push(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnChangedEvent" Id="{1af5bf6d-61b4-43ba-831e-4df7a2d2d7c8}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnChangedEvent
+VAR
+	value : INT := 123;
+	stack : Stack;
+	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnChangedEvent');
+
+// @TEST-FIXTURE
+stack.OnEvent('OnChanged',handler);
+
+// @TEST-RUN
+stack.Push(value);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnChanged event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnChanged event'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnDisposedEvent" Id="{ea24f3ac-3f0f-4991-a1be-349effc958b4}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnDisposedEvent
+VAR
+	value : INT := 123;
+	pStack : POINTER TO Stack;
+	handler : OnStackDisposedHandler(ExpectedOriginator := 0);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnDisposedEvent');
+
+// @TEST-FIXTURE
+pStack := __NEW(Stack);
+handler.SetExpectedOriginator(pStack^);
+pStack^.OnEvent('OnDisposed',handler);
+
+// @TEST-RUN
+pStack^.Dispose();
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnDisposed event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnDisposed event'
 );
 
 TEST_FINISHED();]]></ST>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MockEventHandler" Id="{1f5b9b53-3872-4edc-a8c7-4143aceb98f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT MockEventHandler IMPLEMENTS I_EventHandler
+VAR
+	_eventReceived : BOOL;
+	fromExpected : BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="EventReceived" Id="{63567c50-4334-49ad-b7d0-444b2d50aa57}">
+      <Declaration><![CDATA[PROPERTY PUBLIC EventReceived : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2278bf52-901e-454b-8702-86a4ce3b3220}">
+        <Declaration><![CDATA[PUBLIC]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EventReceived := _eventReceived;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="FromExpectedOriginator" Id="{2e61ab88-541e-40bd-85f2-bca1a4a463c6}">
+      <Declaration><![CDATA[PROPERTY PUBLIC FromExpectedOriginator : BOOL]]></Declaration>
+      <Get Name="Get" Id="{feb811a2-267d-4bdf-aa1b-94c0227904ac}">
+        <Declaration><![CDATA[PUBLIC]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FromExpectedOriginator := fromExpected;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="HandleEvent" Id="{af9fef76-1c12-41b2-abaa-5e8b57712e00}">
+      <Declaration><![CDATA[METHOD PUBLIC ABSTRACT HandleEvent
+VAR_INPUT
+	Event : mobject_events.I_Event;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{7fe12c68-eab0-4bf3-a3c3-83a0103f11d2}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_eventReceived := FALSE;
+fromExpected := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
