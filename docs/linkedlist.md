@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                                                  |
-| ----------- | -------------------------------------------------------------------------------- |
-| Namespace   | mobject-collections                                                              |
-| Library     | mobject-collections                                                              |
-| Inheritance | [Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/disposable) |
-| Implements  | [I_LinkedList](i-linkedlist.md)                                                  |
+|             |                                                          |
+| ----------- | -------------------------------------------------------- |
+| Namespace   | mobject-collections                                      |
+| Library     | mobject-collections                                      |
+| Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
+| Implements  | [I_LinkedList](i-linkedlist.md)                          |
 
 ## Remarks
 
@@ -47,11 +47,11 @@ END_WHILE;
 // you must dispose enumerators as they are new objects.
 enumerator.Dispose();
 
-allowed := linkedList.First.Get(output); // allowed = true, output = 789
+allowed := linkedList.First.TryGet(output); // allowed = true, output = 789
 linkedList.RemoveFirst(); // (first->) 456, 123  (<-last)
-allowed := linkedList.First.Get(output); // allowed = true, output = 456
+allowed := linkedList.First.TryGet(output); // allowed = true, output = 456
 linkedList.RemoveFirst(); // (first->) 123  (<-last)
-allowed := linkedList.First.Get(output); // allowed = true, output = 123
+allowed := linkedList.First.TryGet(output); // allowed = true, output = 123
 linkedList.RemoveFirst(); // (first->) null (<-last)
 
 ```
@@ -389,7 +389,7 @@ foundNode := linkedList.FindLast(value1);
 
 ### GetEnumerator()
 
-Returns a forward enumerator for the linked list. More information on the enumerators can be found [here](https://mobject-dev-team.github.io/mobject-enumerable/#/i-forward-enumerator)
+Returns a forward enumerator for the linked list. More information on the enumerators can be found [here](http://enumerable.mobject.org/#/i-forward-enumerator)
 
 !> Enumerators are \_\_NEW objects, which means you must dispose of any enumerators you make once you are finished using them. Failure to do so will result in a memory leak.
 
@@ -399,9 +399,9 @@ N/A
 
 #### Return
 
-| Datatype                                                                                            | Description                                                     |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [I_ForwardEnumerator](https://mobject-dev-team.github.io/mobject-enumerable/#/i-forward-enumerator) | The method will return a forward enumerator for the linked list |
+| Datatype                                                                    | Description                                                     |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [I_ForwardEnumerator](http://enumerable.mobject.org/#/i-forward-enumerator) | The method will return a forward enumerator for the linked list |
 
 #### Usage
 
@@ -437,10 +437,10 @@ Registers an event handler for the given event name. See [events](#events) for t
 
 #### Parameters
 
-| Parameters   | Datatype                                                                              | Description                    |
-| ------------ | ------------------------------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                                           | The name of the event.         |
-| EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
+| Parameters   | Datatype                                                      | Description                    |
+| ------------ | ------------------------------------------------------------- | ------------------------------ |
+| EventName    | T_MAXSTRING                                                   | The name of the event.         |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to register. |
 
 #### Return
 
@@ -449,7 +449,7 @@ N/A
 #### Usage
 
 ```example
-linkedList.OnEvent('OnLinkedListChanged', eventHandler);
+linkedList.OnEvent('OnChanged', eventHandler);
 ```
 
 ### OnceEvent(EventName, EventHandler)
@@ -458,10 +458,10 @@ Registers an event handler for the given event name which is triggered only once
 
 #### Parameters
 
-| Parameters   | Datatype                                                                              | Description                    |
-| ------------ | ------------------------------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                                           | The name of the event.         |
-| EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to register. |
+| Parameters   | Datatype                                                      | Description                    |
+| ------------ | ------------------------------------------------------------- | ------------------------------ |
+| EventName    | T_MAXSTRING                                                   | The name of the event.         |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to register. |
 
 #### Return
 
@@ -470,7 +470,7 @@ N/A
 #### Usage
 
 ```example
-linkedList.OnceEvent('OnLinkedListChanged', eventHandler);
+linkedList.OnceEvent('OnChanged', eventHandler);
 ```
 
 ### OffEvent(EventName, EventHandler)
@@ -479,10 +479,10 @@ Unregisters an event handler for the given event name. See [events](#events) for
 
 #### Parameters
 
-| Parameters   | Datatype                                                                              | Description                      |
-| ------------ | ------------------------------------------------------------------------------------- | -------------------------------- |
-| EventName    | T_MAXSTRING                                                                           | The name of the event.           |
-| EventHandler | [I_EventHandler](https://mobject-dev-team.github.io/mobject-events/#/i-event-handler) | The event handler to unregister. |
+| Parameters   | Datatype                                                      | Description                      |
+| ------------ | ------------------------------------------------------------- | -------------------------------- |
+| EventName    | T_MAXSTRING                                                   | The name of the event.           |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to unregister. |
 
 #### Return
 
@@ -491,7 +491,7 @@ N/A
 #### Usage
 
 ```example
-linkedList.OffEvent('OnLinkedListChanged', eventHandler);
+linkedList.OffEvent('OnChanged', eventHandler);
 ```
 
 ### Remove(Value)
@@ -695,7 +695,7 @@ linkedList.Last.TryGet(output) // output = 789
 
 ## Events
 
-### OnLinkedListChanged
+### OnChanged
 
 Triggered when there is any change to the content of the linked list.
 
@@ -705,7 +705,7 @@ Triggered when there is any change to the content of the linked list.
 | ------------------------------------------------------- | ------------------------------------------------------------- |
 | [I_LinkedListChangedEvent](i-linkedlistchangedevent.md) | The event handler will be passed the I_LinkedListChangedEvent |
 
-### OnLinkedListDisposed
+### OnDisposed
 
 Triggered when the linked list is disposed.
 

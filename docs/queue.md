@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                                                  |
-| ----------- | -------------------------------------------------------------------------------- |
-| Namespace   | mobject-collections                                                              |
-| Library     | mobject-collections                                                              |
-| Inheritance | [Disposable](https://mobject-dev-team.github.io/mobject-disposable/#/disposable) |
-| Implements  | [I_Queue](i-queue.md)                                                            |
+|             |                                                          |
+| ----------- | -------------------------------------------------------- |
+| Namespace   | mobject-collections                                      |
+| Library     | mobject-collections                                      |
+| Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
+| Implements  | [I_Queue](i-queue.md)                                    |
 
 ## Remarks
 

@@ -21,9 +21,7 @@ VAR
 	enumerator : I_ForwardEnumerator;
 	output : INT;
 	allowed : BOOL;
-END_VAR
-
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();
 
@@ -47,11 +45,11 @@ END_WHILE;
 // you must dispose enumerators as they are new objects.
 enumerator.Dispose();
 
-allowed := linkedList.First.Get(output); // allowed = true, output = 789
+allowed := linkedList.First.TryGet(output); // allowed = true, output = 789
 linkedList.RemoveFirst(); // (first->) 456, 123  (<-last)
-allowed := linkedList.First.Get(output); // allowed = true, output = 456
+allowed := linkedList.First.TryGet(output); // allowed = true, output = 456
 linkedList.RemoveFirst(); // (first->) 123  (<-last)
-allowed := linkedList.First.Get(output); // allowed = true, output = 123
+allowed := linkedList.First.TryGet(output); // allowed = true, output = 123
 linkedList.RemoveFirst(); // (first->) null (<-last)
 
 // Queue Examples

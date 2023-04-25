@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.5.0</ProjectVersion>
+    <ProjectVersion>0.6.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -74,6 +74,8 @@
     <Folder Include="Stack" />
     <Folder Include="_Internal\Events" />
     <Folder Include="_Internal\Events\LinkedList" />
+    <Folder Include="_Internal\Events\Queue" />
+    <Folder Include="_Internal\Events\Stack" />
     <Folder Include="_Internal\LinkedList" />
     <Folder Include="_Internal\LinkedList\LinkedListEnumerators" />
     <Folder Include="_Internal\LinkedList\LinkedListNode" />
@@ -110,6 +112,18 @@
     <Compile Include="Interfaces\Events\I_LinkedListDisposedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Interfaces\Events\I_QueueChangedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Events\I_QueueDisposedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Events\I_StackChangedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Events\I_StackDisposedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LinkedList\LinkedList.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -126,6 +140,27 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\Events\LinkedList\LinkedListDisposedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\LinkedList\LinkedListEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\Queue\QueueChangedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\Queue\QueueDisposedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\Queue\QueueEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\Stack\StackChangedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\Stack\StackDisposedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\Stack\StackEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\LinkedList\LinkedListEnumerators\LinkedListForwardEnumerator.TcPOU">

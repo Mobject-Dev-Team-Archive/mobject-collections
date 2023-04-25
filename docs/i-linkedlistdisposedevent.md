@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                                  |
-| ----------- | ---------------------------------------------------------------- |
-| Namespace   | mobject-collections                                              |
-| Library     | mobject-collections                                              |
-| Inheritance | [I_Event](https://benhar-dev.github.io/mobject-events/#/i-event) |
-| Implements  |                                                                  |
+|             |                                                |
+| ----------- | ---------------------------------------------- |
+| Namespace   | mobject-collections                            |
+| Library     | mobject-collections                            |
+| Inheritance | [I_Event](http://events.mobject.org/#/i-event) |
+| Implements  |                                                |
 
 ## Remarks
 
