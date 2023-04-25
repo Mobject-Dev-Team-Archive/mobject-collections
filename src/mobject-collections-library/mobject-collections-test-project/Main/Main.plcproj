@@ -31,6 +31,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\List_TestSuite.TcPOU">
+	  <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Mocks\LinkedList\OnLinkedListChangedHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
