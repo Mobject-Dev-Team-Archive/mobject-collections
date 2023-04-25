@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_ListNode" Id="{052a77a7-47a6-4fd1-a8c8-be2a68400d3d}">
+    <Declaration><![CDATA[INTERFACE I_ListNode EXTENDS I_Disposable;
+]]></Declaration>
+    <Property Name="DataSize" Id="{9fd23aee-127e-4f28-b38a-cce43aa00bc2}">
+      <Declaration><![CDATA[PROPERTY PUBLIC DataSize : UDINT]]></Declaration>
+      <Get Name="Get" Id="{25db80de-1b7c-467b-9ed4-95e286eecb95}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Equals" Id="{d2c93b79-c45e-41e7-983a-bd8f64995af9}">
+      <Declaration><![CDATA[METHOD PUBLIC Equals : BOOL
+VAR_INPUT
+	symbol : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Get" Id="{ea06149f-0219-4708-9e37-637f9ee43b18}">
+      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL
+VAR_INPUT
+	destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetTo" Id="{9dbfbe6a-724e-4012-8395-5c2f3cdd9421}">
+      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL
+VAR_INPUT
+	//Destination pointer
+	pDestination : PVOID;
+	//Destinatino size
+	size : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

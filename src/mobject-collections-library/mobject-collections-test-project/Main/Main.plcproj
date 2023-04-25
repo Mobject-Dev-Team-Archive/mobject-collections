@@ -27,6 +27,12 @@
     <Compile Include="Tests\LinkedList_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\ListEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\List_TestSuite.TcPOU">
+	  <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Mocks\LinkedList\OnLinkedListChangedHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -109,9 +115,17 @@
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
       <Namespace>TcUnit</Namespace>
       <Parameters>
-        <Parameter ListName="GVL_PARAM_TCUNIT" xmlns="">
+        <Parameter ListName="GVL_PARAM_TCUNIT">
           <Key>LOGEXTENDEDRESULTS</Key>
           <Value>FALSE</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFTESTSUITES</Key>
+          <Value>100</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFASSERTSFOREACHTESTSUITE</Key>
+          <Value>100</Value>
         </Parameter>
       </Parameters>
     </PlaceholderReference>
