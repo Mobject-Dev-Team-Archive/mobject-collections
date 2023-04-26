@@ -99,8 +99,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[buffer.Clear();
-itemCount := 0;]]></ST>
+        <ST><![CDATA[RemoveAllNodes();
+buffer.Clear();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Contains" Id="{8d070616-89e9-48db-8902-c17e7098b90d}">
@@ -110,7 +110,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF itemCount < 1 THEN
+        <ST><![CDATA[IF IsEmpty() THEN
 	RETURN;
 END_IF
 
@@ -141,7 +141,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Count = 0 THEN
+        <ST><![CDATA[IF IsEmpty() THEN
     RETURN;
 END_IF
 
@@ -204,8 +204,8 @@ END_VAR
     RETURN;
 END_IF
 
-buffer.DeleteBuffer();
-pArrayOfListNodes := 0;]]></ST>
+Clear();
+buffer.DeleteBuffer();]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{8ec4533e-a5dc-4e2a-96e9-2d084d50f0e0}" FolderPath="Constructor\">
@@ -249,7 +249,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[GetIndexOf := -1;
 
-IF itemCount < 1 THEN
+IF IsEmpty() THEN
 	RETURN;
 END_IF
 
@@ -273,7 +273,7 @@ VAR
 	node : I_ListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Index > Count -1 THEN
+        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
 	RETURN;
 END_IF
 
@@ -291,20 +291,57 @@ END_VAR
         <ST><![CDATA[IsEmpty := itemCount = 0;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="IsNotValidIndex" Id="{6b2f0604-0d45-4dec-b1e4-88140675f855}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsNotValidIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsNotValidIndex := not IsValidIndex(Index);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsValidIndex" Id="{509f1c3a-d218-4854-ab0e-56d9f99586ec}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsValidIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < 0 THEN
+	RETURN;
+END_IF
+
+IF Index >= itemCount THEN
+	RETURN;
+END_IF
+
+IsValidIndex := TRUE;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Item" Id="{5f4268ee-abf7-400e-939d-8a03550a5e63}">
       <Declaration><![CDATA[METHOD PUBLIC Item : I_ListNode
 VAR_INPUT
 	Index : DINT;
 END_VAR
-VAR
-	pCurrent : I_ListNode;
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
+	RETURN;
+END_IF
+
+Item := pArrayOfListNodes[Index];]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveAllNodes" Id="{1924a692-4a0d-400c-b4f6-02313ee91984}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RemoveAllNodes
+VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Index < itemCount AND Index >= 0 THEN
-	pCurrent := pArrayOfListNodes[Index];
-	Item := pCurrent;
-END_IF]]></ST>
+        <ST><![CDATA[WHILE itemCount > 0 DO	
+	RemoveAt(itemCount-1);
+END_WHILE]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveAt" Id="{5fddda2d-2bc3-08a7-1fc5-3303b29b003f}">
@@ -313,12 +350,11 @@ VAR_INPUT
 	Index : DINT;
 END_VAR
 VAR
-	i : UDINT;
+	i : DINT;
 	node : I_ListNode;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Index < 0 OR Index >= itemCount THEN
+        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
 	RETURN;
 END_IF
 
@@ -364,6 +400,45 @@ END_VAR]]></Declaration>
         <ST><![CDATA[arrayCapacity := arrayCapacity * 2;
 buffer.Resize(nSize := arrayCapacity * SIZEOF(node), bPreserve := TRUE, bReset := FALSE);
 pArrayOfListNodes := buffer.pBuffer;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetByIndex" Id="{58aae7f1-11d1-4b34-9d25-48c86c9e3f03}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetByIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+	Destination : ANY;
+END_VAR
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[node := Item(Index);
+
+IF node = 0 THEN
+	RETURN;
+END_IF
+
+TryGetByIndex := node.TryGet(Destination);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetToByIndex" Id="{300cb5be-24cb-4729-a1a8-f89043705dd7}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetToByIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[node := Item(Index);
+
+IF node = 0 THEN
+	RETURN;
+END_IF
+
+TryGetToByIndex := node.TryGetTo(Destination, DestinationSize);]]></ST>
       </Implementation>
     </Method>
   </POU>

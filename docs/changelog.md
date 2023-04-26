@@ -1,8 +1,12 @@
 # Changelog
 
-# 0.6.1
+# 0.7.0
 
 - Added List and ListForwardEnumerator Classes.
+
+!> This update contains the following breaking changes.
+
+- I_Collection.Count is now DINT.
 
 # 0.6.0
 

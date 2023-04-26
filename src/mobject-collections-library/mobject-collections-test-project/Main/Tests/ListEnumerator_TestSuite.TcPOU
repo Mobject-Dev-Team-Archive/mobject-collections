@@ -19,21 +19,18 @@ CheckWorksWithStrings();]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE CheckIsValidAtStart
 VAR
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckIsValidAtStart');
+        <ST><![CDATA[TEST('CheckIsValidAtStart');
 
-// @TEST-FIXTURE
 enumerator := store.GetEnumerator();
 
-// @TEST-RUN
 result := enumerator.IsValid;
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(
 	Condition := result,
 	Message := 'IsValid returned false'
@@ -46,23 +43,20 @@ TEST_FINISHED();]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsFalseWhenEmpty
 VAR
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
-	count : ULINT;
+	count : DINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckMoveNextReturnsFalseWhenEmpty');
+        <ST><![CDATA[TEST('CheckMoveNextReturnsFalseWhenEmpty');
 
-// @TEST-FIXTURE
 count := store.Count;
 enumerator := store.GetEnumerator();
 
-// @TEST-RUN
 result := enumerator.MoveNext();
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertFalse(Condition := result,
     Message := 'MoveNext returned true');
 
@@ -76,24 +70,21 @@ VAR
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckMoveNextReturnsTrue_MultipeItems');
+        <ST><![CDATA[TEST('CheckMoveNextReturnsTrueMultipleItems');
 
-// @TEST-FIXTURE
 store.AddItem(in1);
 store.AddItem(in2);
 store.AddItem(in3);
 enumerator := store.GetEnumerator();
 
-// @TEST-RUN
 result := enumerator.MoveNext();
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(result, 'MoveNext returned false');
 
 TEST_FINISHED();]]></ST>
@@ -104,22 +95,19 @@ TEST_FINISHED();]]></ST>
 VAR
 	in1 : INT := 123;
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckMoveNextReturnsTrue_SignleItem');
+        <ST><![CDATA[TEST('CheckMoveNextReturnsTrueSingleItem');
 
-// @TEST-FIXTURE
 store.AddItem(in1);
 enumerator := store.GetEnumerator();
 
-// @TEST-RUN
 result := enumerator.MoveNext();
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(result,
     'MoveNext returned False');
 	
@@ -133,23 +121,20 @@ VAR
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckTryGet');
+        <ST><![CDATA[TEST('CheckTryGet');
 
-// @TEST-FIXTURE
 store.AddItem(in);
 enumerator := store.GetEnumerator();
 enumerator.MoveNext();
 
-// @TEST-RUN
 result := enumerator.TryGet(out);
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(
 	Condition := result,
 	Message := 'Method returned false'
@@ -171,23 +156,20 @@ VAR
 	out : ARRAY [0..1] OF REAL;
 	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckWorksWithArrays');
+        <ST><![CDATA[TEST('CheckWorksWithArrays');
 
-// @TEST-FIXTURE
 store.AddItem(in);
 enumerator := store.GetEnumerator();
 enumerator.MoveNext();
 
-// @TEST-RUN
 result := enumerator.TryGet(out);
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(
 	Condition := result,
 	Message := 'TryGet returned false'
@@ -209,23 +191,20 @@ VAR
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckWorksWithIntegers');
+        <ST><![CDATA[TEST('CheckWorksWithIntegers');
 
-// @TEST-FIXTURE
 store.AddItem(in);
 enumerator := store.GetEnumerator();
 enumerator.MoveNext();
 
-// @TEST-RUN
 result := enumerator.TryGet(out);
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(
 	Condition := result,
 	Message := 'TryGet returned false'
@@ -247,23 +226,20 @@ VAR
 	out : STRING;
 	expected : STRING := 'test';
 	result : BOOL;
-	store : List(4);
+	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListEnumerator_CheckWorksWithStrings');
+        <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-// @TEST-FIXTURE
 store.AddItem(in);
 enumerator := store.GetEnumerator();
 enumerator.MoveNext();
 
-// @TEST-RUN
 result := enumerator.TryGet(out);
 enumerator.Dispose();
 
-// @TEST-ASSSERT
 AssertTrue(
 	Condition := result,
 	Message := 'TryGet returned false'

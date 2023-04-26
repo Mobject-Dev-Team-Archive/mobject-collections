@@ -31,5 +31,22 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="TryGetByIndex" Id="{f0a57b22-5531-4b13-ba42-543ac5c4497a}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetByIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+	Destination : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="TryGetToByIndex" Id="{198d8c68-ff3a-4722-b9cd-1b87ac9068e2}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetToByIndex : BOOL
+VAR_INPUT
+	Index : DINT;
+	Destination : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

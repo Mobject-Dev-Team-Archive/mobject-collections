@@ -6,10 +6,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CheckAddAt();
-CheckAddFirst();
+      <ST><![CDATA[CheckInsert();
 CheckAddItem();
-CheckAddLast();
 CheckClear();
 CheckContains();
 CheckCopyTo();
@@ -27,63 +25,9 @@ CheckRemoveFirstShiftUp();
 CheckRemoveNonExisting();
 CheckRemoveSecondShiftUp();
 CheckReturnsEnumerator();
-CheckTryGetIndexOfExistingItem();
-CheckTryGetIndexOfNonExistingItem();]]></ST>
+CheckGetIndexOfExistingItem();
+CheckGetIndexOfNonExistingItem();]]></ST>
     </Implementation>
-    <Method Name="CheckAddAt" Id="{4199ef1e-4f5e-43c7-ba81-fe66d0a50263}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckAddAt
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : INT;
-	result : BOOL;
-	expected : INT := 789;
-	list : List(4);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckAddAt');
-
-list.AddFirst(in1);
-list.AddFirst(in2);
-
-list.AddAt(1, in3);
-list.GetByIndex(1, out);
-
-AssertEquals(expected, out, 'Did not produce the expected result');
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckAddFirst" Id="{dc616732-ccec-4a50-a24e-6046ca902467}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckAddFirst
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : INT;
-	result : BOOL;
-	expected : INT := 789;
-	list : List(4);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckAddFirst');
-
-list.AddLast(in1);
-list.AddLast(in2);
-
-list.AddFirst(in3);
-result := list.GetByIndex(0, out);
-
-AssertTrue(result, 'GetByIndex returned false');
-
-AssertEquals(expected, out, 'Did not produce the expected result');
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="CheckAddItem" Id="{53909bfa-2a23-432c-b757-416cc9a28880}">
       <Declaration><![CDATA[METHOD PRIVATE CheckAddItem
 VAR
@@ -92,50 +36,24 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	expected : INT := 789;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckAddItem');
+        <ST><![CDATA[TEST('CheckAddItem');
 
-list.AddItem(in1);
-list.AddItem(in2);
-list.AddItem(in3);
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
-list.GetByIndex(2, out);
+list.TryGetByIndex(2,out);
+
+list.Item(2).TryGet(out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
 
 TEST_FINISHED();
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckAddLast" Id="{d8ce7920-f4a3-4ee7-bfb0-5ec4529b25fe}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckAddLast
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : INT;
-	result : BOOL;
-	expected : INT := 789;
-	list : List(4);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckAddLast');
-
-list.AddFirst(in1);
-list.AddFirst(in2);
-
-list.AddLast(in3);
-result := list.GetByIndex(2, out);
-
-AssertTrue(result, 'GetByIndex returned false');
-
-AssertEquals(expected, out, 'Did not produce the expected result');
-
-TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckClear" Id="{7bdd9076-8eb2-4cff-91b2-e91622dce2a8}">
@@ -146,19 +64,19 @@ VAR
 	in3 : INT := 789;
 	expected : INT := 789;
 	out : INT;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckClear');
+        <ST><![CDATA[TEST('CheckClear');
 
-list.AddItem(in1);
-list.AddItem(in2);
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
 
-list.Clear();
-list.AddItem(in3);
+list.Clear(); // []
+list.AddItem(in3); // [789]
 
-list.GetByIndex(0, out);
+list.TryGetByIndex(0,out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
 
@@ -172,15 +90,15 @@ VAR
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckContains');
 
-list.AddItem(in1);
-list.AddItem(in2);
-list.AddItem(in3);
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
 result := list.Contains(in2);
 
@@ -196,22 +114,19 @@ VAR
 	in2 : INT := 456;
 	in3 : INT := 789;
 	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [789,456,123];
-	list : List(4);
+	expected : ARRAY [0..2] OF INT := [123,456,789];
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckCopyTo');
+        <ST><![CDATA[TEST('CheckCopyTo');
 
-// @TEST-FIXTURE
-list.AddFirst(in1); // (first->) 123 (<-last)
-list.AddFirst(in2); // (first->) 456, 123 (<-last)
-list.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
-// @TEST-RUN
 list.CopyTo(out);
 
-// @TEST-ASSSERT
 AssertEquals(
 	Expected := expected,
 	Actual := out,
@@ -228,22 +143,19 @@ VAR
 	in2 : INT := 456;
 	in3 : INT := 789;
 	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [789,456,123];
-	list : List(4);
+	expected : ARRAY [0..2] OF INT := [123,456,789];
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckCopyToLocation');
+        <ST><![CDATA[TEST('CheckCopyToLocation');
 
-// @TEST-FIXTURE
-list.AddFirst(in1); // (first->) 123 (<-last)
-list.AddFirst(in2); // (first->) 456, 123 (<-last)
-list.AddFirst(in3); // (first->) 789, 456, 123 (<-last)
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
-// @TEST-RUN
 list.CopyToLocation(ADR(out),SIZEOF(out));
 
-// @TEST-ASSSERT
 AssertEquals(
 	Expected := expected,
 	Actual := out,
@@ -259,17 +171,17 @@ VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	expected : ULINT := 3;
-	out : ULINT;
-	list : List(4);
+	expected : DINT := 3;
+	out : DINT;
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckCount');
 
-list.AddItem(in1);
-list.AddItem(in2);
-list.AddItem(in3);
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
 out := list.Count;
 
@@ -286,21 +198,22 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	expected : INT := 456;
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckGetByIndexInBounds_ReturnsTrue');
+        <ST><![CDATA[TEST('CheckGetByIndexInBounds');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
-result := list.GetByIndex(1, out);
+result := list.TryGetByIndex(1, out);
 
-AssertTRUE(result, 'GetByIndex returned FALSE while the index is populated');
+AssertTRUE(result, 'Returned FALSE while the index is populated');
 
-AssertEquals(in2, out, 'GetByIndex retrieved different value than expected');
+AssertEquals(expected, out, 'Retrieved different value than expected');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -310,15 +223,15 @@ TEST_FINISHED();]]></ST>
 VAR
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckGetByIndexNoItems_ReturnsFalse');
+        <ST><![CDATA[TEST('CheckGetByIndexNoItems');
 
-result := list.GetByIndex(0, out);
+result := list.TryGetByIndex(0, out);
 
-AssertFalse(result, 'GetByIndex returned TRUE while no items exist');
+AssertFalse(result, 'Returned TRUE while no items exist');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -331,19 +244,68 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckGetByIndexOutOfBounds_ReturnsFalse');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
-result := list.GetByIndex(3, out);
+result := list.TryGetByIndex(3, out);
 
-AssertFalse(result, 'GetByIndex returned TRUE while the index is not populated');
+AssertFalse(result, 'Returned TRUE while the index is not populated');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckGetIndexOfExistingItem" Id="{bd87f2e8-54dc-42d5-8914-6d113f39282d}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckGetIndexOfExistingItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	expected : DINT := 1;
+	result : DINT;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckGetIndexOfExistingItem');
+
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
+
+result := list.GetIndexOf(in2);
+
+AssertEquals(result, expected, 'The index is not the expected index');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckGetIndexOfNonExistingItem" Id="{43467fde-fa83-4538-a1b8-7f87bcaf7d56}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckGetIndexOfNonExistingItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	expected : DINT := -1;
+	result : DINT;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckGetIndexOfNonExistingItem');
+
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+
+result := list.GetIndexOf(in3);
+
+AssertEquals(result, expected, 'The index is not -1 which indicates missing');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -351,7 +313,7 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckImplementsICollection" Id="{a6d761ea-1ba3-4a5f-b0c7-b9c1be384a89}">
       <Declaration><![CDATA[METHOD PRIVATE CheckImplementsICollection
 VAR
-	list : List(4);
+	list : List;
     collection : I_Collection := list;
     result : BOOL;
 END_VAR]]></Declaration>
@@ -368,7 +330,7 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckImplementsIList" Id="{ab3222f8-29e7-4132-b4e8-8f60d299cce9}">
       <Declaration><![CDATA[METHOD PRIVATE CheckImplementsIList
 VAR
-	list : List(4);
+	list : List;
     iList : I_List := list;
     result : BOOL;
 END_VAR
@@ -376,14 +338,36 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckImplementsIList');
 
-// @TEST-FIXTURE
-
-// @TEST-RUN
 result := iList <> 0;
 
-// @TEST-ASSSERT
 AssertTrue(Condition := result,
     Message := 'Did not implement IList');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckInsert" Id="{4199ef1e-4f5e-43c7-ba81-fe66d0a50263}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckInsert
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : INT;
+	result : BOOL;
+	expected : INT := 789;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckInsert');
+
+list.AddItem(in1); // [123]
+list.AddItem(in1); // [123,456]
+list.Insert(1, in3); // [123,789,456]
+
+list.Item(1).TryGet(out);
+
+AssertEquals(expected, out, 'Did not produce the expected result');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -396,22 +380,21 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckRemoveAtInBounds_ShouldRemoveAndShiftUp');
+        <ST><![CDATA[TEST('CheckRemoveAtInBounds');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
 list.RemoveAt(0);
 
-result := list.GetByIndex(0, out);
+result := list.TryGetByIndex(0, out);
 
 AssertTrue(result, 'Couldnt get first item');
-
 AssertEquals(in2, out, 'Array didnt shift up items');
 
 TEST_FINISHED();]]></ST>
@@ -422,15 +405,15 @@ TEST_FINISHED();]]></ST>
 VAR
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckRemoveAtNoItems_ReturnsFalse');
+        <ST><![CDATA[TEST('CheckRemoveAtNoItems');
 
 result := list.RemoveAt(0);
 
-AssertFalse(result, 'RemoveAt returned true while there was nothing to remove');
+AssertFalse(result, 'Returned true while there was nothing to remove');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -443,19 +426,19 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckRemoveAtOutOfBounds_ReturnsFalse');
+        <ST><![CDATA[TEST('CheckRemoveAtOutOfBounds');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
 result := list.RemoveAt(3);
 
-AssertFalse(result, 'RemoveAt returned true while remove was out of bounds');
+AssertFalse(result, 'Returned true while remove was out of bounds');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -468,23 +451,23 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	expected : INT := 456;
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckRemoveFirst_ShiftUp');
+        <ST><![CDATA[TEST('CheckRemoveFirstShiftUp');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
+list.RemoveItem(in1); // [456,789]
 
-list.RemoveItem(in1);
+result := list.TryGetByIndex(0, out);
 
-result := list.GetByIndex(0, out);
+AssertTrue(result, 'Couldnt get first item');
 
-AssertTrue(result, 'Coulndt get first item');
-
-AssertEquals(in2, out, 'Array didnt shift up items');
+AssertEquals(expected, out, 'Array didnt shift up items');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -497,18 +480,18 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckRemoveNonExisting_ReturnsFalse');
+        <ST><![CDATA[TEST('CheckRemoveNonExisting');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
 
 result := list.RemoveItem(in3);
 
-AssertFalse(result, 'GetByIndex returned something');
+AssertFalse(result, 'RemoveItem returned true which should not happen when item does not exist');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -521,23 +504,22 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	list : List(4);
+	expected : INT := 789;
+	list : List;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckRemoveSecond_ShiftUp');
+        <ST><![CDATA[TEST('CheckRemoveSecondShiftUp');
 
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
+list.RemoveItem(in2); // [123,789]
 
-list.RemoveItem(in2);
-
-result := list.GetByIndex(1, out);
+result := list.TryGetByIndex(1, out);
 
 AssertTrue(result, 'Coulndt get first item');
-
-AssertEquals(in3, out, 'Array didnt shift up items');
+AssertEquals(expected, out, 'Array didnt shift up items');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -548,19 +530,19 @@ VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	list : List(4);
+	list : List;
 	enumerator : I_ForwardEnumerator;
 	enumerable : I_Enumerable := list;
 	result : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckLinkedListReturnsEnumerator');
+        <ST><![CDATA[TEST('CheckReturnsEnumerator');
 
 // @TEST-FIXTURE
-list.AddItem(in1); // (first->) 123 (<-last)
-list.AddItem(in2); // (first->) 456, 123 (<-last)
-list.AddItem(in3); // (first->) 789, 456, 123 (<-last)
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
 
 // @TEST-RUN
 result := enumerable <> 0;
@@ -577,58 +559,6 @@ AssertTrue(
 
 // @TEST-DISPOSE
 enumerator.Dispose();
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckTryGetIndexOfExistingItem" Id="{bd87f2e8-54dc-42d5-8914-6d113f39282d}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckTryGetIndexOfExistingItem
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : UDINT;
-	expected : UDINT := 1;
-	result : BOOL;
-	list : List(4);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckTryGetIndexOfExistingItem_ReturnsIndex');
-
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-list.AddItem(in3); //Index 2
-
-result := list.TryGetIndexOf(in2, index => out);
-
-AssertTrue(result, 'TryGetIndexOf returned false on a existing item');
-
-AssertEquals(out, expected, 'The index is not the expected index');
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckTryGetIndexOfNonExistingItem" Id="{43467fde-fa83-4538-a1b8-7f87bcaf7d56}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckTryGetIndexOfNonExistingItem
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : UDINT;
-	result : BOOL;
-	list : List(4);
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckTryGetIndexOfNonExistingItem_ReturnsIndex');
-
-list.AddItem(in1); //Index 0
-list.AddItem(in2); //Index 1
-
-result := list.TryGetIndexOf(in3, index => out);
-
-AssertFalse(result, 'TryGetIndexOf returned true on a non-existing item');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
