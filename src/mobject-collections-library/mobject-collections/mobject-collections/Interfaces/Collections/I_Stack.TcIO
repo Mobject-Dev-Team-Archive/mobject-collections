@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_Stack" Id="{fd9320ba-215c-4957-8bd5-a9dd4bf22a63}">
-    <Declaration><![CDATA[INTERFACE I_Stack EXTENDS I_Collection, I_EventEmitter]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_Stack EXTENDS I_Collection]]></Declaration>
     <Method Name="Push" Id="{0a88042f-4b1a-40fd-b4ed-d93247b6c947}">
       <Declaration><![CDATA[METHOD PUBLIC Push
 VAR_INPUT

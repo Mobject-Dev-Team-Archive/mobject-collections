@@ -3,10 +3,12 @@
 # 0.7.0
 
 - Added List and ListForwardEnumerator Classes.
+- Changed I_Collection to extend from I_EventEmitter.
 
 !> This update contains the following breaking changes.
 
 - I_Collection.Count is now DINT.
+- Individual OnChanged and OnDisposed event classes have been removed and replaced by generic collection events.
 
 # 0.6.0
 

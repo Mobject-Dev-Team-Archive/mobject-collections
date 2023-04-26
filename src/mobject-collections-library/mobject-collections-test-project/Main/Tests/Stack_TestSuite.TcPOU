@@ -415,7 +415,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	stack : Stack;
-	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := stack);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -442,7 +442,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	stack : Stack;
-	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := stack);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -470,7 +470,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	stack : Stack;
-	handler : OnStackChangedHandler(ExpectedOriginator := stack);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := stack);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -501,7 +501,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	pStack : POINTER TO Stack;
-	handler : OnStackDisposedHandler(ExpectedOriginator := 0);
+	handler : CollectionDisposedEventHandler(ExpectedOriginator := 0);
 END_VAR
 ]]></Declaration>
       <Implementation>

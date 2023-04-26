@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="OnLinkedListEventHandler" Id="{09cffca3-cc9b-4a2d-9acd-ef1bb30e4905}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT OnLinkedListEventHandler EXTENDS MockEventHandler
+  <POU Name="CollectionEventHandler" Id="{09cffca3-cc9b-4a2d-9acd-ef1bb30e4905}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT CollectionEventHandler EXTENDS MockEventHandler
 VAR
-	expectedOriginator : I_LinkedList;
+	expectedOriginator : I_Collection;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -14,7 +14,7 @@ END_VAR]]></Declaration>
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	ExpectedOriginator : I_LinkedList;
+	ExpectedOriginator : I_Collection;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[SetExpectedOriginator(ExpectedOriginator);]]></ST>
@@ -23,7 +23,7 @@ END_VAR]]></Declaration>
     <Method Name="SetExpectedOriginator" Id="{200d6293-c4af-481a-9ffc-6b22f4d17f58}">
       <Declaration><![CDATA[METHOD PUBLIC SetExpectedOriginator
 VAR_INPUT
-	ExpectedOriginator : I_LinkedList;
+	ExpectedOriginator : I_Collection;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^.expectedOriginator := ExpectedOriginator;]]></ST>

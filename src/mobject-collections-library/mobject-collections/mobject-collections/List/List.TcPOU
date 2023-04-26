@@ -10,8 +10,9 @@ VAR
 	memoryManager : FB_DynMem_Manager2;
 	buffer : FB_DynMem_Buffer(ipMemMan := memoryManager);
 	pArrayOfListNodes : POINTER TO I_ListNode;
-	arrayCapacity : DINT; //Current capacity of the array
-	itemCount : DINT; //Current items in array
+	arrayCapacity : DINT;
+	itemCount : DINT;
+	eventEmitter : EventEmitter;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -29,7 +30,8 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[node := CreateNewNode(Item);
-AddNodeLast(node);]]></ST>
+AddNodeLast(node);
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddNodeAt" Id="{434fcbfc-1b21-406c-bc70-53644c6aca95}" FolderPath="Private\">
@@ -98,7 +100,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[RemoveAllNodes();]]></ST>
+        <ST><![CDATA[IF IsEmpty() THEN
+	RETURN;
+END_IF
+
+RemoveAllNodes();
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Contains" Id="{8d070616-89e9-48db-8902-c17e7098b90d}">
@@ -189,6 +196,28 @@ pNode^.Initialize(Value);
 CreateNewNode := pNode^;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="EmitChangedEvent" Id="{ca89fe9e-ace0-4c15-b1dc-fef757879f08}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
+VAR
+	pCollectionChangedEvent : POINTER TO CollectionChangedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pCollectionChangedEvent := __NEW(CollectionChangedEvent(Target := THIS^));
+eventEmitter.Emit('OnChanged', pCollectionChangedEvent^);
+pCollectionChangedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmitDisposedEvent" Id="{880ec866-3d07-4171-8716-ab03bbbd8f1f}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
+VAR
+	pCollectionDisposedEvent : POINTER TO CollectionDisposedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pCollectionDisposedEvent := __NEW(CollectionDisposedEvent(Target := THIS^));
+eventEmitter.Emit('OnDisposed', pCollectionDisposedEvent^);
+pCollectionDisposedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_exit" Id="{a189a9f3-674e-0a1c-24b3-a20087e08971}" FolderPath="Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
@@ -203,7 +232,8 @@ END_VAR
 END_IF
 
 Clear();
-buffer.DeleteBuffer();]]></ST>
+buffer.DeleteBuffer();
+EmitDisposedEvent();]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetEnumerator" Id="{fea1fcad-e669-422d-9653-a618518cd1c8}">
@@ -259,6 +289,7 @@ END_IF
 
 node := CreateNewNode(Item);
 AddNodeAt(Index, node);
+EmitChangedEvent();
 Insert := TRUE;]]></ST>
       </Implementation>
     </Method>
@@ -313,6 +344,36 @@ END_IF
 Item := pArrayOfListNodes[Index];]]></ST>
       </Implementation>
     </Method>
+    <Method Name="OffEvent" Id="{6d43365d-a3f5-40bf-b0a0-cad17bdad2f3}">
+      <Declaration><![CDATA[METHOD PUBLIC OffEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[eventEmitter.OffEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnceEvent" Id="{9955174c-27ac-48f9-a497-6248067945ea}">
+      <Declaration><![CDATA[METHOD PUBLIC OnceEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[eventEmitter.OnceEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnEvent" Id="{c2d02837-c38b-41f8-8beb-7c48b9d725f4}">
+      <Declaration><![CDATA[METHOD PUBLIC OnEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[eventEmitter.OnEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RemoveAllNodes" Id="{1924a692-4a0d-400c-b4f6-02313ee91984}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE RemoveAllNodes
 VAR_INPUT
@@ -347,6 +408,7 @@ FOR i := Index + 1 TO itemCount - 1 DO
 END_FOR
 
 itemCount := itemCount - 1;
+EmitChangedEvent();
 RemoveAt := TRUE;]]></ST>
       </Implementation>
     </Method>

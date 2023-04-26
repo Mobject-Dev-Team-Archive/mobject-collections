@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_LinkedList" Id="{4114b094-7a7e-47c9-a048-6afe96b6bff7}">
-    <Declaration><![CDATA[INTERFACE I_LinkedList EXTENDS I_Collection, I_EventEmitter]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_LinkedList EXTENDS I_Collection]]></Declaration>
     <Method Name="AddAfter" Id="{b76233bb-b024-43e9-a6a5-7752460a360a}">
       <Declaration><![CDATA[METHOD PUBLIC AddAfter
 VAR_INPUT

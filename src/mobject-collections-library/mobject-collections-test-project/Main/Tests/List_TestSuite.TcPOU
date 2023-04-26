@@ -25,6 +25,10 @@ CheckGetIndexOfNonExistingItem();
 CheckImplementsICollection();
 CheckImplementsIList();
 CheckInsert();
+CheckOnChangedEvent();
+CheckOnDisposedEvent();
+CheckOnceEvent();
+CheckOffEvent();
 CheckRemoveAtInBounds();
 CheckRemoveAtNoItems();
 CheckRemoveAtOutOfBounds();
@@ -522,6 +526,124 @@ list.Insert(1, in3); // [123,789,456]
 list.Item(1).TryGet(out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOffEvent" Id="{7d3c5c3d-7009-4216-a404-3a91bcf22ab0}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOffEvent
+VAR
+	value : INT := 123;
+	list : List;
+	handler : CollectionChangedEventHandler(ExpectedOriginator := list);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOffEvent');
+
+// @TEST-FIXTURE
+list.OnEvent('OnChanged',handler);
+list.OffEvent('OnChanged',handler);
+
+// @TEST-RUN
+list.AddItem(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnceEvent" Id="{651a4e10-ca73-4218-9658-bb5f8ceb3927}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnceEvent
+VAR
+	value : INT := 123;
+	list : List;
+	handler : CollectionChangedEventHandler(ExpectedOriginator := list);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnceEvent');
+
+// @TEST-FIXTURE
+list.OnceEvent('OnChanged',handler);
+list.AddItem(value);
+handler.Reset();
+
+// @TEST-RUN
+list.AddItem(value);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := handler.EventReceived,
+	Message := 'OnceEvent emitted the OnChanged event more than once'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnChangedEvent" Id="{c9f7c550-2701-4fc7-a125-7bd6fce0def3}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnChangedEvent
+VAR
+	value : INT := 123;
+	list : List;
+	handler : CollectionChangedEventHandler(ExpectedOriginator := list);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnChangedEvent');
+
+// @TEST-FIXTURE
+list.OnEvent('OnChanged',handler);
+
+// @TEST-RUN
+list.AddItem(value);
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnChanged event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnChanged event'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckOnDisposedEvent" Id="{f3e4aecf-67fe-49a6-8e8a-ccb8bd475c79}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckOnDisposedEvent
+VAR
+	pList : POINTER TO List;
+	handler : CollectionDisposedEventHandler(ExpectedOriginator := 0);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckOnDisposedEvent');
+
+// @TEST-FIXTURE
+pList := __NEW(List);
+handler.SetExpectedOriginator(pList^);
+pList^.OnEvent('OnDisposed',handler);
+
+// @TEST-RUN
+pList^.Dispose();
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := handler.EventReceived,
+	Message := 'Did not emit the OnDisposed event'
+);
+
+AssertTrue(
+	Condition := handler.FromExpectedOriginator,
+	Message := 'Did not include itself in the OnDisposed event'
+);
 
 TEST_FINISHED();]]></ST>
       </Implementation>

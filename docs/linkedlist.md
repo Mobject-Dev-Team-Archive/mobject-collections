@@ -703,7 +703,7 @@ Triggered when there is any change to the content of the linked list.
 
 | Datatype                                                | Description                                                   |
 | ------------------------------------------------------- | ------------------------------------------------------------- |
-| [I_LinkedListChangedEvent](i-linkedlistchangedevent.md) | The event handler will be passed the I_LinkedListChangedEvent |
+| [I_CollectionChangedEvent](i-collectionchangedevent.md) | The event handler will be passed the I_CollectionChangedEvent |
 
 ### OnDisposed
 
@@ -713,4 +713,4 @@ Triggered when the linked list is disposed.
 
 | Datatype                                                  | Description                                                    |
 | --------------------------------------------------------- | -------------------------------------------------------------- |
-| [I_LinkedListDisposedEvent](i-linkedlistdisposedevent.md) | The event handler will be passed the I_LinkedListDisposedEvent |
+| [I_CollectionDisposedEvent](i-collectiondisposedevent.md) | The event handler will be passed the I_CollectionDisposedEvent |

@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                              |
-| ----------- | ------------------------------------------------------------ |
-| Namespace   | mobject-collections                                          |
-| Library     | mobject-collections                                          |
-| Inheritance | [I_Enumerable](http://enumerable.mobject.org/#/i-enumerable) |
-| Implements  |                                                              |
+|             |                                                                                                                                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Namespace   | mobject-collections                                                                                                                                                                       |
+| Library     | mobject-collections                                                                                                                                                                       |
+| Inheritance | [I_Enumerable](http://enumerable.mobject.org/#/i-enumerable), [I_Disposable](http://disposable.mobject.org/#/i-disposable), [I_EventEmitter](http://events.mobject.org/#/i-event-emitter) |
+| Implements  |                                                                                                                                                                                           |
 
 ## Remarks
 

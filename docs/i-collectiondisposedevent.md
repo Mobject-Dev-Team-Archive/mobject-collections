@@ -1,4 +1,4 @@
-# I_LinkedListDisposedEvent Interface
+# I_CollectionDisposedEvent Interface
 
 ## Definition
 
@@ -11,7 +11,7 @@
 
 ## Remarks
 
-The I_LinkedListDisposedEvent is an event emitted by the [LinkedList](linkedlist.md) class.
+The I_CollectionDisposedEvent is an event emitted by the [I_Collection](i-collection.md) interface.
 
 ## Example
 
@@ -31,17 +31,17 @@ VAR_INPUT
     Event : I_Event;
 END_VAR
 VAR
-    linkedListDisposedEvent : I_LinkedListDisposedEvent;
+    collectionDisposedEvent : I_CollectionDisposedEvent;
     originator : I_LinkedList;
 END_VAR
 ```
 
 ```body
-IF __QUERYINTERFACE(Event, linkedListDisposedEvent) THEN
-    // the received event was I_LinkedListDisposedEvent.  You can now use the interface
-    // to extract which linked list raised it
+IF __QUERYINTERFACE(Event, collectionDisposedEvent) THEN
+    // the received event was I_CollectionDisposedEvent.  You can now use the interface
+    // to extract which collection raised it
     // ...
-    originator := linkedListDisposedEvent.TargetLinkedList;
+    originator := collectionDisposedEvent.Target;
 END_IF
 
 // other event checks can follow here..
@@ -50,12 +50,12 @@ END_IF
 
 ## Properties
 
-### TargetLinkedList
+### Target
 
-Returns the linked list who raised the event.
+Returns the collection who raised the event.
 
 #### Return
 
-| Datatype                        | Description                          |
-| ------------------------------- | ------------------------------------ |
-| [I_LinkedList](i-linkedlist.md) | The linked list who raised the event |
+| Datatype                        | Description                         |
+| ------------------------------- | ----------------------------------- |
+| [I_Collection](i-collection.md) | The collection who raised the event |

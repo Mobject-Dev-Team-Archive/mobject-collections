@@ -54,14 +54,14 @@ VAR_INPUT
 	Event : I_Event;
 END_VAR
 VAR
-	linkedListChangedEvent : I_LinkedListChangedEvent;
-	linkedListDisposedEvent : I_LinkedListDisposedEvent;
+	changedEvent : I_CollectionChangedEvent;
+	disposedEvent : I_CollectionDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF __QUERYINTERFACE(Event, linkedListChangedEvent) THEN
+        <ST><![CDATA[IF __QUERYINTERFACE(Event, changedEvent) THEN
 	invalid := TRUE;
 	currentNode := 0;
-ELSIF __QUERYINTERFACE(Event, linkedListDisposedEvent) THEN
+ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
 	parent := 0;
 END_IF]]></ST>
       </Implementation>

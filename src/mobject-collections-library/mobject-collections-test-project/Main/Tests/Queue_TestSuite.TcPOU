@@ -415,7 +415,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	queue : queue;
-	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := queue);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -442,7 +442,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	queue : Queue;
-	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := queue);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -470,7 +470,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	queue : Queue;
-	handler : OnQueueChangedHandler(ExpectedOriginator := queue);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := queue);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -501,7 +501,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	pQueue : POINTER TO Queue;
-	handler : OnQueueDisposedHandler(ExpectedOriginator := 0);
+	handler : CollectionDisposedEventHandler(ExpectedOriginator := 0);
 END_VAR
 ]]></Declaration>
       <Implementation>
