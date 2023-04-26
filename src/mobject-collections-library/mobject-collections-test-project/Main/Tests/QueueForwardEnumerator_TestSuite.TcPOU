@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="LinkedListForwardEnumerator_TestSuite" Id="{2381e592-f91f-4412-a1a4-66463f5fe70a}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedListForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
+  <POU Name="QueueForwardEnumerator_TestSuite" Id="{20786e16-7e77-4083-a59a-caec9c1719fa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC QueueForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[CheckIsValidAtStart();
 CheckMoveNextReturnsFalseWhenEmpty();
@@ -13,17 +13,18 @@ CheckWorksWithIntegers();
 CheckWorksWithStrings();
 CheckWorksWithArrays();]]></ST>
     </Implementation>
-    <Method Name="CheckIsValidAtStart" Id="{a9050e97-32ef-4105-8641-f80b7e8418ab}">
+    <Method Name="CheckIsValidAtStart" Id="{abc33d92-ea0d-42c6-87a3-bf57551bedba}">
       <Declaration><![CDATA[METHOD PUBLIC CheckIsValidAtStart
 VAR
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckIsValidAtStart');
 
-enumerator := linkedList.GetEnumerator();
+enumerator := queue.GetEnumerator();
 
 result := enumerator.IsValid;
 enumerator.Dispose();
@@ -36,18 +37,18 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{a68253cc-1ed3-49ed-acd4-53baa7fe922c}">
+    <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{65b0e93c-7b69-4767-a62a-8f9f04129503}">
       <Declaration><![CDATA[METHOD PUBLIC CheckMoveNextReturnsFalseWhenEmpty
 VAR
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckMoveNextReturnsFalseWhenEmpty');
 
-enumerator := linkedList.GetEnumerator();
+enumerator := queue.GetEnumerator();
 
 result := enumerator.MoveNext();
 enumerator.Dispose();
@@ -60,24 +61,24 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsTrueMultipleItems" Id="{6c65a779-32f6-4f1d-8c65-42f80f450e2b}">
+    <Method Name="CheckMoveNextReturnsTrueMultipleItems" Id="{9c8e6ce1-9d34-4058-ab36-a285acf332cb}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsTrueMultipleItems
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckMoveNextReturnsTrueMultipleItems');
 
-linkedList.AddLast(in1);
-linkedList.AddLast(in2);
-linkedList.AddLast(in3);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in1);
+queue.Enqueue(in2);
+queue.Enqueue(in3);
+enumerator := queue.GetEnumerator();
 
 result := enumerator.MoveNext();
 enumerator.Dispose();
@@ -87,20 +88,20 @@ AssertTrue(result, 'MoveNext returned false');
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsTrueSingleItem" Id="{3a2f17be-de8b-4215-a9f4-9daac41e8ee6}">
+    <Method Name="CheckMoveNextReturnsTrueSingleItem" Id="{48444d73-3704-4f89-8a45-3f85a314ab14}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsTrueSingleItem
 VAR
 	in1 : INT := 123;
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckMoveNextReturnsTrueSingleItem');
 
-linkedList.AddLast(in1);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in1);
+enumerator := queue.GetEnumerator();
 
 result := enumerator.MoveNext();
 enumerator.Dispose();
@@ -111,22 +112,22 @@ AssertTrue(result,
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryGet" Id="{474bb7b0-53fa-4de8-b66c-e4b0665dc4d5}">
+    <Method Name="CheckTryGet" Id="{2dcee5c5-b4fb-4e58-9a08-3422440a6fa8}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryGet
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckTryGet');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in);
+enumerator := queue.GetEnumerator();
 enumerator.MoveNext();
 
 result := enumerator.TryGet(out);
@@ -146,22 +147,22 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryGetTo" Id="{756242eb-0188-4210-8a68-aca5e5612729}">
+    <Method Name="CheckTryGetTo" Id="{6eca73a7-072c-49c2-b351-7186815b0c77}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryGetTo
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckTryGetTo');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in);
+enumerator := queue.GetEnumerator();
 enumerator.MoveNext();
 
 result := enumerator.TryGetTo(ADR(out),SIZEOF(out));
@@ -181,22 +182,22 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithArrays" Id="{7cf015ca-4657-41d6-beb2-5ed73eae250b}">
+    <Method Name="CheckWorksWithArrays" Id="{ecdfe39f-5c48-431d-a429-414d2c214b75}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithArrays
 VAR
 	in : ARRAY [0..1] OF REAL := [0.1,2.3];
 	out : ARRAY [0..1] OF REAL;
 	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithArrays');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in);
+enumerator := queue.GetEnumerator();
 enumerator.MoveNext();
 
 result := enumerator.TryGet(out);
@@ -216,22 +217,22 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithIntegers" Id="{4f7f3be9-b4a2-48f3-88e3-3f8e662637bf}">
+    <Method Name="CheckWorksWithIntegers" Id="{c89a0e0a-4eb3-4387-9afc-c1de66930f2f}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithIntegers
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithIntegers');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in);
+enumerator := queue.GetEnumerator();
 enumerator.MoveNext();
 
 result := enumerator.TryGet(out);
@@ -251,22 +252,22 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithStrings" Id="{d619ebb8-0ab7-41b2-a1b5-989a2a8f567f}">
+    <Method Name="CheckWorksWithStrings" Id="{a975a256-9926-4506-a6e2-ef065c9848bd}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithStrings
 VAR
 	in : STRING := 'test';
 	out : STRING;
 	expected : STRING := 'test';
 	result : BOOL;
-	linkedList : LinkedList;
+	queue : Queue;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
+queue.Enqueue(in);
+enumerator := queue.GetEnumerator();
 enumerator.MoveNext();
 
 result := enumerator.TryGet(out);

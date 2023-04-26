@@ -63,13 +63,19 @@
     <Compile Include="Tests\Mocks\Stack\OnStackEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\StackForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Queue_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LinkedListForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Stack_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\LinkedListForwardEnumerator_TestSuite.TcPOU">
+    <Compile Include="Tests\QueueForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
