@@ -282,7 +282,7 @@ END_WHILE]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{2e1031c7-13dc-4afc-9b93-190c74b78f2e}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{b563603e-aeda-46d2-9b03-2be7aae4e8ba}">
         <Declaration><![CDATA[VAR
 	current : I_LinkedListNode;

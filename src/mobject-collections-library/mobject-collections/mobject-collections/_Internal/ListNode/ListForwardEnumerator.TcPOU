@@ -77,13 +77,21 @@ currentIndex := 0;]]></ST>
 VAR_INPUT
 	Destination : ANY;
 END_VAR
-]]></Declaration>
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF invalid OR parent = 0 OR NOT moveNextCalled THEN
 	RETURN;
 END_IF
 
-TryGet := parent.GetByIndex(currentIndex, Destination);]]></ST>
+node := parent.Item(currentIndex);
+
+IF node = 0 THEN
+	RETURN;
+END_IF
+
+TryGet := node.TryGet(Destination);]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryGetTo" Id="{c779c4e7-cbea-4286-b465-4d39f43aee99}">
@@ -92,13 +100,21 @@ VAR_INPUT
 	Destination : PVOID;
 	DestinationSize : UDINT;
 END_VAR
-]]></Declaration>
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF invalid OR parent = 0 OR NOT moveNextCalled THEN
 	RETURN;
 END_IF
 
-TryGetTo := parent.GetToByIndex(currentIndex, Destination, DestinationSize);]]></ST>
+node := parent.Item(currentIndex);
+
+IF node = 0 THEN
+	RETURN;
+END_IF
+
+TryGetTo := node.TryGetTo(Destination, DestinationSize);]]></ST>
       </Implementation>
     </Method>
   </POU>

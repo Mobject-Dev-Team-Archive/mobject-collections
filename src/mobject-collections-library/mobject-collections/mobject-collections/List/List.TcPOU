@@ -9,9 +9,9 @@ FUNCTION_BLOCK PUBLIC FINAL List EXTENDS Disposable IMPLEMENTS I_List
 VAR
 	memoryManager : FB_DynMem_Manager2;
 	buffer : FB_DynMem_Buffer(ipMemMan := memoryManager);
-	pArray : POINTER TO I_ListNode;
-	arrayCapacity : UDINT; //Current capacity of the array
-	itemCount : UDINT; //Current items in array
+	pArrayOfListNodes : POINTER TO I_ListNode;
+	arrayCapacity : DINT; //Current capacity of the array
+	itemCount : DINT; //Current items in array
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -20,50 +20,8 @@ END_VAR
     <Folder Name="Constructor" Id="{05571daf-e44d-4345-9c15-aa04afc543d5}" />
     <Folder Name="Destructor" Id="{8fdd593d-4b5b-0cba-142b-2136390a5ba1}" />
     <Folder Name="Private" Id="{f8e6fb94-8042-49e9-832d-ab6b0922fdf1}" />
-    <Method Name="AddAt" Id="{4a28931b-7145-4a14-a1cc-726d2ed98557}">
-      <Declaration><![CDATA[METHOD AddAt
-VAR_INPUT
-	Index : UDINT;
-	Item : ANY;
-END_VAR
-VAR
-	node : I_ListNode;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF Index > Count -1 THEN
-	RETURN;
-END_IF
-
-node := CreateNewNode(Item);
-AddNodeAt(Index, node);]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddFirst" Id="{76c2441e-09ce-4b0a-9ebe-07e27abca2cd}">
-      <Declaration><![CDATA[METHOD AddFirst
-VAR_INPUT
-	Item : ANY;
-END_VAR
-VAR 
-	node : I_ListNode;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[node := CreateNewNode(Item);
-AddNodeFirst(node);]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="AddItem" Id="{4338eac4-cb94-0e48-0359-63eec208e760}">
       <Declaration><![CDATA[METHOD PUBLIC AddItem
-VAR_INPUT
-	Item : ANY;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[AddLast(Item);]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddLast" Id="{edf5ab2b-eaa8-47f2-bc40-8e873f7c51df}">
-      <Declaration><![CDATA[METHOD AddLast
 VAR_INPUT
 	Item : ANY;
 END_VAR
@@ -78,11 +36,11 @@ AddNodeLast(node);]]></ST>
     <Method Name="AddNodeAt" Id="{434fcbfc-1b21-406c-bc70-53644c6aca95}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddNodeAt
 VAR_INPUT
-	Index : UDINT;
+	Index : DINT;
 	Node : I_ListNode;
 END_VAR
 VAR
-	i : LINT;
+	i : DINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -101,25 +59,12 @@ END_IF
 
 //Move all excisting nodes up
 FOR i := itemCount - 1 TO Index BY -1 DO
-	pArray[i + 1] := pArray[i];
-	pArray[i] := 0;
+	pArrayOfListNodes[i + 1] := pArrayOfListNodes[i];
+	pArrayOfListNodes[i] := 0;
 END_FOR
 
-pArray[Index] := Node;
+pArrayOfListNodes[Index] := Node;
 itemCount := itemCount + 1;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="AddNodeFirst" Id="{cc972e35-be17-402a-9d4f-271e4c0ebf2e}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE AddNodeFirst
-VAR_INPUT
-	Node : I_ListNode;
-END_VAR
-VAR
-	i : UDINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[AddNodeAt(0, Node);]]></ST>
       </Implementation>
     </Method>
     <Method Name="AddNodeLast" Id="{0fd32a56-42dd-46f2-9f6e-72084c72716b}" FolderPath="Private\">
@@ -133,10 +78,21 @@ END_VAR
     Resize();
 END_IF
 
-pArray[itemCount] := Node;
+pArrayOfListNodes[itemCount] := Node;
 itemCount := itemCount + 1;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Capacity" Id="{627ddc89-13f9-42d2-99f0-470fa6c85ab9}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Capacity : DINT]]></Declaration>
+      <Get Name="Get" Id="{e1b9172c-d486-48b5-afdf-e3673af87d0e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Capacity := arrayCapacity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="Clear" Id="{6a51ab3d-5d81-406b-91df-b56045948387}">
       <Declaration><![CDATA[METHOD Clear
 VAR_INPUT
@@ -158,7 +114,7 @@ END_VAR
 	RETURN;
 END_IF
 
-Contains := TryGetIndexOf(Item);]]></ST>
+Contains := GetIndexOf(Item) > -1;]]></ST>
       </Implementation>
     </Method>
     <Method Name="CopyTo" Id="{08647dfb-c5bf-4481-b560-e5f349a8a87f}">
@@ -178,7 +134,7 @@ VAR_INPUT
 	DestinationSize : UDINT;
 END_VAR
 VAR
-	i : ULINT;
+	i : DINT;
 	requiredSize : UDINT;
 	current : I_ListNode;
 	pCurrent : PVOID;
@@ -191,7 +147,7 @@ END_IF
 
 //Compute required size
 FOR i := 0 TO Count - 1 DO
-    current := GetNodeByIndex(i);
+    current := Item(i);
     requiredSize := requiredSize + current.DataSize;
 END_FOR
 
@@ -203,14 +159,14 @@ END_IF
 pCurrent := Destination;
 
 FOR i := 0 TO Count - 1 DO
-    current := GetNodeByIndex(i);
+    current := Item(i);
     current.TryGetTo(pCurrent, current.DataSize);
     pCurrent := pCurrent + current.DataSize;
 END_FOR]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{18af26e5-6368-08f4-3269-b1e13029edb8}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{84d29658-765a-06de-2dbc-7bd104ca837e}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -249,7 +205,7 @@ END_VAR
 END_IF
 
 buffer.DeleteBuffer();
-pArray := 0;]]></ST>
+pArrayOfListNodes := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{8ec4533e-a5dc-4e2a-96e9-2d084d50f0e0}" FolderPath="Constructor\">
@@ -257,39 +213,17 @@ pArray := 0;]]></ST>
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	InitialCapacity : UDINT;
 END_VAR
 VAR
 	node : I_ListNode;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[buffer.CreateBuffer(nSize := InitialCapacity * SIZEOF(node), bReset := TRUE);
-pArray := buffer.pBuffer;
-arrayCapacity := InitialCapacity;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetByIndex" Id="{cc839167-9497-078f-3a33-ea3196df2fb9}">
-      <Declaration><![CDATA[METHOD PUBLIC GetByIndex : BOOL
-VAR_INPUT
-	Index : UDINT;
-	Destination : ANY;
 END_VAR
-VAR
-	node : I_ListNode;
+VAR CONSTANT
+	INITIAL_CAPACITY : DINT := 4;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
-	RETURN;
-END_IF
-
-node := GetNodeByIndex(Index);
-
-IF node = 0 THEN
-	RETURN;
-END_IF
-
-node.TryGet(Destination);
-GetByIndex := TRUE;]]></ST>
+        <ST><![CDATA[buffer.CreateBuffer(nSize := DINT_TO_UDINT(INITIAL_CAPACITY) * SIZEOF(node), bReset := TRUE);
+pArrayOfListNodes := buffer.pBuffer;
+arrayCapacity := INITIAL_CAPACITY;]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetEnumerator" Id="{fea1fcad-e669-422d-9653-a618518cd1c8}">
@@ -302,45 +236,50 @@ END_VAR]]></Declaration>
 GetEnumerator := pEnumerator^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetNodeByIndex" Id="{5f4268ee-abf7-400e-939d-8a03550a5e63}">
-      <Declaration><![CDATA[METHOD PUBLIC GetNodeByIndex : I_ListNode
+    <Method Name="GetIndexOf" Id="{11432220-b6bf-4ad5-94bd-7b00101eef0a}">
+      <Declaration><![CDATA[METHOD PUBLIC GetIndexOf : DINT
 VAR_INPUT
-	Index : ULINT;
-END_VAR
-VAR
-	pCurrent : I_ListNode;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF Index < itemCount AND Index >= 0 THEN
-	pCurrent := pArray[Index];
-	GetNodeByIndex := pCurrent;
-END_IF]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetToByIndex" Id="{214e3e6b-3dc2-46e0-ab4f-539af069b26d}">
-      <Declaration><![CDATA[METHOD GetToByIndex : BOOL
-VAR_INPUT
-	Index	: UDINT;
-	Destination	: PVOID;
-	DestinationSize	: UDINT;
+	Item : ANY;
 END_VAR
 VAR
 	node : I_ListNode;
+	i : DINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[GetIndexOf := -1;
+
+IF itemCount < 1 THEN
 	RETURN;
 END_IF
 
-node := GetNodeByIndex(Index);
-
-IF node = 0 THEN
+FOR i := 0 TO itemCount - 1 DO
+	node := THIS^.Item(i);
+	
+	IF node.Equals(Item) THEN
+		GetIndexOf := i;
+		RETURN;
+	END_IF
+END_FOR ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Insert" Id="{4a28931b-7145-4a14-a1cc-726d2ed98557}">
+      <Declaration><![CDATA[METHOD Insert : BOOL
+VAR_INPUT
+	Index : DINT;
+	Item : ANY;
+END_VAR
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index > Count -1 THEN
 	RETURN;
 END_IF
 
-GetToByIndex := node.TryGetTo(Destination, DestinationSize);]]></ST>
+node := CreateNewNode(Item);
+AddNodeAt(Index, node);
+Insert := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="IsEmpty" Id="{c3ebfab7-6e9b-4a26-b4d6-f2fc75649597}" FolderPath="Private\">
@@ -352,10 +291,26 @@ END_VAR
         <ST><![CDATA[IsEmpty := itemCount = 0;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Item" Id="{5f4268ee-abf7-400e-939d-8a03550a5e63}">
+      <Declaration><![CDATA[METHOD PUBLIC Item : I_ListNode
+VAR_INPUT
+	Index : DINT;
+END_VAR
+VAR
+	pCurrent : I_ListNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < itemCount AND Index >= 0 THEN
+	pCurrent := pArrayOfListNodes[Index];
+	Item := pCurrent;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RemoveAt" Id="{5fddda2d-2bc3-08a7-1fc5-3303b29b003f}">
       <Declaration><![CDATA[METHOD PUBLIC RemoveAt : BOOL;
 VAR_INPUT
-	Index : UDINT;
+	Index : DINT;
 END_VAR
 VAR
 	i : UDINT;
@@ -367,12 +322,12 @@ END_VAR
 	RETURN;
 END_IF
 
-node := GetNodeByIndex(Index);
+node := Item(Index);
 node.Dispose();
 
 FOR i := Index + 1 TO itemCount - 1 DO
-	pArray[i - 1] := pArray[i];
-	pArray[i] := 0;
+	pArrayOfListNodes[i - 1] := pArrayOfListNodes[i];
+	pArrayOfListNodes[i] := 0;
 END_FOR
 
 itemCount := itemCount - 1;
@@ -385,14 +340,13 @@ VAR_INPUT
     Item : ANY;
 END_VAR
 VAR
-    result : BOOL;
-    index : UDINT;
+    index : DINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[result := TryGetIndexOf(item := Item, index => index);
+        <ST><![CDATA[index := GetIndexOf(Item);
 
-IF NOT result THEN
+IF index = -1 THEN
 	RETURN;
 END_IF
 
@@ -409,38 +363,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[arrayCapacity := arrayCapacity * 2;
 buffer.Resize(nSize := arrayCapacity * SIZEOF(node), bPreserve := TRUE, bReset := FALSE);
-pArray := buffer.pBuffer;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TryGetIndexOf" Id="{11432220-b6bf-4ad5-94bd-7b00101eef0a}">
-      <Declaration><![CDATA[//Try to get the first index of a item
-//Returns true is the collectable is found.
-METHOD PUBLIC TryGetIndexOf : BOOL
-VAR_INPUT
-	Item : ANY;
-END_VAR
-VAR_OUTPUT
-	Index : UDINT;
-END_VAR
-VAR
-	node : I_ListNode;
-	i : UDINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF itemCount < 1 THEN
-	RETURN;
-END_IF
-
-FOR i := 0 TO itemCount - 1 DO
-	node := GetNodeByIndex(i);
-	
-	IF node.Equals(Item) THEN
-		Index := i;
-		TryGetIndexOf := TRUE;
-		RETURN;
-	END_IF
-END_FOR]]></ST>
+pArrayOfListNodes := buffer.pBuffer;]]></ST>
       </Implementation>
     </Method>
   </POU>

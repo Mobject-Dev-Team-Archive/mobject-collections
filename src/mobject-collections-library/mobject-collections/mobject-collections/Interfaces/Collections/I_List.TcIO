@@ -3,61 +3,31 @@
   <Itf Name="I_List" Id="{412a2b67-91e4-4aae-a3d3-321ed0ca4b34}">
     <Declaration><![CDATA[INTERFACE I_List EXTENDS I_Collection
 ]]></Declaration>
-    <Method Name="AddAt" Id="{61d79cd2-a37c-4e6b-96ef-c3dcdf52a503}">
-      <Declaration><![CDATA[METHOD AddAt
+    <Method Name="GetIndexOf" Id="{d91cdb09-c4a3-48f7-934b-f0ebbd93f0cb}">
+      <Declaration><![CDATA[METHOD PUBLIC GetIndexOf : DINT
 VAR_INPUT
-	index : UDINT;
-	item : ANY;
+	Item : ANY;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="AddFirst" Id="{90c9b1c5-1220-428f-9fd3-a66e4467c04a}">
-      <Declaration><![CDATA[METHOD AddFirst
+    <Method Name="Insert" Id="{61d79cd2-a37c-4e6b-96ef-c3dcdf52a503}">
+      <Declaration><![CDATA[METHOD Insert : BOOL
 VAR_INPUT
-	item : ANY;
+	Index : DINT;
+	Item : ANY;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="AddLast" Id="{965c9eb9-c257-4026-a9f7-d1079c630745}">
-      <Declaration><![CDATA[METHOD AddLast
+    <Method Name="Item" Id="{f4065bfd-8f7c-416b-935b-6682e135dc7d}">
+      <Declaration><![CDATA[METHOD PUBLIC Item : I_ListNode
 VAR_INPUT
-	item : ANY;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetByIndex" Id="{5dd6077e-3c73-4793-bf5a-81516ac57797}">
-      <Declaration><![CDATA[METHOD PUBLIC GetByIndex : BOOL
-VAR_INPUT
-	//The index
-	index : UDINT;
-	//The destination
-	destination : ANY;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetToByIndex" Id="{8ad0f98f-badc-4d0b-8011-ca23dedf132f}">
-      <Declaration><![CDATA[METHOD GetToByIndex : BOOL
-VAR_INPUT
-    index : UDINT;
-    destination : PVOID;
-    destinationSize : UDINT;
-END_VAR
-]]></Declaration>
+	Index : DINT;
+END_VAR]]></Declaration>
     </Method>
     <Method Name="RemoveAt" Id="{3fd904de-394f-4ea8-8de5-3698783696e0}">
       <Declaration><![CDATA[METHOD RemoveAt : BOOL
 VAR_INPUT
-	index : UDINT;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="TryGetIndexOf" Id="{d91cdb09-c4a3-48f7-934b-f0ebbd93f0cb}">
-      <Declaration><![CDATA[METHOD PUBLIC TryGetIndexOf : BOOL
-VAR_INPUT
-	item : ANY;
-END_VAR
-VAR_OUTPUT
-	index : UDINT;
+	Index : DINT;
 END_VAR
 ]]></Declaration>
     </Method>

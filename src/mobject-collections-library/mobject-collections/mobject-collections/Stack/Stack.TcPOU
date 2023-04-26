@@ -63,7 +63,7 @@ END_VAR]]></Declaration>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{a94a5378-7530-4234-b8d6-9da634e0e108}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{32f5b2ef-b4fc-43f9-8efb-27f1fb752ef0}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
