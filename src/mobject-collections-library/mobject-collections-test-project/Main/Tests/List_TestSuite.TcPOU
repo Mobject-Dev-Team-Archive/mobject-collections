@@ -6,8 +6,11 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CheckInsert();
-CheckAddItem();
+      <ST><![CDATA[CheckAddItem();
+CheckCapacityAfterAdding1Item();
+CheckCapacityAfterAdding5Items();
+CheckCapacityAfterAdding5ItemsTrimThen1Item();
+CheckCapacityAtStart();
 CheckClear();
 CheckContains();
 CheckCopyTo();
@@ -16,17 +19,19 @@ CheckCount();
 CheckGetByIndexInBounds();
 CheckGetByIndexNoItems();
 CheckGetByIndexOutOfBounds();
+CheckGetEnumerator();
+CheckGetIndexOfExistingItem();
+CheckGetIndexOfNonExistingItem();
 CheckImplementsICollection();
 CheckImplementsIList();
+CheckInsert();
 CheckRemoveAtInBounds();
 CheckRemoveAtNoItems();
 CheckRemoveAtOutOfBounds();
 CheckRemoveFirstShiftUp();
 CheckRemoveNonExisting();
 CheckRemoveSecondShiftUp();
-CheckReturnsEnumerator();
-CheckGetIndexOfExistingItem();
-CheckGetIndexOfNonExistingItem();]]></ST>
+CheckTrimExcessAfterAdding5Items();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{53909bfa-2a23-432c-b757-416cc9a28880}">
       <Declaration><![CDATA[METHOD PRIVATE CheckAddItem
@@ -54,6 +59,107 @@ AssertEquals(expected, out, 'Did not produce the expected result');
 
 TEST_FINISHED();
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCapacityAfterAdding1Item" Id="{aa99a794-ae02-41ba-b43e-3e6d27c79da8}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckCapacityAfterAdding1Item
+VAR
+	in1 : INT := 1;
+	expected : DINT := 4;
+	out : DINT;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCapacityAfterAdding1Item');
+
+list.AddItem(in1); // [1, null, null, null]
+
+out := list.Capacity;
+
+AssertEquals(expected, out, 'List was expected to double once 5 items were added');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCapacityAfterAdding5Items" Id="{c61f5871-de94-4961-bb20-ac7ddc65e621}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckCapacityAfterAdding5Items
+VAR
+	in1 : INT := 1;
+	in2 : INT := 2;
+	in3 : INT := 3;
+	in4 : INT := 4;
+	in5 : INT := 5;
+	in6 : INT := 6;
+	expected : DINT := 8;
+	out : DINT;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCapacityAfterAdding5Items');
+
+list.AddItem(in1); // [1, null, null, null]
+list.AddItem(in2); // [1, 2, null, null]
+list.AddItem(in3); // [1, 2, 3, null]
+list.AddItem(in4); // [1, 2, 3, 4]
+list.AddItem(in5); // [1, 2, 3, 4, 5, null, null, null]
+
+out := list.Capacity;
+
+AssertEquals(expected, out, 'List was expected to double once 5 items were added');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCapacityAfterAdding5ItemsTrimThen1Item" Id="{90c4c1a9-3520-4f91-8b1a-4c82dc5d07ff}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckCapacityAfterAdding5ItemsTrimThen1Item
+VAR
+	in1 : INT := 1;
+	in2 : INT := 2;
+	in3 : INT := 3;
+	in4 : INT := 4;
+	in5 : INT := 5;
+	in6 : INT := 6;
+	expected : DINT := 10;
+	out : DINT;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCapacityAfterAdding5ItemsTrimThen1Item');
+
+list.AddItem(in1); // [1, null, null, null]
+list.AddItem(in2); // [1, 2, null, null]
+list.AddItem(in3); // [1, 2, 3, null]
+list.AddItem(in4); // [1, 2, 3, 4]
+list.AddItem(in5); // [1, 2, 3, 4, 5, null, null, null]
+list.TrimExcess(); // [1, 2, 3, 4, 5]
+list.AddItem(in6); // [1, 2, 3, 4, 5, 6]
+
+out := list.Capacity;
+
+AssertEquals(expected, out, 'Incorrect capacity returned');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckCapacityAtStart" Id="{d7ad4ae6-ba39-4480-b023-ad16f9041453}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckCapacityAtStart
+VAR
+	expected : DINT := 0;
+	out : DINT;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckCapacityAtStart');
+
+out := list.Capacity;
+
+AssertEquals(expected, out, 'List was expected to start with a capacity of 0');
+
+TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckClear" Id="{7bdd9076-8eb2-4cff-91b2-e91622dce2a8}">
@@ -261,6 +367,36 @@ AssertFalse(result, 'Returned TRUE while the index is not populated');
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CheckGetEnumerator" Id="{d40571a0-acd3-4f34-a952-5924360dee95}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckGetEnumerator
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	list : List;
+	enumerator : I_ForwardEnumerator;
+	result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckGetEnumerator');
+
+list.AddItem(in1); // [123]
+list.AddItem(in2); // [123,456]
+list.AddItem(in3); // [123,456,789]
+
+enumerator := list.GetEnumerator();
+
+AssertTrue(
+	Condition := (enumerator <> 0),
+	Message := 'Did not return an enumerator'
+);
+
+enumerator.Dispose();
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckGetIndexOfExistingItem" Id="{bd87f2e8-54dc-42d5-8914-6d113f39282d}">
       <Declaration><![CDATA[METHOD PRIVATE CheckGetIndexOfExistingItem
 VAR
@@ -323,6 +459,24 @@ END_VAR]]></Declaration>
 result := collection <> 0;
 
 AssertTrue(result, 'Did not implement ICollection');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckImplementsIEnumerable" Id="{98bbbfc1-5769-4588-900c-d6e1a71cefb3}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckImplementsIEnumerable
+VAR
+	list : List;
+	enumerable : I_Enumerable := list;
+	result : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckImplementsIEnumerable');
+
+result := enumerable <> 0;
+
+AssertTrue(result, 'Did not implement IEnumerable');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -524,41 +678,33 @@ AssertEquals(expected, out, 'Array didnt shift up items');
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckReturnsEnumerator" Id="{d40571a0-acd3-4f34-a952-5924360dee95}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckReturnsEnumerator
+    <Method Name="CheckTrimExcessAfterAdding5Items" Id="{9002b24e-7a0a-4f0e-afdd-27f78117a49a}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckTrimExcessAfterAdding5Items
 VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
+	in1 : INT := 1;
+	in2 : INT := 2;
+	in3 : INT := 3;
+	in4 : INT := 4;
+	in5 : INT := 5;
+	in6 : INT := 6;
+	expected : DINT := 5;
+	out : DINT;
 	list : List;
-	enumerator : I_ForwardEnumerator;
-	enumerable : I_Enumerable := list;
-	result : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckReturnsEnumerator');
+        <ST><![CDATA[TEST('CheckTrimExcessAfterAdding5Items');
 
-// @TEST-FIXTURE
-list.AddItem(in1); // [123]
-list.AddItem(in2); // [123,456]
-list.AddItem(in3); // [123,456,789]
+list.AddItem(in1); // [1, null, null, null]
+list.AddItem(in2); // [1, 2, null, null]
+list.AddItem(in3); // [1, 2, 3, null]
+list.AddItem(in4); // [1, 2, 3, 4]
+list.AddItem(in5); // [1, 2, 3, 4, 5, null, null, null]
+list.TrimExcess(); // [1, 2, 3, 4, 5]
 
-// @TEST-RUN
-result := enumerable <> 0;
+out := list.Capacity;
 
-enumerator := list.GetEnumerator();
-
-// @TEST-ASSSERT
-AssertTrue(result, 'Did not implement IEnumerable');
-
-AssertTrue(
-	Condition := (enumerator <> 0),
-	Message := 'Did not return an enumerator'
-);
-
-// @TEST-DISPOSE
-enumerator.Dispose();
+AssertEquals(expected, out, 'List was expected to double once 5 items were added');
 
 TEST_FINISHED();]]></ST>
       </Implementation>

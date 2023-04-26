@@ -620,7 +620,7 @@ Returns the total number of items held in the linked list
 
 | Datatype | Description                    |
 | -------- | ------------------------------ |
-| ULINT    | Total items in the linked list |
+| DINT     | Total items in the linked list |
 
 #### Usage
 
@@ -629,7 +629,7 @@ linkedList : LinkedList;
 value1 : INT := 123;
 value2 : INT := 456;
 value3 : INT := 789;
-count : ULINT;
+count : DINT;
 ```
 
 ```body

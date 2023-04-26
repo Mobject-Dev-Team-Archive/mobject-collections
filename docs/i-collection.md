@@ -114,4 +114,4 @@ Returns the total number of items held in the collection
 
 | Datatype | Description                   |
 | -------- | ----------------------------- |
-| ULINT    | Total items in the collection |
+| DINT     | Total items in the collection |

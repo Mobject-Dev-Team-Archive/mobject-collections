@@ -298,8 +298,8 @@ VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	out : ULINT;
-	expected : ULINT := 3;
+	out : DINT;
+	expected : DINT := 3;
 	linkedList : LinkedList;
 END_VAR
 ]]></Declaration>

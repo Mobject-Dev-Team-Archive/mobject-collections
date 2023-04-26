@@ -27,7 +27,7 @@
     <Compile Include="Tests\LinkedList_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\ListEnumerator_TestSuite.TcPOU">
+    <Compile Include="Tests\ListForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\List_TestSuite.TcPOU">
@@ -69,7 +69,7 @@
     <Compile Include="Tests\Stack_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\ForwardEnumerator_TestSuite.TcPOU">
+    <Compile Include="Tests\LinkedListForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

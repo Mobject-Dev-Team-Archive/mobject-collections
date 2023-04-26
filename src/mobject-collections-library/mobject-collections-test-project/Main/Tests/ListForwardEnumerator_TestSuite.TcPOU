@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="ListEnumerator_TestSuite" Id="{71bc6d90-25f6-4e5f-ab81-b2ed2832edc4}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ListEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite
+  <POU Name="ListForwardEnumerator_TestSuite" Id="{71bc6d90-25f6-4e5f-ab81-b2ed2832edc4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ListForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>

@@ -6,7 +6,7 @@
 FUNCTION_BLOCK ListForwardEnumerator EXTENDS Disposable IMPLEMENTS I_ForwardEnumerator
 VAR
 	parent : I_List;
-	currentIndex : UDINT;
+	currentIndex : DINT;
 	invalid : BOOL := FALSE;
 	moveNextCalled : BOOL := FALSE;
 END_VAR

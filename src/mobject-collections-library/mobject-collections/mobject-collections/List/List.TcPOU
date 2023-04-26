@@ -17,7 +17,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{05571daf-e44d-4345-9c15-aa04afc543d5}" />
     <Folder Name="Destructor" Id="{8fdd593d-4b5b-0cba-142b-2136390a5ba1}" />
     <Folder Name="Private" Id="{f8e6fb94-8042-49e9-832d-ab6b0922fdf1}" />
     <Method Name="AddItem" Id="{4338eac4-cb94-0e48-0359-63eec208e760}">
@@ -99,8 +98,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[RemoveAllNodes();
-buffer.Clear();]]></ST>
+        <ST><![CDATA[RemoveAllNodes();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Contains" Id="{8d070616-89e9-48db-8902-c17e7098b90d}">
@@ -206,24 +204,6 @@ END_IF
 
 Clear();
 buffer.DeleteBuffer();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="FB_init" Id="{8ec4533e-a5dc-4e2a-96e9-2d084d50f0e0}" FolderPath="Constructor\">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
-VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-END_VAR
-VAR
-	node : I_ListNode;
-END_VAR
-VAR CONSTANT
-	INITIAL_CAPACITY : DINT := 4;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[buffer.CreateBuffer(nSize := DINT_TO_UDINT(INITIAL_CAPACITY) * SIZEOF(node), bReset := TRUE);
-pArrayOfListNodes := buffer.pBuffer;
-arrayCapacity := INITIAL_CAPACITY;]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetEnumerator" Id="{fea1fcad-e669-422d-9653-a618518cd1c8}">
@@ -391,15 +371,44 @@ RemoveItem := RemoveAt(index);]]></ST>
     </Method>
     <Method Name="Resize" Id="{aa524b81-d1fc-4fc5-8e9b-5c5798157c90}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE Resize
-VAR_INPUT
+VAR
+	node : I_ListNode;
 END_VAR
+VAR CONSTANT
+	INITIAL_CAPACITY : DINT := 4;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF arrayCapacity = 0 THEN
+	arrayCapacity := INITIAL_CAPACITY;
+ELSE
+	arrayCapacity := arrayCapacity * 2;
+END_IF
+
+IF buffer.bAvailable THEN
+	buffer.Resize(nSize := DINT_TO_UDINT(arrayCapacity) * SIZEOF(node), bPreserve := TRUE, bReset := FALSE);
+ELSE
+	buffer.CreateBuffer(nSize := DINT_TO_UDINT(arrayCapacity) * SIZEOF(node), bReset := TRUE);
+END_IF
+
+pArrayOfListNodes := buffer.pBuffer;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TrimExcess" Id="{6de9ea7b-ef6a-4934-859f-de170f7ffff9}">
+      <Declaration><![CDATA[METHOD PUBLIC TrimExcess
 VAR
 	node : I_ListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[arrayCapacity := arrayCapacity * 2;
-buffer.Resize(nSize := arrayCapacity * SIZEOF(node), bPreserve := TRUE, bReset := FALSE);
-pArrayOfListNodes := buffer.pBuffer;]]></ST>
+        <ST><![CDATA[IF arrayCapacity = 0 THEN
+	RETURN;
+END_IF
+
+IF arrayCapacity = itemCount THEN
+	RETURN;
+END_IF
+
+arrayCapacity := itemCount;
+buffer.Resize(nSize := DINT_TO_UDINT(arrayCapacity) * SIZEOF(node), bPreserve := TRUE, bReset := FALSE);]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryGetByIndex" Id="{58aae7f1-11d1-4b34-9d25-48c86c9e3f03}">

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="ForwardEnumerator_TestSuite" Id="{20786e16-7e77-4083-a59a-caec9c1719fa}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC ForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
+  <POU Name="LinkedListForwardEnumerator_TestSuite" Id="{20786e16-7e77-4083-a59a-caec9c1719fa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedListForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[// check datatypes are handled correctly
 CheckWorksWithIntegers();

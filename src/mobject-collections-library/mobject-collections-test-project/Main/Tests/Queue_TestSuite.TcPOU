@@ -190,8 +190,8 @@ VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	total : ULINT;
-	expected : ULINT := 3;
+	total : DINT;
+	expected : DINT := 3;
 	queue : Queue;
 END_VAR
 ]]></Declaration>
@@ -645,8 +645,8 @@ TEST_FINISHED();
 VAR
 	in : INT := 123;
 	out : INT;
-	total : ULINT;
-	expected : ULINT := 0;
+	total : DINT;
+	expected : DINT := 0;
 	queue : Queue;
 END_VAR]]></Declaration>
       <Implementation>
@@ -708,8 +708,8 @@ TEST_FINISHED();]]></ST>
 VAR
 	in : INT := 123;
 	out : INT;
-	total : ULINT;
-	expected : ULINT := 1;
+	total : DINT;
+	expected : DINT := 1;
 	queue : Queue;
 END_VAR]]></Declaration>
       <Implementation>

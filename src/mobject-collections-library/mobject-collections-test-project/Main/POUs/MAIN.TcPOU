@@ -4,11 +4,11 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
     linkedList_TestSuite : LinkedList_TestSuite;
-    queue_TestSuite : Queue_TestSuite;
-    stack_TestSuite : Stack_TestSuite;
-    forwardEnumerator_TestSuite : ForwardEnumerator_TestSuite;
+    linkedListEnumerator_TestSuite : LinkedListForwardEnumerator_TestSuite;
     list_TestSuite : List_TestSuite;
-    listEnumerator_TestSuite : ListEnumerator_TestSuite;
+    listEnumerator_TestSuite : ListForwardEnumerator_TestSuite;
+	queue_TestSuite : Queue_TestSuite;
+    stack_TestSuite : Stack_TestSuite;
 
     // variables used in examples	teset
     linkedList : LinkedList;

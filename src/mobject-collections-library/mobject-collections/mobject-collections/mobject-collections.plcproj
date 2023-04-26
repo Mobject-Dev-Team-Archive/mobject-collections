@@ -76,9 +76,11 @@
     <Folder Include="_Internal\Events\Queue" />
     <Folder Include="_Internal\Events\Stack" />
     <Folder Include="_Internal\LinkedList" />
-    <Folder Include="_Internal\LinkedList\LinkedListEnumerators" />
-    <Folder Include="_Internal\LinkedList\LinkedListNode" />
-    <Folder Include="_Internal\ListNode" />
+    <Folder Include="_Internal\LinkedList\Enumerator" />
+    <Folder Include="_Internal\LinkedList\Node" />
+    <Folder Include="_Internal\List" />
+    <Folder Include="_Internal\List\Enumerator" />
+    <Folder Include="_Internal\List\Node" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Collections\I_List.TcIO">
@@ -159,16 +161,16 @@
     <Compile Include="_Internal\Events\Stack\StackEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\LinkedList\LinkedListEnumerators\LinkedListForwardEnumerator.TcPOU">
+    <Compile Include="_Internal\LinkedList\Enumerator\LinkedListForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\LinkedList\LinkedListNode\LinkedListNode.TcPOU">
+    <Compile Include="_Internal\LinkedList\Node\LinkedListNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\ListNode\ListForwardEnumerator.TcPOU">
+    <Compile Include="_Internal\List\Enumerator\ListForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\ListNode\ListNode.TcPOU">
+    <Compile Include="_Internal\List\Node\ListNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
