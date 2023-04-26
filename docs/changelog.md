@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.6.1
+
+- Added List and ListForwardEnumerator Classes.
+
 # 0.6.0
 
 - Library built using 4024.44.

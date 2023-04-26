@@ -204,7 +204,7 @@ pCurrent := Destination;
 
 FOR i := 0 TO Count - 1 DO
     current := GetNodeByIndex(i);
-    current.GetTo(pCurrent, current.DataSize);
+    current.TryGetTo(pCurrent, current.DataSize);
     pCurrent := pCurrent + current.DataSize;
 END_FOR]]></ST>
       </Implementation>
@@ -288,7 +288,7 @@ IF node = 0 THEN
 	RETURN;
 END_IF
 
-node.Get(Destination);
+node.TryGet(Destination);
 GetByIndex := TRUE;]]></ST>
       </Implementation>
     </Method>
@@ -340,7 +340,7 @@ IF node = 0 THEN
 	RETURN;
 END_IF
 
-GetToByIndex := node.GetTo(Destination, DestinationSize);]]></ST>
+GetToByIndex := node.TryGetTo(Destination, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Method Name="IsEmpty" Id="{c3ebfab7-6e9b-4a26-b4d6-f2fc75649597}" FolderPath="Private\">

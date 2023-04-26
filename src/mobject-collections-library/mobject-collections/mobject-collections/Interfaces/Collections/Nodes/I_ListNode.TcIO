@@ -16,15 +16,15 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="Get" Id="{ea06149f-0219-4708-9e37-637f9ee43b18}">
-      <Declaration><![CDATA[METHOD PUBLIC Get : BOOL
+    <Method Name="TryGet" Id="{ea06149f-0219-4708-9e37-637f9ee43b18}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL
 VAR_INPUT
 	destination : ANY;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="GetTo" Id="{9dbfbe6a-724e-4012-8395-5c2f3cdd9421}">
-      <Declaration><![CDATA[METHOD PUBLIC GetTo : BOOL
+    <Method Name="TryGetTo" Id="{9dbfbe6a-724e-4012-8395-5c2f3cdd9421}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL
 VAR_INPUT
 	//Destination pointer
 	pDestination : PVOID;

@@ -67,7 +67,6 @@
     <Folder Include="Interfaces\Events" />
     <Folder Include="LinkedList" />
     <Folder Include="Interfaces" />
-    <Folder Include="Collection" />
     <Folder Include="List" />
     <Folder Include="_Internal" />
     <Folder Include="Queue" />
@@ -82,9 +81,6 @@
     <Folder Include="_Internal\ListNode" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collection\Collection.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Interfaces\Collections\I_List.TcIO">
       <SubType>Code</SubType>
     </Compile>
