@@ -7,8 +7,8 @@ VAR
     queue_TestSuite : Queue_TestSuite;
     stack_TestSuite : Stack_TestSuite;
     forwardEnumerator_TestSuite : ForwardEnumerator_TestSuite;
-    _list_TestSuite : List_TestSuite;
-    _listEnumerator_TestSuite : ListEnumerator_TestSuite;
+    list_TestSuite : List_TestSuite;
+    listEnumerator_TestSuite : ListEnumerator_TestSuite;
 
     // variables used in examples	teset
     linkedList : LinkedList;

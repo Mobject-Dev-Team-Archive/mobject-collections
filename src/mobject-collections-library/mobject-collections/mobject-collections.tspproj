@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.44">
-	<Project ProjectGUID="{9EB5C2ED-A20A-489B-ABDC-5F12F40F7A3F}" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{9EB5C2ED-A20A-489B-ABDC-5F12F40F7A3F}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<Plc>
 			<Project GUID="{CD52AFF1-7609-499A-B007-EEE60F0F5A0B}" Name="mobject-collections" PrjFilePath="mobject-collections\mobject-collections.plcproj" TmcFilePath="mobject-collections\mobject-collections.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e"/>
 		</Plc>

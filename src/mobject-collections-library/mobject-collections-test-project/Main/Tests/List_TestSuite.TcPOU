@@ -39,17 +39,17 @@ VAR
 	out : INT;
 	result : BOOL;
 	expected : INT := 789;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckAddAt');
 
-dArray.AddFirst(in1);
-dArray.AddFirst(in2);
+list.AddFirst(in1);
+list.AddFirst(in2);
 
-dArray.AddAt(1, in3);
-dArray.GetByIndex(1, out);
+list.AddAt(1, in3);
+list.GetByIndex(1, out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
 
@@ -65,17 +65,17 @@ VAR
 	out : INT;
 	result : BOOL;
 	expected : INT := 789;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckAddFirst');
 
-dArray.AddLast(in1);
-dArray.AddLast(in2);
+list.AddLast(in1);
+list.AddLast(in2);
 
-dArray.AddFirst(in3);
-result := dArray.GetByIndex(0, out);
+list.AddFirst(in3);
+result := list.GetByIndex(0, out);
 
 AssertTrue(result, 'GetByIndex returned false');
 
@@ -92,17 +92,17 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	expected : INT := 789;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckAddItem');
 
-dArray.AddItem(in1);
-dArray.AddItem(in2);
-dArray.AddItem(in3);
+list.AddItem(in1);
+list.AddItem(in2);
+list.AddItem(in3);
 
-dArray.GetByIndex(2, out);
+list.GetByIndex(2, out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
 
@@ -119,17 +119,17 @@ VAR
 	out : INT;
 	result : BOOL;
 	expected : INT := 789;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckAddLast');
 
-dArray.AddFirst(in1);
-dArray.AddFirst(in2);
+list.AddFirst(in1);
+list.AddFirst(in2);
 
-dArray.AddLast(in3);
-result := dArray.GetByIndex(2, out);
+list.AddLast(in3);
+result := list.GetByIndex(2, out);
 
 AssertTrue(result, 'GetByIndex returned false');
 
@@ -146,19 +146,19 @@ VAR
 	in3 : INT := 789;
 	expected : INT := 789;
 	out : INT;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckClear');
 
-dArray.AddItem(in1);
-dArray.AddItem(in2);
+list.AddItem(in1);
+list.AddItem(in2);
 
-dArray.Clear();
-dArray.AddItem(in3);
+list.Clear();
+list.AddItem(in3);
 
-dArray.GetByIndex(0, out);
+list.GetByIndex(0, out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
 
@@ -172,17 +172,17 @@ VAR
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckContains');
 
-dArray.AddItem(in1);
-dArray.AddItem(in2);
-dArray.AddItem(in3);
+list.AddItem(in1);
+list.AddItem(in2);
+list.AddItem(in3);
 
-result := dArray.Contains(in2);
+result := list.Contains(in2);
 
 AssertTrue(result, 'Contains returned false while item should be in collection');
 
@@ -261,17 +261,17 @@ VAR
 	in3 : INT := 789;
 	expected : ULINT := 3;
 	out : ULINT;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckCount');
 
-dArray.AddItem(in1);
-dArray.AddItem(in2);
-dArray.AddItem(in3);
+list.AddItem(in1);
+list.AddItem(in2);
+list.AddItem(in3);
 
-out := dArray.Count;
+out := list.Count;
 
 AssertEquals(expected, out, 'Did not prodocue the expected result');
 
@@ -286,17 +286,17 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckGetByIndexInBounds_ReturnsTrue');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-result := dArray.GetByIndex(1, out);
+result := list.GetByIndex(1, out);
 
 AssertTRUE(result, 'GetByIndex returned FALSE while the index is populated');
 
@@ -310,13 +310,13 @@ TEST_FINISHED();]]></ST>
 VAR
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckGetByIndexNoItems_ReturnsFalse');
 
-result := dArray.GetByIndex(0, out);
+result := list.GetByIndex(0, out);
 
 AssertFalse(result, 'GetByIndex returned TRUE while no items exist');
 
@@ -331,17 +331,17 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckGetByIndexOutOfBounds_ReturnsFalse');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-result := dArray.GetByIndex(3, out);
+result := list.GetByIndex(3, out);
 
 AssertFalse(result, 'GetByIndex returned TRUE while the index is not populated');
 
@@ -369,21 +369,21 @@ TEST_FINISHED();]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE CheckImplementsIList
 VAR
 	list : List(4);
-    iLinkedList : I_List := list;
+    iList : I_List := list;
     result : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('ListTests_CheckImplementsILinkedList');
+        <ST><![CDATA[TEST('ListTests_CheckImplementsIList');
 
 // @TEST-FIXTURE
 
 // @TEST-RUN
-result := iLinkedList <> 0;
+result := iList <> 0;
 
 // @TEST-ASSSERT
 AssertTrue(Condition := result,
-    Message := 'Did not implement ILinkedList');
+    Message := 'Did not implement IList');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -396,21 +396,21 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckRemoveAtInBounds_ShouldRemoveAndShiftUp');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-dArray.RemoveAt(0);
+list.RemoveAt(0);
 
-result := dArray.GetByIndex(0, out);
+result := list.GetByIndex(0, out);
 
-AssertTrue(result, 'Coulndt get first item');
+AssertTrue(result, 'Couldnt get first item');
 
 AssertEquals(in2, out, 'Array didnt shift up items');
 
@@ -422,13 +422,13 @@ TEST_FINISHED();]]></ST>
 VAR
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckRemoveAtNoItems_ReturnsFalse');
 
-result := dArray.RemoveAt(0);
+result := list.RemoveAt(0);
 
 AssertFalse(result, 'RemoveAt returned true while there was nothing to remove');
 
@@ -443,17 +443,17 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckRemoveAtOutOfBounds_ReturnsFalse');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-result := dArray.RemoveAt(3);
+result := list.RemoveAt(3);
 
 AssertFalse(result, 'RemoveAt returned true while remove was out of bounds');
 
@@ -468,19 +468,19 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckRemoveFirst_ShiftUp');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-dArray.RemoveItem(in1);
+list.RemoveItem(in1);
 
-result := dArray.GetByIndex(0, out);
+result := list.GetByIndex(0, out);
 
 AssertTrue(result, 'Coulndt get first item');
 
@@ -497,16 +497,16 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckRemoveNonExisting_ReturnsFalse');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
 
-result := dArray.RemoveItem(in3);
+result := list.RemoveItem(in3);
 
 AssertFalse(result, 'GetByIndex returned something');
 
@@ -521,19 +521,19 @@ VAR
 	in3 : INT := 789;
 	out : INT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckRemoveSecond_ShiftUp');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-dArray.RemoveItem(in2);
+list.RemoveItem(in2);
 
-result := dArray.GetByIndex(1, out);
+result := list.GetByIndex(1, out);
 
 AssertTrue(result, 'Coulndt get first item');
 
@@ -590,17 +590,17 @@ VAR
 	out : UDINT;
 	expected : UDINT := 1;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckTryGetIndexOfExistingItem_ReturnsIndex');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
-dArray.AddItem(in3); //Index 2
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
+list.AddItem(in3); //Index 2
 
-result := dArray.TryGetIndexOf(in2, index => out);
+result := list.TryGetIndexOf(in2, index => out);
 
 AssertTrue(result, 'TryGetIndexOf returned false on a existing item');
 
@@ -617,16 +617,16 @@ VAR
 	in3 : INT := 789;
 	out : UDINT;
 	result : BOOL;
-	dArray : List(4);
+	list : List(4);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('ListTests_CheckTryGetIndexOfNonExistingItem_ReturnsIndex');
 
-dArray.AddItem(in1); //Index 0
-dArray.AddItem(in2); //Index 1
+list.AddItem(in1); //Index 0
+list.AddItem(in2); //Index 1
 
-result := dArray.TryGetIndexOf(in3, index => out);
+result := list.TryGetIndexOf(in3, index => out);
 
 AssertFalse(result, 'TryGetIndexOf returned true on a non-existing item');
 
