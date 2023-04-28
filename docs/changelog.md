@@ -9,6 +9,8 @@
 
 - I_Collection.Count is now DINT.
 - Individual OnChanged and OnDisposed event classes have been removed and replaced by generic collection events.
+- Added mobject-enumerable 0.1.0.
+- Changed all Destination to DestinationAddress on arguments of PVOID.
 
 # 0.6.0
 

@@ -18,21 +18,21 @@ END_VAR
     <Method Name="CopyBufferToDestination" Id="{3dba3b3a-1b4b-4b76-b407-65ece2daef65}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE CopyBufferToDestination
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MEMCPY(Destination, pBuffer, bufferSize);]]></ST>
+        <ST><![CDATA[MEMCPY(DestinationAddress, pBuffer, bufferSize);]]></ST>
       </Implementation>
     </Method>
     <Method Name="CopySourceToBuffer" Id="{08222928-3fe2-4559-af7d-3dd180f076f1}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE CopySourceToBuffer
 VAR_INPUT
-	Source : PVOID;
+	SourceAddress : PVOID;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MEMCPY(pBuffer, Source, bufferSize);]]></ST>
+        <ST><![CDATA[MEMCPY(pBuffer, SourceAddress, bufferSize);]]></ST>
       </Implementation>
     </Method>
     <Method Name="CreateBuffer" Id="{ef5e76d1-6f88-4dbe-8c69-fe6d45ff059a}" FolderPath="Private\">
@@ -131,7 +131,7 @@ END_VAR
     <Method Name="TryGetTo" Id="{f10d13c2-d6a0-43f9-8e86-471ac54f284c}">
       <Declaration><![CDATA[METHOD TryGetTo : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR
 ]]></Declaration>
@@ -144,7 +144,7 @@ IF bufferSize <> DestinationSize THEN
 	RETURN;
 END_IF
 
-CopyBufferToDestination(Destination);
+CopyBufferToDestination(DestinationAddress);
 TryGetTo := TRUE;]]></ST>
       </Implementation>
     </Method>

@@ -55,11 +55,11 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{c0c023f3-1e5b-4896-b6fb-35b8f504ba53}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination, DestinationSize);]]></ST>
+        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(DestinationAddress, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{a5b5dc0d-9136-4d33-8a44-3fd5f4753277}">

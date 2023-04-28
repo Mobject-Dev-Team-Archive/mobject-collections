@@ -217,19 +217,19 @@ linkedList.Clear();
 
 ### Contains(Item)
 
-Checks to see if an item is contained in the collection.
+Checks to see if an item is contained in the list.
 
 #### Parameters
 
-| Parameters | Datatype | Description                          |
-| ---------- | -------- | ------------------------------------ |
-| Item       | ANY      | The item to store in the collection. |
+| Parameters | Datatype | Description                    |
+| ---------- | -------- | ------------------------------ |
+| Item       | ANY      | The item to to check the list. |
 
 #### Return
 
-| Datatype | Description                                             |
-| -------- | ------------------------------------------------------- |
-| BOOL     | Returns true if the item is contained in the collection |
+| Datatype | Description                                       |
+| -------- | ------------------------------------------------- |
+| BOOL     | Returns true if the item is contained in the list |
 
 #### Usage
 
@@ -283,10 +283,10 @@ Copies the contents of the linkedlist to an array defined by address and size. T
 
 #### Parameters
 
-| Parameters      | Datatype | Description                                                |
-| --------------- | -------- | ---------------------------------------------------------- |
-| Destination     | PVOID    | The address of the array which will act as the destination |
-| DestinationSize | UDINT    | The size of the array which will act as the destination    |
+| Parameters         | Datatype | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| DestinationAddress | PVOID    | The address of the array which will act as the destination |
+| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
 
 #### Return
 

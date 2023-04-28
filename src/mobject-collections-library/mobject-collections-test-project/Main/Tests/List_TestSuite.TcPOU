@@ -57,8 +57,6 @@ list.AddItem(in3); // [123,456,789]
 
 list.TryGetByIndex(2,out);
 
-list.Item(2).TryGet(out);
-
 AssertEquals(expected, out, 'Did not produce the expected result');
 
 TEST_FINISHED();
@@ -523,7 +521,7 @@ list.AddItem(in1); // [123]
 list.AddItem(in1); // [123,456]
 list.Insert(1, in3); // [123,789,456]
 
-list.Item(1).TryGet(out);
+list.TryGetByIndex(1,out);
 
 AssertEquals(expected, out, 'Did not produce the expected result');
 

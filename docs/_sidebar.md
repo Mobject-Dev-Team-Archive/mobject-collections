@@ -7,7 +7,7 @@
   - Classes
 
     - [LinkedList](linkedlist.md)
-    - [List](tba.md)
+    - [List](list.md)
     - [Queue](queue.md)
     - [Stack](stack.md)
 

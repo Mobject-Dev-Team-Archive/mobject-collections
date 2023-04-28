@@ -3,50 +3,48 @@
   <Itf Name="I_List" Id="{412a2b67-91e4-4aae-a3d3-321ed0ca4b34}">
     <Declaration><![CDATA[INTERFACE I_List EXTENDS I_Collection
 ]]></Declaration>
+    <Property Name="Capacity" Id="{aef668a9-005c-40f0-a2d9-d9c0d639d369}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Capacity : DINT]]></Declaration>
+      <Get Name="Get" Id="{6973f391-a0d6-4332-850e-bb5d524c695c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Method Name="GetIndexOf" Id="{d91cdb09-c4a3-48f7-934b-f0ebbd93f0cb}">
       <Declaration><![CDATA[METHOD PUBLIC GetIndexOf : DINT
 VAR_INPUT
 	Item : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     </Method>
     <Method Name="Insert" Id="{61d79cd2-a37c-4e6b-96ef-c3dcdf52a503}">
       <Declaration><![CDATA[METHOD Insert : BOOL
 VAR_INPUT
 	Index : DINT;
 	Item : ANY;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="Item" Id="{f4065bfd-8f7c-416b-935b-6682e135dc7d}">
-      <Declaration><![CDATA[METHOD PUBLIC Item : I_ListNode
-VAR_INPUT
-	Index : DINT;
 END_VAR]]></Declaration>
     </Method>
     <Method Name="RemoveAt" Id="{3fd904de-394f-4ea8-8de5-3698783696e0}">
       <Declaration><![CDATA[METHOD RemoveAt : BOOL
 VAR_INPUT
 	Index : DINT;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="TrimExcess" Id="{dfc4328e-0187-40bb-aed9-fff8e2ce8d28}">
+      <Declaration><![CDATA[METHOD PUBLIC TrimExcess]]></Declaration>
     </Method>
     <Method Name="TryGetByIndex" Id="{f0a57b22-5531-4b13-ba42-543ac5c4497a}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetByIndex : BOOL
 VAR_INPUT
 	Index : DINT;
 	Destination : ANY;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     </Method>
     <Method Name="TryGetToByIndex" Id="{198d8c68-ff3a-4722-b9cd-1b87ac9068e2}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetToByIndex : BOOL
 VAR_INPUT
 	Index : DINT;
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     </Method>
   </Itf>
 </TcPlcObject>

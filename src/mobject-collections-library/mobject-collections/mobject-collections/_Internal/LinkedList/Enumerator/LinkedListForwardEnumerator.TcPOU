@@ -126,12 +126,12 @@ END_IF]]></ST>
     <Method Name="TryGetTo" Id="{1412ae45-9668-4dda-b44d-6048d41a0a8b}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL;
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF currentNode <> 0 THEN
-	TryGetTo := currentNode.TryGetTo(Destination,DestinationSize);
+	TryGetTo := currentNode.TryGetTo(DestinationAddress,DestinationSize);
 END_IF]]></ST>
       </Implementation>
     </Method>

@@ -135,7 +135,7 @@ END_VAR
     <Method Name="CopyToLocation" Id="{2460292a-feaa-4f20-a5c3-9f55d0dc2c6c}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR
 VAR
@@ -161,7 +161,7 @@ IF DestinationSize < requiredSize THEN
     RETURN;
 END_IF
 
-pCurrent := Destination;
+pCurrent := DestinationAddress;
 
 FOR i := 0 TO Count - 1 DO
     current := Item(i);
@@ -330,8 +330,8 @@ END_IF
 IsValidIndex := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Item" Id="{5f4268ee-abf7-400e-939d-8a03550a5e63}">
-      <Declaration><![CDATA[METHOD PUBLIC Item : I_ListNode
+    <Method Name="Item" Id="{5f4268ee-abf7-400e-939d-8a03550a5e63}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE Item : I_ListNode
 VAR_INPUT
 	Index : DINT;
 END_VAR
@@ -496,7 +496,7 @@ TryGetByIndex := node.TryGet(Destination);]]></ST>
       <Declaration><![CDATA[METHOD PUBLIC TryGetToByIndex : BOOL
 VAR_INPUT
 	Index : DINT;
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR
 VAR
@@ -509,7 +509,7 @@ IF node = 0 THEN
 	RETURN;
 END_IF
 
-TryGetToByIndex := node.TryGetTo(Destination, DestinationSize);]]></ST>
+TryGetToByIndex := node.TryGetTo(DestinationAddress, DestinationSize);]]></ST>
       </Implementation>
     </Method>
   </POU>

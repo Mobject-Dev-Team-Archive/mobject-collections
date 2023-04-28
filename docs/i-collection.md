@@ -47,9 +47,9 @@ Checks to see if an item is contained in the collection.
 
 #### Parameters
 
-| Parameters | Datatype | Description                          |
-| ---------- | -------- | ------------------------------------ |
-| Item       | ANY      | The item to store in the collection. |
+| Parameters | Datatype | Description                            |
+| ---------- | -------- | -------------------------------------- |
+| Item       | ANY      | The item used to check the collection. |
 
 #### Return
 
@@ -79,10 +79,10 @@ Copies the contents of the collection to an array defined by address and size. T
 
 #### Parameters
 
-| Parameters      | Datatype | Description                                                |
-| --------------- | -------- | ---------------------------------------------------------- |
-| Destination     | PVOID    | The address of the array which will act as the destination |
-| DestinationSize | UDINT    | The size of the array which will act as the destination    |
+| Parameters         | Datatype | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| DestinationAddress | PVOID    | The address of the array which will act as the destination |
+| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
 
 #### Return
 

@@ -161,7 +161,7 @@ END_VAR]]></Declaration>
     <Method Name="TryGetTo" Id="{fc1682a2-75fe-45fb-bb00-791b41822df9}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL;
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
@@ -169,7 +169,7 @@ END_VAR]]></Declaration>
 	RETURN;
 END_IF
 
-CopyInternalBufferToDestination(Destination);
+CopyInternalBufferToDestination(DestinationAddress);
 TryGetTo := TRUE;]]></ST>
       </Implementation>
     </Method>

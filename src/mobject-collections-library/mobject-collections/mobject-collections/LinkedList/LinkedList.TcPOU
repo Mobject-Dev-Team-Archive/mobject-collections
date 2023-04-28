@@ -249,7 +249,7 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{01bff3c0-b7f3-43be-b887-cf05759eef58}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR
 VAR
@@ -271,7 +271,7 @@ IF DestinationSize <> requiredDestinationSize THEN
 	RETURN;
 END_IF
 
-currentPointer := Destination;
+currentPointer := DestinationAddress;
 currentNode := First;
 
 WHILE currentNode <> 0 DO

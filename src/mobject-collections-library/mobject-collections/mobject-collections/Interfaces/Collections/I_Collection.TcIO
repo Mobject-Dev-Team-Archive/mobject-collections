@@ -26,7 +26,7 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{ca5c655f-ed6c-4dab-b806-28ef02f4713e}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
     </Method>

@@ -26,7 +26,7 @@ END_VAR
     <Method Name="TryGetTo" Id="{9dbfbe6a-724e-4012-8395-5c2f3cdd9421}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR
 ]]></Declaration>
