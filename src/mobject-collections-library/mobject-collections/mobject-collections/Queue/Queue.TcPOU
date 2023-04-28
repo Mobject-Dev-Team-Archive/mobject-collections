@@ -55,15 +55,15 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{c0c023f3-1e5b-4896-b6fb-35b8f504ba53}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination, DestinationSize);]]></ST>
+        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(DestinationAddress, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{a5b5dc0d-9136-4d33-8a44-3fd5f4753277}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{3a2945f3-109a-481b-88d2-6b143645dca6}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -73,26 +73,26 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="EmitChangedEvent" Id="{a6048129-b7ce-419d-be09-f26280bb5507}" FolderPath="Private\">
+    <Method Name="EmitChangedEvent" Id="{bb699cec-f0e9-4be5-b3f1-4263cceb5bf3}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
 VAR
-	pQueueChangedEvent : POINTER TO QueueChangedEvent;
+	pCollectionChangedEvent : POINTER TO CollectionChangedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pQueueChangedEvent := __NEW(QueueChangedEvent(TargetQueue := THIS^));
-eventEmitter.Emit('OnChanged', pQueueChangedEvent^);
-pQueueChangedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pCollectionChangedEvent := __NEW(CollectionChangedEvent(Target := THIS^));
+eventEmitter.Emit('OnChanged', pCollectionChangedEvent^);
+pCollectionChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EmitDisposedEvent" Id="{4677d73c-3a8b-4d90-963d-9bea8dda6ba9}" FolderPath="Private\">
+    <Method Name="EmitDisposedEvent" Id="{57c53db4-4e31-4278-8c90-019ab39ca9a4}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
 VAR
-	pQueueDisposedEvent : POINTER TO QueueDisposedEvent;
+	pCollectionDisposedEvent : POINTER TO CollectionDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pQueueDisposedEvent := __NEW(QueueDisposedEvent(TargetQueue := THIS^));
-eventEmitter.Emit('OnDisposed', pQueueDisposedEvent^);
-pQueueDisposedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pCollectionDisposedEvent := __NEW(CollectionDisposedEvent(Target := THIS^));
+eventEmitter.Emit('OnDisposed', pCollectionDisposedEvent^);
+pCollectionDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Enqueue" Id="{55f220d0-7765-476a-8e45-859c45790653}">

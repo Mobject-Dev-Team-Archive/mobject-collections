@@ -298,8 +298,8 @@ VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	out : ULINT;
-	expected : ULINT := 3;
+	out : DINT;
+	expected : DINT := 3;
 	linkedList : LinkedList;
 END_VAR
 ]]></Declaration>
@@ -708,7 +708,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	linkedList : LinkedList;
-	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := linkedList);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -735,7 +735,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	linkedList : LinkedList;
-	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := linkedList);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -763,7 +763,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	linkedList : LinkedList;
-	handler : OnLinkedListChangedHandler(ExpectedOriginator := linkedList);
+	handler : CollectionChangedEventHandler(ExpectedOriginator := linkedList);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -794,7 +794,7 @@ TEST_FINISHED();]]></ST>
 VAR
 	value : INT := 123;
 	pLinkedList : POINTER TO LinkedList;
-	handler : OnLinkedListDisposedHandler(ExpectedOriginator := 0);
+	handler : CollectionDisposedEventHandler(ExpectedOriginator := 0);
 END_VAR
 ]]></Declaration>
       <Implementation>

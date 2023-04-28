@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ListForwardEnumerator" Id="{71cbcc34-b058-4022-8d0f-92c2cf91e030}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ListForwardEnumerator EXTENDS Disposable IMPLEMENTS I_ForwardEnumerator, I_EventHandler
+VAR
+	parent : I_List;
+	currentIndex : DINT;
+	invalid : BOOL := FALSE;
+	moveNextCalled : BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{cdeb2947-3a90-4b8f-a836-b2e28e3f7057}" />
+    <Method Name="FB_init" Id="{561615b3-2102-4e89-85a3-3eb981a30740}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	List : I_List;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[parent := List;
+currentIndex := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HandleEvent" Id="{d7956ff3-1f96-468a-a2cd-01e1f741b627}">
+      <Declaration><![CDATA[METHOD PUBLIC HandleEvent
+VAR_INPUT
+	Event : I_Event;
+END_VAR
+VAR
+	changedEvent : I_CollectionChangedEvent;
+	disposedEvent : I_CollectionDisposedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(Event, changedEvent) THEN
+	invalid := TRUE;
+	currentIndex := 0;
+ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
+	parent := 0;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsValid" Id="{0eb1db84-cd2b-4f80-9b94-dc9f9847529f}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{7fc3be42-663f-4bd2-bee5-b34cca659a44}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := (NOT invalid AND parent <> 0);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="MoveNext" Id="{124806d4-b465-483c-825d-a72774a6ff60}">
+      <Declaration><![CDATA[METHOD MoveNext : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF invalid OR parent = 0 OR parent.Count = 0 THEN
+    RETURN;
+END_IF
+
+IF NOT moveNextCalled THEN
+	MoveNext := moveNextCalled := TRUE;
+	RETURN;
+END_IF
+
+IF currentIndex < parent.Count - 1 THEN
+    currentIndex := currentIndex + 1;
+    MoveNext := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{f422f349-f379-43b1-b232-77cd4258d20c}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF invalid OR parent = 0 THEN
+	RETURN;
+END_IF
+
+moveNextCalled := FALSE;
+currentIndex := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGet" Id="{fc9b3816-84f5-4733-83b3-f353243e6fb9}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL
+VAR_INPUT
+	Destination : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF invalid OR parent = 0 OR NOT moveNextCalled THEN
+	RETURN;
+END_IF
+
+TryGet := parent.TryGetByIndex(currentIndex, Destination);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetTo" Id="{c779c4e7-cbea-4286-b465-4d39f43aee99}">
+      <Declaration><![CDATA[METHOD TryGetTo : BOOL
+VAR_INPUT
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF invalid OR parent = 0 OR NOT moveNextCalled THEN
+	RETURN;
+END_IF
+
+TryGetTo := parent.TryGetToByIndex(currentIndex, DestinationAddress, DestinationSize);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

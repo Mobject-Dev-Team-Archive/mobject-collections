@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_Queue" Id="{9ef9041f-cd02-4017-af5b-d6ee42f4947a}">
-    <Declaration><![CDATA[INTERFACE I_Queue EXTENDS I_Collection, I_EventEmitter]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_Queue EXTENDS I_Collection]]></Declaration>
     <Method Name="Enqueue" Id="{a8efe73a-c86f-4d9c-81d8-371b69901091}">
       <Declaration><![CDATA[METHOD PUBLIC Enqueue
 VAR_INPUT

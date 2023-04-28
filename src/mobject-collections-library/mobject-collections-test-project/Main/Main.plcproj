@@ -27,52 +27,44 @@
     <Compile Include="Tests\LinkedList_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\LinkedList\OnLinkedListChangedHandler.TcPOU">
+    <Compile Include="Tests\ListForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\LinkedList\OnLinkedListDisposedHandler.TcPOU">
+    <Compile Include="Tests\List_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\LinkedList\OnLinkedListEventHandler.TcPOU">
+    <Compile Include="Tests\Mocks\CollectionEventHandlers\CollectionChangedEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\CollectionEventHandlers\CollectionDisposedEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\CollectionEventHandlers\CollectionEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\MockEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\Queue\OnQueueChangedHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\Queue\OnQueueDisposedHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\Queue\OnQueueEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\Stack\OnStackChangedHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\Stack\OnStackDisposedHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\Stack\OnStackEventHandler.TcPOU">
+    <Compile Include="Tests\StackForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Queue_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\LinkedListForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Stack_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\ForwardEnumerator_TestSuite.TcPOU">
+    <Compile Include="Tests\QueueForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
-    <Folder Include="Tests\Mocks\LinkedList" />
-    <Folder Include="Tests\Mocks\Stack" />
-    <Folder Include="Tests\Mocks\Queue" />
+    <Folder Include="Tests\Mocks\CollectionEventHandlers" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -109,9 +101,17 @@
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
       <Namespace>TcUnit</Namespace>
       <Parameters>
-        <Parameter ListName="GVL_PARAM_TCUNIT" xmlns="">
+        <Parameter ListName="GVL_PARAM_TCUNIT">
           <Key>LOGEXTENDEDRESULTS</Key>
           <Value>FALSE</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFTESTSUITES</Key>
+          <Value>100</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFASSERTSFOREACHTESTSUITE</Key>
+          <Value>100</Value>
         </Parameter>
       </Parameters>
     </PlaceholderReference>
@@ -123,13 +123,13 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="mobject-collections">
-      <Resolution>mobject-collections, 0.6.0 (mobject)</Resolution>
+      <Resolution>mobject-collections, 0.7.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-enumerable">
-      <Resolution>mobject-enumerable, 0.0.0 (mobject)</Resolution>
+      <Resolution>mobject-enumerable, 0.1.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-events">
       <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>

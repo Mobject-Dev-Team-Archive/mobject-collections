@@ -249,7 +249,7 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{01bff3c0-b7f3-43be-b887-cf05759eef58}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR
 VAR
@@ -271,7 +271,7 @@ IF DestinationSize <> requiredDestinationSize THEN
 	RETURN;
 END_IF
 
-currentPointer := Destination;
+currentPointer := DestinationAddress;
 currentNode := First;
 
 WHILE currentNode <> 0 DO
@@ -282,7 +282,7 @@ END_WHILE]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{2e1031c7-13dc-4afc-9b93-190c74b78f2e}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{b563603e-aeda-46d2-9b03-2be7aae4e8ba}">
         <Declaration><![CDATA[VAR
 	current : I_LinkedListNode;
@@ -313,23 +313,23 @@ CreateNode := pLinkedListItem^;]]></ST>
     <Method Name="EmitChangedEvent" Id="{3292f357-a850-4b07-84b8-6ac1bcad29c4}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
 VAR
-	pLinkedListChangedEvent : POINTER TO LinkedListChangedEvent;
+	pCollectionChangedEvent : POINTER TO CollectionChangedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pLinkedListChangedEvent := __NEW(LinkedListChangedEvent(TargetLinkedList := THIS^));
-eventEmitter.Emit('OnChanged', pLinkedListChangedEvent^);
-pLinkedListChangedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pCollectionChangedEvent := __NEW(CollectionChangedEvent(Target := THIS^));
+eventEmitter.Emit('OnChanged', pCollectionChangedEvent^);
+pCollectionChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="EmitDisposedEvent" Id="{d5c30bcb-5159-4f97-8dde-50d1098331ac}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
 VAR
-	pLinkedListDisposedEvent : POINTER TO LinkedListDisposedEvent;
+	pCollectionDisposedEvent : POINTER TO CollectionDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pLinkedListDisposedEvent := __NEW(LinkedListDisposedEvent(TargetLinkedList := THIS^));
-eventEmitter.Emit('OnDisposed', pLinkedListDisposedEvent^);
-pLinkedListDisposedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pCollectionDisposedEvent := __NEW(CollectionDisposedEvent(Target := THIS^));
+eventEmitter.Emit('OnDisposed', pCollectionDisposedEvent^);
+pCollectionDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{74c302ee-e82a-4710-93c1-dd7b92517af2}" FolderPath="Destructor\">

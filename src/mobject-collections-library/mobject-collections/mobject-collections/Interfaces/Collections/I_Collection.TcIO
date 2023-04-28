@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_Collection" Id="{70b2accb-118c-42f5-8104-6faad2c2cfc3}">
-    <Declaration><![CDATA[INTERFACE I_Collection EXTENDS I_Enumerable, I_Disposable]]></Declaration>
+    <Declaration><![CDATA[INTERFACE I_Collection EXTENDS I_Enumerable, I_Disposable, I_EventEmitter]]></Declaration>
     <Method Name="AddItem" Id="{a46b464a-5713-4157-a163-d646e3425e8a}">
       <Declaration><![CDATA[METHOD PUBLIC AddItem
 VAR_INPUT
@@ -26,12 +26,12 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{ca5c655f-ed6c-4dab-b806-28ef02f4713e}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
     </Method>
     <Property Name="Count" Id="{69ca6d31-a011-44c8-b83c-680b980d92f2}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{400427f4-def2-4155-af7f-13cd948a1988}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

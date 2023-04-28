@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.6.0</ProjectVersion>
+    <ProjectVersion>0.7.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -51,6 +51,10 @@
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_DynamicMemory">
+      <DefaultResolution>Tc3_DynamicMemory, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_DynamicMemory</Namespace>
+    </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="mobject-collections.tmc">
@@ -63,18 +67,23 @@
     <Folder Include="Interfaces\Events" />
     <Folder Include="LinkedList" />
     <Folder Include="Interfaces" />
+    <Folder Include="List" />
     <Folder Include="_Internal" />
     <Folder Include="Queue" />
     <Folder Include="Stack" />
     <Folder Include="_Internal\Events" />
-    <Folder Include="_Internal\Events\LinkedList" />
-    <Folder Include="_Internal\Events\Queue" />
-    <Folder Include="_Internal\Events\Stack" />
+    <Folder Include="_Internal\Events\Collection" />
     <Folder Include="_Internal\LinkedList" />
-    <Folder Include="_Internal\LinkedList\LinkedListEnumerators" />
-    <Folder Include="_Internal\LinkedList\LinkedListNode" />
+    <Folder Include="_Internal\LinkedList\Enumerator" />
+    <Folder Include="_Internal\LinkedList\Node" />
+    <Folder Include="_Internal\List" />
+    <Folder Include="_Internal\List\Enumerator" />
+    <Folder Include="_Internal\List\Node" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Collections\I_List.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\Collections\I_Collection.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -90,25 +99,19 @@
     <Compile Include="Interfaces\Collections\Nodes\I_LinkedListNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\Events\I_LinkedListChangedEvent.TcIO">
+    <Compile Include="Interfaces\Collections\Nodes\I_ListNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\Events\I_LinkedListDisposedEvent.TcIO">
+    <Compile Include="Interfaces\Events\I_CollectionChangedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\Events\I_QueueChangedEvent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Interfaces\Events\I_QueueDisposedEvent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Interfaces\Events\I_StackChangedEvent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Interfaces\Events\I_StackDisposedEvent.TcIO">
+    <Compile Include="Interfaces\Events\I_CollectionDisposedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LinkedList\LinkedList.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="List\List.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Queue\Queue.TcPOU">
@@ -117,43 +120,34 @@
     <Compile Include="Stack\Stack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\LinkedList\LinkedListChangedEvent.TcPOU">
+    <Compile Include="_Internal\Events\Collection\CollectionChangedEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\LinkedList\LinkedListDisposedEvent.TcPOU">
+    <Compile Include="_Internal\Events\Collection\CollectionDisposedEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\LinkedList\LinkedListEvent.TcPOU">
+    <Compile Include="_Internal\Events\Collection\CollectionEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\Queue\QueueChangedEvent.TcPOU">
+    <Compile Include="_Internal\LinkedList\Enumerator\LinkedListForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\Queue\QueueDisposedEvent.TcPOU">
+    <Compile Include="_Internal\LinkedList\Node\LinkedListNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\Queue\QueueEvent.TcPOU">
+    <Compile Include="_Internal\List\Enumerator\ListForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Events\Stack\StackChangedEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\Events\Stack\StackDisposedEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\Events\Stack\StackEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\LinkedList\LinkedListEnumerators\LinkedListForwardEnumerator.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\LinkedList\LinkedListNode\LinkedListNode.TcPOU">
+    <Compile Include="_Internal\List\Node\ListNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="mobject-enumerable">
+      <Resolution>mobject-enumerable, 0.1.0 (mobject)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-events">
       <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>

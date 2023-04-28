@@ -7,18 +7,19 @@
   - Classes
 
     - [LinkedList](linkedlist.md)
+    - [List](list.md)
     - [Queue](queue.md)
     - [Stack](stack.md)
 
   - Interfaces
 
     - [I_Collection](i-collection.md)
-    - [I_Queue](i-queue.md)
-    - [I_Stack](i-stack.md)
+    - [I_CollectionChangedEvent](i-collectionchangedevent.md)
+    - [I_CollectionDisposedEvent](i-collectiondisposedevent.md)
     - [I_LinkedList](i-linkedlist.md)
     - [I_LinkedListNode](i-linkedlistnode.md)
-    - [I_LinkedListChangedEvent](i-linkedlistchangedevent.md)
-    - [I_LinkedListDisposedEvent](i-linkedlistdisposedevent.md)
+    - [I_Queue](i-queue.md)
+    - [I_Stack](i-stack.md)
 
 - Guides
 

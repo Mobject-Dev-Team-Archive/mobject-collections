@@ -55,15 +55,15 @@ END_VAR]]></Declaration>
     <Method Name="CopyToLocation" Id="{28903e4e-8156-4bd6-b962-c02c0a27e37c}">
       <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
 VAR_INPUT
-	Destination : PVOID;
+	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(Destination, DestinationSize);]]></ST>
+        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(DestinationAddress, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{a94a5378-7530-4234-b8d6-9da634e0e108}">
-      <Declaration><![CDATA[PROPERTY PUBLIC Count : ULINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{32f5b2ef-b4fc-43f9-8efb-27f1fb752ef0}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
@@ -71,26 +71,26 @@ END_VAR]]></Declaration>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="EmitChangedEvent" Id="{9d07ef5c-4c9e-463e-b22b-f07159dcf6ac}" FolderPath="Private\">
+    <Method Name="EmitChangedEvent" Id="{456aa8b2-ef57-4b21-b360-0265ec8a2864}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
 VAR
-	pStackChangedEvent : POINTER TO StackChangedEvent;
+	pCollectionChangedEvent : POINTER TO CollectionChangedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pStackChangedEvent := __NEW(StackChangedEvent(TargetStack := THIS^));
-eventEmitter.Emit('OnChanged', pStackChangedEvent^);
-pStackChangedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pCollectionChangedEvent := __NEW(CollectionChangedEvent(Target := THIS^));
+eventEmitter.Emit('OnChanged', pCollectionChangedEvent^);
+pCollectionChangedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="EmitDisposedEvent" Id="{01539f57-7401-48e9-8a15-acbae7d00ba9}" FolderPath="Private\">
+    <Method Name="EmitDisposedEvent" Id="{7dabfdb8-c059-4a25-8ca8-db0bb31f082f}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
 VAR
-	pStackDisposedEvent : POINTER TO StackDisposedEvent;
+	pCollectionDisposedEvent : POINTER TO CollectionDisposedEvent;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pStackDisposedEvent := __NEW(StackDisposedEvent(TargetStack := THIS^));
-eventEmitter.Emit('OnDisposed', pStackDisposedEvent^);
-pStackDisposedEvent^.Dispose();]]></ST>
+        <ST><![CDATA[pCollectionDisposedEvent := __NEW(CollectionDisposedEvent(Target := THIS^));
+eventEmitter.Emit('OnDisposed', pCollectionDisposedEvent^);
+pCollectionDisposedEvent^.Dispose();]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{c81b88b1-11a0-4579-8948-ed09528861a4}" FolderPath="Destructor\">

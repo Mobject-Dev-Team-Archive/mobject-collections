@@ -3,21 +3,25 @@
   <POU Name="MAIN" Id="{4fc6a7e2-9479-48b5-85ef-622583cb9cd0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	linkedList_TestSuite : LinkedList_TestSuite;
+    linkedList_TestSuite : LinkedList_TestSuite;
+	linkedListForwardEnumerator_TestSuite : LinkedListForwardEnumerator_TestSuite;
+    list_TestSuite : List_TestSuite;
+    listEnumerator_TestSuite : ListForwardEnumerator_TestSuite;
 	queue_TestSuite : Queue_TestSuite;
-	stack_TestSuite : Stack_TestSuite;
-	forwardEnumerator_TestSuite : ForwardEnumerator_TestSuite;
-	
-	// variables used in examples	teset
-	linkedList : LinkedList;
-	queue : Queue;
-	stack : Stack;
-	value1 : INT := 123;
-	value2 : INT := 456;
-	value3 : INT := 789;
-	enumerator : I_ForwardEnumerator;
-	output : INT;
-	allowed : BOOL;
+	queueForwardEnumerator_TestSuite : QueueForwardEnumerator_TestSuite;
+    stack_TestSuite : Stack_TestSuite;
+	stackForwardEnumerator_TestSuite : StackForwardEnumerator_TestSuite;
+
+    // variables used in examples	teset
+    linkedList : LinkedList;
+    queue : Queue;
+    stack : Stack;
+    value1 : INT := 123;
+    value2 : INT := 456;
+    value3 : INT := 789;
+    enumerator : I_ForwardEnumerator;
+    output : INT;
+    allowed : BOOL;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();

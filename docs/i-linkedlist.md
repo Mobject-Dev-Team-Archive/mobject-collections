@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                                                                 |
-| ----------- | ----------------------------------------------------------------------------------------------- |
-| Namespace   | mobject-collections                                                                             |
-| Library     | mobject-collections                                                                             |
-| Inheritance | [I_Collection](i-collection.md) , [I_EventEmitter](http://events.mobject.org/#/i-event-emitter) |
-| Implements  |                                                                                                 |
+|             |                                 |
+| ----------- | ------------------------------- |
+| Namespace   | mobject-collections             |
+| Library     | mobject-collections             |
+| Inheritance | [I_Collection](i-collection.md) |
+| Implements  |                                 |
 
 ## Remarks
 

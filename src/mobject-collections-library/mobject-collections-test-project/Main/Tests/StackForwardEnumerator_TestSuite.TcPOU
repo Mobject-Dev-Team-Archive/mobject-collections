@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="StackForwardEnumerator_TestSuite" Id="{307ab2e6-2fb6-45e5-81fd-4e16fa1b1495}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC StackForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CheckIsValidAtStart();
+CheckMoveNextReturnsFalseWhenEmpty();
+CheckMoveNextReturnsTrueMultipleItems();
+CheckMoveNextReturnsTrueSingleItem();
+CheckTryGet();
+CheckTryGetTo();
+CheckWorksWithIntegers();
+CheckWorksWithStrings();
+CheckWorksWithArrays();]]></ST>
+    </Implementation>
+    <Method Name="CheckIsValidAtStart" Id="{3c7b1a75-4448-407f-b8e5-7af5a5403c62}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsValidAtStart
+VAR
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsValidAtStart');
+
+enumerator := stack.GetEnumerator();
+
+result := enumerator.IsValid;
+enumerator.Dispose();
+
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{88e27552-8a43-400f-8ffa-e2fef0fa0b48}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckMoveNextReturnsFalseWhenEmpty
+VAR
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckMoveNextReturnsFalseWhenEmpty');
+
+enumerator := stack.GetEnumerator();
+
+result := enumerator.MoveNext();
+enumerator.Dispose();
+
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckMoveNextReturnsTrueMultipleItems" Id="{77378285-00e5-40b0-b0b4-9331da50f447}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsTrueMultipleItems
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckMoveNextReturnsTrueMultipleItems');
+
+stack.Push(in1);
+stack.Push(in2);
+stack.Push(in3);
+enumerator := stack.GetEnumerator();
+
+result := enumerator.MoveNext();
+enumerator.Dispose();
+
+AssertTrue(result, 'MoveNext returned false');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckMoveNextReturnsTrueSingleItem" Id="{0191ceb7-6602-4ffc-8e87-0603a5ec0915}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsTrueSingleItem
+VAR
+	in1 : INT := 123;
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckMoveNextReturnsTrueSingleItem');
+
+stack.Push(in1);
+enumerator := stack.GetEnumerator();
+
+result := enumerator.MoveNext();
+enumerator.Dispose();
+
+AssertTrue(result,
+    'MoveNext returned False');
+	
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryGet" Id="{286c6be9-05b0-4d83-a7fb-546bec4a8d3b}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryGet
+VAR
+	in : INT := 123;
+	out : INT;
+	expected : INT := 123;
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryGet');
+
+stack.Push(in);
+enumerator := stack.GetEnumerator();
+enumerator.MoveNext();
+
+result := enumerator.TryGet(out);
+enumerator.Dispose();
+
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryGetTo" Id="{dd708e17-5aeb-453e-bc47-465f1175c4fb}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryGetTo
+VAR
+	in : INT := 123;
+	out : INT;
+	expected : INT := 123;
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryGetTo');
+
+stack.Push(in);
+enumerator := stack.GetEnumerator();
+enumerator.MoveNext();
+
+result := enumerator.TryGetTo(ADR(out),SIZEOF(out));
+enumerator.Dispose();
+
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckWorksWithArrays" Id="{8dbbc900-5cbd-4129-afee-f06f6abd7f4c}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithArrays
+VAR
+	in : ARRAY [0..1] OF REAL := [0.1,2.3];
+	out : ARRAY [0..1] OF REAL;
+	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckWorksWithArrays');
+
+stack.Push(in);
+enumerator := stack.GetEnumerator();
+enumerator.MoveNext();
+
+result := enumerator.TryGet(out);
+enumerator.Dispose();
+
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckWorksWithIntegers" Id="{4abcc6e8-e3e6-4604-8b5f-90e6f8bbba44}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithIntegers
+VAR
+	in : INT := 123;
+	out : INT;
+	expected : INT := 123;
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckWorksWithIntegers');
+
+stack.Push(in);
+enumerator := stack.GetEnumerator();
+enumerator.MoveNext();
+
+result := enumerator.TryGet(out);
+enumerator.Dispose();
+
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckWorksWithStrings" Id="{5b4ac783-359e-4250-a936-191ee4c0ecfc}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithStrings
+VAR
+	in : STRING := 'test';
+	out : STRING;
+	expected : STRING := 'test';
+	result : BOOL;
+	stack : Stack;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckWorksWithStrings');
+
+stack.Push(in);
+enumerator := stack.GetEnumerator();
+enumerator.MoveNext();
+
+result := enumerator.TryGet(out);
+enumerator.Dispose();
+
+AssertTrue(
+	Condition := result,
+	Message := 'Method returned false'
+);
+
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

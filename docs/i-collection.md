@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                                                              |
-| ----------- | ------------------------------------------------------------ |
-| Namespace   | mobject-collections                                          |
-| Library     | mobject-collections                                          |
-| Inheritance | [I_Enumerable](http://enumerable.mobject.org/#/i-enumerable) |
-| Implements  |                                                              |
+|             |                                                                                                                                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Namespace   | mobject-collections                                                                                                                                                                       |
+| Library     | mobject-collections                                                                                                                                                                       |
+| Inheritance | [I_Enumerable](http://enumerable.mobject.org/#/i-enumerable), [I_Disposable](http://disposable.mobject.org/#/i-disposable), [I_EventEmitter](http://events.mobject.org/#/i-event-emitter) |
+| Implements  |                                                                                                                                                                                           |
 
 ## Remarks
 
@@ -47,9 +47,9 @@ Checks to see if an item is contained in the collection.
 
 #### Parameters
 
-| Parameters | Datatype | Description                          |
-| ---------- | -------- | ------------------------------------ |
-| Item       | ANY      | The item to store in the collection. |
+| Parameters | Datatype | Description                            |
+| ---------- | -------- | -------------------------------------- |
+| Item       | ANY      | The item used to check the collection. |
 
 #### Return
 
@@ -79,10 +79,10 @@ Copies the contents of the collection to an array defined by address and size. T
 
 #### Parameters
 
-| Parameters      | Datatype | Description                                                |
-| --------------- | -------- | ---------------------------------------------------------- |
-| Destination     | PVOID    | The address of the array which will act as the destination |
-| DestinationSize | UDINT    | The size of the array which will act as the destination    |
+| Parameters         | Datatype | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| DestinationAddress | PVOID    | The address of the array which will act as the destination |
+| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
 
 #### Return
 
@@ -114,4 +114,4 @@ Returns the total number of items held in the collection
 
 | Datatype | Description                   |
 | -------- | ----------------------------- |
-| ULINT    | Total items in the collection |
+| DINT     | Total items in the collection |
