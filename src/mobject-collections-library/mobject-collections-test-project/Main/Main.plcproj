@@ -60,13 +60,13 @@
     <Compile Include="Tests\QueueForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\AVLTree\Dictionary.TcPOU">
+    <Compile Include="_Internal\Dictionary\Dictionary.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\AVLTree\DictionaryTreeNode.TcPOU">
+    <Compile Include="_Internal\Dictionary\DictionaryTreeNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\AVLTree\I_DictionaryTreeNode.TcIO">
+    <Compile Include="_Internal\Dictionary\I_DictionaryTreeNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -77,7 +77,7 @@
     <Folder Include="Tests\Mocks\CollectionEventHandlers" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
-    <Folder Include="_Internal\AVLTree" />
+    <Folder Include="_Internal\Dictionary" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="mobject-collections">

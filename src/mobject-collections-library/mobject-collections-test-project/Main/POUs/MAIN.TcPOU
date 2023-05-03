@@ -16,15 +16,13 @@ VAR
     linkedList : LinkedList;
     queue : Queue;
     stack : Stack;
+	dictionary : Dictionary;
     value1 : INT := 123;
     value2 : INT := 456;
     value3 : INT := 789;
     enumerator : I_ForwardEnumerator;
     output : INT;
     allowed : BOOL;
-	
-	myDic : Dictionary;
-	once,d : bool;
 	
 END_VAR]]></Declaration>
     <Implementation>
@@ -93,24 +91,36 @@ allowed := stack.TryPop(output); // allowed = true, output = 789
 allowed := stack.TryPop(output); // allowed = true, output = 456
 allowed := stack.TryPop(output); // allowed = true, output = 123
 
-IF NOT once THEN
-	once := TRUE;
-	myDic.Set('test1', value1);
-	myDic.Set('test2', value2);
-	myDic.Set('test3', value3);
-	
-	allowed := myDic.TryGetValue('test1', output);
-	allowed := myDic.TryGetValue('test2', output);
-	allowed := myDic.TryGetValue('test3', output);
-	
-	myDic.Remove('test2');
-	allowed := myDic.TryGetValue('test2', output);
-	allowed := myDic.TryGetValue('test3', output);
-	
-	myDic.Remove('test1');
-	myDic.Remove('test3');
-	
-END_IF]]></ST>
+// Dictionary Examples
+// ==============
+
+// using TryAdd, AddOrUpdate, TryGetValue
+// -------------------------------------
+
+// typical use of adding key value pairs
+allowed := dictionary.TryAdd('test1', value1); // allowed = true, [['test1',123]]
+allowed := dictionary.TryAdd('test2', value2); // allowed = true, [['test1',123],['test2',456]]
+allowed := dictionary.TryAdd('test3', value3); // allowed = true, [['test1',123],['test2',456],['test3',789]]
+allowed := dictionary.TryAdd('test5', value3); // allowed = true, [['test1',123],['test2',456],['test3',789]]
+allowed := dictionary.TryAdd('test4', value3); // allowed = true, [['test1',123],['test2',456],['test3',789]]
+
+// TryAdd will return false if the key already exists and the operation cancelled
+//allowed := dictionary.TryAdd('test3', value1); // allowed = false, [['test1',123],['test2',456],['test3',789]]
+
+allowed := dictionary.TryGetValue('test1', output); // allowed = true, output = 123
+allowed := dictionary.TryGetValue('test2', output); // allowed = true, output = 456
+allowed := dictionary.TryGetValue('test3', output); // allowed = true, output = 789
+
+// update exsisting key value pairs using addOrUpdate(Key,Value)
+//dictionary.AddOrUpdate('test3', value1); // allowed = true, [['test1',123],['test2',456],['test3',123]]
+allowed := dictionary.TryGetValue('test3', output); // allowed = true, output = 123
+
+// remove key value pairs using Remove(Key)
+dictionary.Remove('test2'); // [['test1',123],['test3',123]]
+allowed := dictionary.TryGetValue('test2', output); // allowed = false, output = no change
+
+// clear the dictionary using Clear()
+dictionary.Clear();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

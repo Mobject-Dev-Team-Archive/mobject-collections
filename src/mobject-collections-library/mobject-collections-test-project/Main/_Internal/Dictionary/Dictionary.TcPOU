@@ -147,11 +147,29 @@ LeftRotate := newRoot;]]></ST>
 VAR_INPUT
 	Node : I_DictionaryTreeNode;
 END_VAR
-]]></Declaration>
+VAR
+	thisNodeKey : T_MAXSTRING;
+	leftNodeKey : T_MAXSTRING;
+	rightNodeKey : T_MAXSTRING;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (Node = 0) THEN
+        <ST><![CDATA[
+
+
+IF (Node = 0) THEN
 	RETURN;
 END_IF
+
+thisNodeKey := Node.key;
+
+IF (Node.Left <> 0) THEN
+	leftNodeKey := Node.Left.key;
+END_IF
+
+IF (Node.Right <> 0) THEN
+	leftNodeKey := Node.Right.key;
+END_IF
+
 
 RecursiveClear(Node.Left);
 RecursiveClear(Node.Right);
@@ -203,7 +221,7 @@ ELSE
 		END_IF
 		
 		Node.Dispose();
-		RecursiveDelete.Delete := newNode;
+		RecursiveDelete := newNode;
 		RETURN;
 		
 	END_IF
@@ -219,7 +237,10 @@ ELSE
 	END_IF
 	
 	minValueNode.Left := Node.Left;
-	minValueNode.Right := Node.Right;
+	
+	IF (minValueNodeParent <> node) THEN
+		minValueNode.Right := Node.Right;
+	END_IF;
 	
 	IF (parentNode <> 0) THEN
 		IF (parentNode.left = Node) THEN
@@ -230,12 +251,12 @@ ELSE
 	END_IF
 	
 	Node.Dispose();
-	RecursiveDelete.Delete := minValueNode;
+	RecursiveDelete := minValueNode;
 	RETURN;
 END_IF
 
 THIS^.updateHeight(Node);
-RecursiveDelete.Delete := THIS^.balance(Node);]]></ST>
+RecursiveDelete := THIS^.balance(Node);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RecursiveFind" Id="{72c9c465-18ec-43f4-9bcd-fa5b73279ee3}" FolderPath="Private\">

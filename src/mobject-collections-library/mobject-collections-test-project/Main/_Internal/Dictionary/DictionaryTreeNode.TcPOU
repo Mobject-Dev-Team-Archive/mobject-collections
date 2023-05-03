@@ -167,10 +167,17 @@ END_VAR
       </Get>
       <Set Name="Set" Id="{6523ddb3-c975-43ca-96e7-22ff343aeb04}">
         <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
+	debugNode : T_MAXSTRING;
+	debugLink : T_MAXSTRING;
+END_VAR]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_left := Left;]]></ST>
+          <ST><![CDATA[debugNode := key;
+
+IF Left <>0 THEN
+	debugLink := Left.Key;
+END_IF
+
+_left := Left;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -186,10 +193,18 @@ END_VAR
       </Get>
       <Set Name="Set" Id="{5e907fa5-75f5-4d37-88ab-0e5b572da295}">
         <Declaration><![CDATA[VAR
+	debugNode : T_MAXSTRING;
+	debugLink : T_MAXSTRING;
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_right := Right;]]></ST>
+          <ST><![CDATA[debugNode := key;
+
+IF Right <>0 THEN
+	debugLink := Right.Key;
+END_IF
+
+_right := Right;]]></ST>
         </Implementation>
       </Set>
     </Property>
