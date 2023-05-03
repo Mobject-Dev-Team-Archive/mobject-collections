@@ -60,13 +60,24 @@
     <Compile Include="Tests\QueueForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Internal\AVLTree\Dictionary.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\AVLTree\DictionaryTreeNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\AVLTree\I_DictionaryTreeNode.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="_Internal" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
     <Folder Include="Tests\Mocks\CollectionEventHandlers" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
+    <Folder Include="_Internal\AVLTree" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="mobject-collections">

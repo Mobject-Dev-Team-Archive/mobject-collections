@@ -22,6 +22,10 @@ VAR
     enumerator : I_ForwardEnumerator;
     output : INT;
     allowed : BOOL;
+	
+	myDic : Dictionary;
+	once,d : bool;
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();
@@ -87,7 +91,26 @@ allowed := stack.TryPeek(output); // allowed = true, output = 789
 // TryDequeue will remove the item from the queue
 allowed := stack.TryPop(output); // allowed = true, output = 789
 allowed := stack.TryPop(output); // allowed = true, output = 456
-allowed := stack.TryPop(output); // allowed = true, output = 123]]></ST>
+allowed := stack.TryPop(output); // allowed = true, output = 123
+
+IF NOT once THEN
+	once := TRUE;
+	myDic.Set('test1', value1);
+	myDic.Set('test2', value2);
+	myDic.Set('test3', value3);
+	
+	allowed := myDic.TryGetValue('test1', output);
+	allowed := myDic.TryGetValue('test2', output);
+	allowed := myDic.TryGetValue('test3', output);
+	
+	myDic.Remove('test2');
+	allowed := myDic.TryGetValue('test2', output);
+	allowed := myDic.TryGetValue('test3', output);
+	
+	myDic.Remove('test1');
+	myDic.Remove('test3');
+	
+END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
