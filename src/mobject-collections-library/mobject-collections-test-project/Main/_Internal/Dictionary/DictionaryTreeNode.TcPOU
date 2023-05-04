@@ -19,6 +19,19 @@ END_VAR
     </Implementation>
     <Folder Name="Destructor" Id="{78526f89-48f1-436e-9832-12e9ed8b469e}" />
     <Folder Name="Private" Id="{8d481354-6053-40a3-b6f8-e65f747ac3db}" />
+    <Method Name="Clone" Id="{a3efd7e3-e49a-4477-894b-38d50bd4545b}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[DestroyBuffer();
+pBuffer := Node.NodeBufferPointer;
+bufferSize := Node.NodeBufferSize;
+_key := Node.Key;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CopyBufferToDestination" Id="{f1c92538-a371-4a93-8465-74398204a812}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE CopyBufferToDestination
 VAR_INPUT
@@ -180,6 +193,28 @@ END_IF
 _left := Left;]]></ST>
         </Implementation>
       </Set>
+    </Property>
+    <Property Name="NodeBufferPointer" Id="{81a6f223-bc18-4cf8-80d6-d5549831d1f5}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NodeBufferPointer : Pointer To Byte]]></Declaration>
+      <Get Name="Get" Id="{d7acfb61-ba2b-4e4d-815f-231d70b9491a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NodeBufferPointer := pBuffer;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="NodeBufferSize" Id="{03daefcb-8658-47ef-9990-9ffa92facdb0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NodeBufferSize : UDINT]]></Declaration>
+      <Get Name="Get" Id="{44c8ceae-7d9a-44f6-9b85-9110d58402cf}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NodeBufferSize := bufferSize;]]></ST>
+        </Implementation>
+      </Get>
     </Property>
     <Property Name="Right" Id="{0eeff03f-7821-48fe-8897-9945f59363f5}">
       <Declaration><![CDATA[PROPERTY PUBLIC Right : I_DictionaryTreeNode]]></Declaration>

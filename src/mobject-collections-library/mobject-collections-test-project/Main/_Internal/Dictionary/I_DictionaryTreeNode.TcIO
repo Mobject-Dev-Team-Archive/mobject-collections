@@ -3,6 +3,13 @@
   <Itf Name="I_DictionaryTreeNode" Id="{4673f34b-a420-4a38-b998-5a715be18577}">
     <Declaration><![CDATA[INTERFACE I_DictionaryTreeNode EXTENDS I_Disposable
 ]]></Declaration>
+    <Method Name="Clone" Id="{834e845a-f0ba-4552-9d6c-63f490871794}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="DataSize" Id="{da2fe586-9ba9-49ae-8433-72302467c3f1}">
       <Declaration><![CDATA[PROPERTY PUBLIC DataSize : UDINT
 ]]></Declaration>
@@ -47,6 +54,18 @@ END_VAR
       <Set Name="Set" Id="{50557040-f175-41e1-86a9-cb59bb26fa4a}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
+    </Property>
+    <Property Name="NodeBufferPointer" Id="{7c7a3c5a-a7ac-408a-a394-8fd1b0220ba8}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NodeBufferPointer : Pointer To Byte]]></Declaration>
+      <Get Name="Get" Id="{fa285b93-2052-487f-a364-574d85dbf535}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="NodeBufferSize" Id="{a39ef84d-02a0-48e3-9d4a-470bcc104df3}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NodeBufferSize : UDINT]]></Declaration>
+      <Get Name="Get" Id="{745fc7e6-8183-4f67-ba5a-e2f5400f4232}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
     </Property>
     <Property Name="Right" Id="{25d4a054-5550-43fa-b27f-b1319a224d08}">
       <Declaration><![CDATA[PROPERTY PUBLIC Right : I_DictionaryTreeNode]]></Declaration>
