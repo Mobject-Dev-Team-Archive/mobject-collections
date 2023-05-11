@@ -75,26 +75,13 @@
     <Compile Include="Tests\QueueForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Dictionary\Dictionary.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\Dictionary\Enumerator\DictionaryForwardEnumerator.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\Dictionary\Node\DictionaryTreeNode.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="_Internal" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
     <Folder Include="Tests\Mocks\EventHandlers" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
-    <Folder Include="_Internal\Dictionary" />
-    <Folder Include="_Internal\Dictionary\Enumerator" />
-    <Folder Include="_Internal\Dictionary\Node" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="DictionaryForwardEnumerator" Id="{70e00e74-4072-4f72-af43-62ea6523481b}" SpecialFunc="None">
+  <POU Name="DictionaryForwardEnumerator" Id="{ea3219ac-d83f-43b4-88b1-6fa980a23e92}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
@@ -17,9 +17,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Folder Name="Constructor" Id="{7e6cf152-fdc3-41a1-9966-25c96924e3e4}" />
-    <Folder Name="Destructor" Id="{7e7558ea-a47d-448e-a5cf-5054c14d57db}" />
-    <Method Name="FB_exit" Id="{b5496d04-7df8-41c6-ad37-3cfb42e08dd9}" FolderPath="Destructor\">
+    <Folder Name="Constructor" Id="{0d0a8d67-edb1-4e55-95da-feed425ae835}" />
+    <Folder Name="Destructor" Id="{0b4c622d-3ac3-420f-bc30-23f13a766bfc}" />
+    <Method Name="FB_exit" Id="{943c6307-4571-4caa-961c-9e90354ba9da}" FolderPath="Destructor\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
 	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
@@ -40,7 +40,7 @@ parent.OffEvent('OnChanged',THIS^);
 parent.OffEvent('OnDisposed',THIS^);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{a2a93078-5f11-47f1-b498-77968dad6f6b}" FolderPath="Constructor\">
+    <Method Name="FB_init" Id="{ebbefe6c-2e3f-417d-8eee-63420148046f}" FolderPath="Constructor\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -56,7 +56,7 @@ THIS^.nodes := Nodes;
 THIS^.collectionEnumerator := Nodes.GetEnumerator();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="HandleEvent" Id="{f3d26f73-170c-4824-ad17-302cb6e04d5f}">
+    <Method Name="HandleEvent" Id="{2ad883e0-4994-4e76-b5a6-9610a200e0a1}">
       <Declaration><![CDATA[METHOD PUBLIC HandleEvent
 VAR_INPUT
 	Event : I_Event;
@@ -74,16 +74,16 @@ ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Property Name="IsValid" Id="{f1dd2f33-f1d7-495c-9527-8d282e959c4c}">
+    <Property Name="IsValid" Id="{a9896b28-556c-41ba-87d9-6d1bbbf7d810}">
       <Declaration><![CDATA[PROPERTY PUBLIC IsValid : BOOL]]></Declaration>
-      <Get Name="Get" Id="{629f4a09-8424-4f9b-8776-6d7ac72d3705}">
+      <Get Name="Get" Id="{874d0390-688a-4f84-a416-e00d712c3be4}">
         <Declaration><![CDATA[PUBLIC]]></Declaration>
         <Implementation>
           <ST><![CDATA[IsValid := (not invalid and parent <> 0);]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="MoveNext" Id="{85b45064-94c8-4a65-aa89-ea518d9ba5b7}">
+    <Method Name="MoveNext" Id="{4a4f0f89-4b66-42b6-9a6a-35e922bbc271}">
       <Declaration><![CDATA[METHOD PUBLIC MoveNext : BOOL]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF invalid THEN
@@ -97,7 +97,7 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryGet" Id="{bc9110ec-6c78-4ada-8437-02b83c4bfbaf}">
+    <Method Name="TryGet" Id="{0ffa1c2e-bcbd-4d65-bc20-482a62ad79ab}">
       <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
 VAR_INPUT
 	Destination : ANY;
@@ -108,7 +108,7 @@ END_VAR]]></Declaration>
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TryGetTo" Id="{62c25448-0ef9-4d52-9b69-0142fe1459ad}">
+    <Method Name="TryGetTo" Id="{05da6e1e-3f48-4276-a562-db2e35af7578}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetTo : BOOL;
 VAR_INPUT
 	DestinationAddress : PVOID;

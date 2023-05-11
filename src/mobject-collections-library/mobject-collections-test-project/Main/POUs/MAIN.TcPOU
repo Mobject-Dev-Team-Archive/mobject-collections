@@ -111,7 +111,7 @@ allowed := dictionary.TryGetValue('b', output); // allowed = true, output = 456
 // if a key does not exist, or the destination is the wrong size then the return shall be FALSE
 allowed := dictionary.TryGetValue('c', output); // allowed = false, output = 456
 
-// update exsisting key value pairs using addOrUpdate(Key,Value)
+// update existing key value pairs using addOrUpdate(Key,Value)
 dictionary.AddOrUpdate('c', value2); // [['a',123],['b',456],['c',456]]
 allowed := dictionary.TryGetValue('c', output); // allowed = true, output = 456
 dictionary.AddOrUpdate('c', value3); // [['a',123],['b',456],['c',789]]

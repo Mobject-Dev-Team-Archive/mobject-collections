@@ -2,7 +2,7 @@
 
 # 0.8.0
 
-- Added Dictionary Classes.
+- Added Dictionary Class.
 - Bugfix Events were not implemented correctly on the ListEnumerator. These have been added.
 - Converted referenced libraries to actual libraries rather than placeholders
 - Added I_CollectionNode as a base to I_LinkedListNode, I_ListNode and I_DictionaryNode.

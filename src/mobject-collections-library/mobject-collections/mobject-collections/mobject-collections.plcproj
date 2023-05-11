@@ -59,9 +59,13 @@
     <Folder Include="LinkedList" />
     <Folder Include="Interfaces" />
     <Folder Include="List" />
+    <Folder Include="Dictionary" />
     <Folder Include="_Internal" />
     <Folder Include="Queue" />
     <Folder Include="Stack" />
+    <Folder Include="_Internal\Dictionary" />
+    <Folder Include="_Internal\Dictionary\Enumerator" />
+    <Folder Include="_Internal\Dictionary\Node" />
     <Folder Include="_Internal\Events" />
     <Folder Include="_Internal\Events\Collection" />
     <Folder Include="_Internal\Events\KeyValueCollection" />
@@ -73,6 +77,9 @@
     <Folder Include="_Internal\List\Node" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Dictionary.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\Collections\Events\I_CollectionChangedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -128,6 +135,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Stack\Stack.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Dictionary\Enumerator\DictionaryForwardEnumerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Dictionary\Node\DictionaryTreeNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\Events\Collection\CollectionChangedEvent.TcPOU">
