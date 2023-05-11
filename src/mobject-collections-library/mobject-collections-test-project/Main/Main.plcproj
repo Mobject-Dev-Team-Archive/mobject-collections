@@ -24,6 +24,12 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Dictionary_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\DictionaryForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\LinkedList_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -33,16 +39,25 @@
     <Compile Include="Tests\List_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\CollectionEventHandlers\CollectionChangedEventHandler.TcPOU">
+    <Compile Include="Tests\Mocks\EventHandlers\CollectionChangedEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\CollectionEventHandlers\CollectionDisposedEventHandler.TcPOU">
+    <Compile Include="Tests\Mocks\EventHandlers\CollectionDisposedEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\CollectionEventHandlers\CollectionEventHandler.TcPOU">
+    <Compile Include="Tests\Mocks\EventHandlers\CollectionEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\MockEventHandler.TcPOU">
+    <Compile Include="Tests\Mocks\EventHandlers\KeyValueCollectionChangedEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\EventHandlers\KeyValueCollectionEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\EventHandlers\KeyValueCollectionDisposedEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\EventHandlers\MockEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\StackForwardEnumerator_TestSuite.TcPOU">
@@ -63,10 +78,10 @@
     <Compile Include="_Internal\Dictionary\Dictionary.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Dictionary\DictionaryTreeNode.TcPOU">
+    <Compile Include="_Internal\Dictionary\Enumerator\DictionaryForwardEnumerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Internal\Dictionary\I_DictionaryTreeNode.TcIO">
+    <Compile Include="_Internal\Dictionary\Node\DictionaryTreeNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -74,28 +89,14 @@
     <Folder Include="_Internal" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
-    <Folder Include="Tests\Mocks\CollectionEventHandlers" />
+    <Folder Include="Tests\Mocks\EventHandlers" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
     <Folder Include="_Internal\Dictionary" />
+    <Folder Include="_Internal\Dictionary\Enumerator" />
+    <Folder Include="_Internal\Dictionary\Node" />
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderReference Include="mobject-collections">
-      <DefaultResolution>mobject-collections, * (mobject)</DefaultResolution>
-      <Namespace>mobject_collections</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="mobject-disposable">
-      <DefaultResolution>mobject-disposable, * (mobject)</DefaultResolution>
-      <Namespace>mobject_disposable</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="mobject-enumerable">
-      <DefaultResolution>mobject-enumerable, * (mobject)</DefaultResolution>
-      <Namespace>mobject_enumerable</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="mobject-events">
-      <DefaultResolution>mobject-events, * (mobject)</DefaultResolution>
-      <Namespace>mobject_events</Namespace>
-    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -133,9 +134,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderResolution Include="mobject-collections">
-      <Resolution>mobject-collections, 0.7.0 (mobject)</Resolution>
-    </PlaceholderResolution>
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
     </PlaceholderResolution>
@@ -145,6 +143,20 @@
     <PlaceholderResolution Include="mobject-events">
       <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>
     </PlaceholderResolution>
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="mobject-collections,0.8.0,mobject">
+      <Namespace>mobject_collections</Namespace>
+    </LibraryReference>
+    <LibraryReference Include="mobject-disposable,0.3.1,mobject">
+      <Namespace>mobject_disposable</Namespace>
+    </LibraryReference>
+    <LibraryReference Include="mobject-enumerable,0.1.0,mobject">
+      <Namespace>mobject_enumerable</Namespace>
+    </LibraryReference>
+    <LibraryReference Include="mobject-events,0.4.1,mobject">
+      <Namespace>mobject_events</Namespace>
+    </LibraryReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

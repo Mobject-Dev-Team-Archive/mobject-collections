@@ -1,5 +1,17 @@
 # Changelog
 
+# 0.8.0
+
+- Added Dictionary Classes.
+- Bugfix Events were not implemented correctly on the ListEnumerator. These have been added.
+- Converted referenced libraries to actual libraries rather than placeholders
+- Added I_CollectionNode as a base to I_LinkedListNode, I_ListNode and I_DictionaryNode.
+
+!> This update contains the following breaking changes.
+
+- Removed Reset from enumerators (as this is not a commonly implemented method)
+- FB_init of ListForwardEnumerator has argument List changed to Parent.
+
 # 0.7.0
 
 - Added List and ListForwardEnumerator Classes.

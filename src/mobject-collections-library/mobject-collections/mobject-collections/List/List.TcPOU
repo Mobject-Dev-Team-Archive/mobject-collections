@@ -242,7 +242,7 @@ VAR
 	pEnumerator : POINTER TO ListForwardEnumerator;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pEnumerator := __NEW(ListForwardEnumerator(List := THIS^));
+        <ST><![CDATA[pEnumerator := __NEW(ListForwardEnumerator(Parent := THIS^));
 GetEnumerator := pEnumerator^;]]></ST>
       </Implementation>
     </Method>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="KeyValueCollectionEvent" Id="{41d008bd-2ebc-4ad0-9eb7-f30d499b2fd9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ABSTRACT KeyValueCollectionEvent EXTENDS Disposable
+VAR
+	_target : I_KeyValueCollection;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{aca54e40-f2c3-4c53-81f0-a4cbc36e4d7c}" />
+    <Method Name="FB_init" Id="{a9b3e632-fc59-47c3-bf2c-3a9998961469}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Target : I_KeyValueCollection;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[This^._target := Target;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Target" Id="{6ce8c145-7ab5-43d0-aa42-aaaaaff61bfc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Target : I_KeyValueCollection]]></Declaration>
+      <Get Name="Get" Id="{18bf4fdd-750a-4281-a56c-b97420cda623}">
+        <Declaration><![CDATA[PUBLIC]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Target := _target;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -3,6 +3,8 @@
   <POU Name="MAIN" Id="{4fc6a7e2-9479-48b5-85ef-622583cb9cd0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	dictionary_TestSuite : Dictionary_TestSuite;
+	dictionaryForwardEnumerator_TestSuite : DictionaryForwardEnumerator_TestSuite;
     linkedList_TestSuite : LinkedList_TestSuite;
 	linkedListForwardEnumerator_TestSuite : LinkedListForwardEnumerator_TestSuite;
     list_TestSuite : List_TestSuite;
@@ -12,7 +14,7 @@ VAR
     stack_TestSuite : Stack_TestSuite;
 	stackForwardEnumerator_TestSuite : StackForwardEnumerator_TestSuite;
 
-    // variables used in examples	teset
+    // variables used in examples
     linkedList : LinkedList;
     queue : Queue;
     stack : Stack;
@@ -23,6 +25,7 @@ VAR
     enumerator : I_ForwardEnumerator;
     output : INT;
     allowed : BOOL;
+	result : BOOL;
 	
 END_VAR]]></Declaration>
     <Implementation>
@@ -92,37 +95,34 @@ allowed := stack.TryPop(output); // allowed = true, output = 456
 allowed := stack.TryPop(output); // allowed = true, output = 123
 
 // Dictionary Examples
-// ==============
-
-// using TryAdd, AddOrUpdate, TryGetValue
-// -------------------------------------
+// ===================
 
 // typical use of adding key value pairs
-allowed := dictionary.TryAdd('09', value1); // allowed = true, [['test1',123]]
-allowed := dictionary.TryAdd('15', value2); // allowed = true, [['test1',123],['test2',456]]
-allowed := dictionary.TryAdd('20', value3); // allowed = true, [['test1',123],['test2',456],['test3',789]]
-allowed := dictionary.TryAdd('08', value1); 
-allowed := dictionary.TryAdd('07', value1); 
-allowed := dictionary.TryAdd('13', value1); 
-allowed := dictionary.TryAdd('10', value1); 
-
-//allowed := dictionary.TryAdd('test5', value3); // allowed = true, [['test1',123],['test2',456],['test3',789]]
-//allowed := dictionary.TryAdd('test4', value3); // allowed = true, [['test1',123],['test2',456],['test3',789]]
+allowed := dictionary.TryAdd('a', value1); // allowed = true, [['a',123]]
+allowed := dictionary.TryAdd('b', value2); // allowed = true, [['a',123],['b',456]]
 
 // TryAdd will return false if the key already exists and the operation cancelled
-//allowed := dictionary.TryAdd('test3', value1); // allowed = false, [['test1',123],['test2',456],['test3',789]]
+allowed := dictionary.TryAdd('b', value3); // allowed = false, [['a',123],['b',456]]
 
-allowed := dictionary.TryGetValue('09', output); // allowed = true, output = 123
-allowed := dictionary.TryGetValue('15', output); // allowed = true, output = 456
-allowed := dictionary.TryGetValue('20', output); // allowed = true, output = 789
+// read key values using TryGetValue
+allowed := dictionary.TryGetValue('a', output); // allowed = true, output = 123
+allowed := dictionary.TryGetValue('b', output); // allowed = true, output = 456
+
+// if a key does not exist, or the destination is the wrong size then the return shall be FALSE
+allowed := dictionary.TryGetValue('c', output); // allowed = false, output = 456
 
 // update exsisting key value pairs using addOrUpdate(Key,Value)
-//dictionary.AddOrUpdate('20', value2); // allowed = true, [['test1',123],['test2',456],['test3',123]]
-allowed := dictionary.TryGetValue('20', output); // allowed = true, output = 123
+dictionary.AddOrUpdate('c', value2); // [['a',123],['b',456],['c',456]]
+allowed := dictionary.TryGetValue('c', output); // allowed = true, output = 456
+dictionary.AddOrUpdate('c', value3); // [['a',123],['b',456],['c',789]]
+allowed := dictionary.TryGetValue('c', output); // allowed = true, output = 789
 
 // remove key value pairs using Remove(Key)
-dictionary.Remove('20'); // [['test1',123],['test3',123]]
-//allowed := dictionary.TryGetValue('test2', output); // allowed = false, output = no change
+dictionary.Remove('a'); // [['b',456],['c',789]]
+
+// check for keys using ContainsKey
+result := dictionary.ContainsKey('a'); // result = FALSE
+result := dictionary.ContainsKey('b'); // result = TRUE
 
 // clear the dictionary using Clear()
 dictionary.Clear();]]></ST>

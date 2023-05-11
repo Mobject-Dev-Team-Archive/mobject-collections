@@ -27,8 +27,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[DestroyBuffer();
-pBuffer := Node.NodeBufferPointer;
-bufferSize := Node.NodeBufferSize;
+CreateBuffer(Node.NodeBufferSize);
+CopySourceToBuffer(Node.NodeBufferPointer);
 _key := Node.Key;]]></ST>
       </Implementation>
     </Method>
