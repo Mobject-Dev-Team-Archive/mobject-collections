@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Dictionary" Id="{69856d24-b5e6-4333-b279-186d579d68d5}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK Dictionary EXTENDS Disposable IMPLEMENTS I_Dictionary
+VAR
+	eventEmitter : EventEmitter;
+	rootNode : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Destructor" Id="{799ba7f3-3e73-410a-8566-0d2333e2608b}" />
+    <Folder Name="Private" Id="{05cf7773-bf71-4a59-b4e2-342a041fb316}" />
+    <Method Name="AddOrUpdate" Id="{7ba8fca8-a549-4f45-8432-11881b5599b6}">
+      <Declaration><![CDATA[METHOD PUBLIC AddOrUpdate
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rootNode := THIS^.RecursiveInsert(Key, Value, rootNode);
+EmitChangedEvent();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Balance" Id="{13a2513e-4286-46bd-8a44-13be76f5a6b5}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE Balance : I_DictionaryTreeNode
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+VAR
+	balanceFactor : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[balanceFactor := THIS^.GetBalanceFactor(Node);
+
+IF (balanceFactor > 1) THEN
+	IF THIS^.GetBalanceFactor(Node.Left) < 0 THEN
+		Node.Left := THIS^.LeftRotate(Node.Left);
+	END_IF
+	Node := RightRotate(Node);
+ELSIF (balanceFactor < -1) THEN
+	IF THIS^.GetBalanceFactor(Node.Right) > 0 THEN
+		Node.Right := RightRotate(Node.Right);
+	END_IF
+	Node := LeftRotate(Node);
+END_IF
+
+Balance := Node;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{316a29ca-9301-47ef-869c-d163f62dcdb0}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF rootNode = 0 THEN
+	RETURN;
+END_IF
+
+THIS^.RecursiveClear(rootNode);
+rootNode := 0;
+EmitChangedEvent();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ContainsKey" Id="{aa3ec262-d2ef-4ec4-90f1-321641f05311}">
+      <Declaration><![CDATA[METHOD PUBLIC ContainsKey : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR
+VAR
+	foundNode : I_DictionaryTreeNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundNode := THIS^.RecursiveFind(Key, rootNode);
+
+IF foundNode = 0 THEN
+	RETURN;
+END_IF
+
+ContainsKey := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{87933f5c-cdd5-4178-98ae-c99bed829bbc}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
+      <Get Name="Get" Id="{5a20f850-5127-4e3d-b1f9-81d9ec3ec5c4}">
+        <Declaration><![CDATA[VAR
+	NodeCount : DINT;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[RecursiveCountNodes(rootNode, NodeCount);
+Count := NodeCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="EmitChangedEvent" Id="{3efeaa77-142a-40ab-ab41-572282973a5a}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitChangedEvent
+VAR
+	pDictionaryChangedEvent : POINTER TO KeyValueCollectionChangedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pDictionaryChangedEvent := __NEW(KeyValueCollectionChangedEvent(Target := THIS^));
+eventEmitter.Emit('OnChanged', pDictionaryChangedEvent^);
+pDictionaryChangedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="EmitDisposedEvent" Id="{06a558c3-e127-46ff-b10d-309c9fffb350}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE EmitDisposedEvent
+VAR
+	pDictionaryDisposedEvent : POINTER TO KeyValueCollectionDisposedEvent;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pDictionaryDisposedEvent := __NEW(KeyValueCollectionDisposedEvent(Target := THIS^));
+eventEmitter.Emit('OnDisposed', pDictionaryDisposedEvent^);
+pDictionaryDisposedEvent^.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{a93f4e55-766f-403d-9e00-656b1a79cad4}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF bInCopyCode THEN
+    RETURN;
+END_IF
+
+Clear();
+EmitDisposedEvent();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FindMinimum" Id="{6b6494b0-37fe-4871-8f64-f7f3d308135b}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE FindMinimum : I_DictionaryTreeNode
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+VAR
+	nextNode : I_DictionaryTreeNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[nextNode := Node;
+
+WHILE (nextNode.left <> 0) DO
+      nextNode := nextNode.left;
+END_WHILE;
+
+FindMinimum := nextNode;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetBalanceFactor" Id="{b359b8b7-e763-419c-866b-d143f69eedbc}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE GetBalanceFactor : DINT
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Node = 0) THEN
+	GetBalanceFactor := 0;
+	RETURN;
+END_IF
+
+GetBalanceFactor := THIS^.GetHeight(node.left) - THIS^.GetHeight(node.right);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetEnumerator" Id="{be0a62de-4f71-4bb7-b002-dbfdf37de8b2}">
+      <Declaration><![CDATA[METHOD GetEnumerator : I_ForwardEnumerator
+VAR
+	pNodeCollection : POINTER TO LinkedList;
+	pEnumerator : POINTER TO DictionaryForwardEnumerator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNodeCollection := __NEW(LinkedList);
+THIS^.RecursiveAddNodesInOrderToCollection(rootNode, pNodeCollection^);
+
+pEnumerator := __NEW(DictionaryForwardEnumerator(Parent := THIS^, Nodes := pNodeCollection^));
+GetEnumerator := pEnumerator^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHeight" Id="{96c0a620-74ac-4b11-92bd-46b618558ebe}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE GetHeight : DINT
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Node = 0 THEN
+	GetHeight := -1;
+	RETURN;
+END_IF
+
+GetHeight := Node.Height;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetKeys" Id="{528c88ec-1169-46e1-b485-c3aad3347785}">
+      <Declaration><![CDATA[METHOD PUBLIC GetKeys : I_Collection
+VAR
+	pLinkedList : POINTER TO LinkedList;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pLinkedList := __NEW(LinkedList);
+THIS^.RecursiveAddKeysInOrderToCollection(rootNode,pLinkedList^);
+GetKeys := pLinkedList^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LeftRotate" Id="{eed2e16c-86e1-410b-a6d8-fcb5ebd431d5}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE LeftRotate : I_DictionaryTreeNode
+VAR_INPUT
+	X : I_DictionaryTreeNode;
+END_VAR
+VAR
+	y : I_DictionaryTreeNode;
+	t2 : I_DictionaryTreeNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[y := X.right;
+t2 := y.left;
+y.left := X;
+X.right := t2;
+THIS^.UpdateHeight(X);
+THIS^.UpdateHeight(y);
+LeftRotate := y;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OffEvent" Id="{375e8311-9ac5-4297-a7d5-cf8c7ac3e09d}">
+      <Declaration><![CDATA[METHOD PUBLIC OffEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[eventEmitter.OffEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnceEvent" Id="{060823e9-e96d-47b3-ab12-84126bde934a}">
+      <Declaration><![CDATA[METHOD PUBLIC OnceEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[eventEmitter.OnceEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnEvent" Id="{5f8ebd60-f57b-4703-b930-8b131d0777fe}">
+      <Declaration><![CDATA[METHOD PUBLIC OnEvent
+VAR_INPUT
+	EventName : T_MaxString;
+	EventHandler : I_EventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[eventEmitter.OnEvent(EventName, EventHandler);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveAddKeysInOrderToCollection" Id="{3ba81622-20ad-404a-a499-87421b7bade3}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveAddKeysInOrderToCollection
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+	Collection : I_Collection;
+END_VAR
+VAR
+	key : T_MAXSTRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Node = 0 THEN
+	RETURN;
+END_IF
+
+THIS^.RecursiveAddKeysInOrderToCollection(Node.Left,Collection);
+key := Node.Key;
+Collection.AddItem(key);
+THIS^.RecursiveAddKeysInOrderToCollection(Node.Right,Collection);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveAddNodesInOrderToCollection" Id="{9e9c2c94-768f-4e77-a0ba-19b68f2cd259}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveAddNodesInOrderToCollection
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+	Collection : I_Collection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Node = 0 THEN
+	RETURN;
+END_IF
+
+THIS^.RecursiveAddKeysInOrderToCollection(Node.Left,Collection);
+Collection.AddItem(Node);
+THIS^.RecursiveAddKeysInOrderToCollection(Node.Right,Collection);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveClear" Id="{33b25ef7-a87b-461b-9993-7c712990573e}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveClear
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+VAR
+	thisNodeKey : T_MAXSTRING;
+	leftNodeKey : T_MAXSTRING;
+	rightNodeKey : T_MAXSTRING;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Node = 0) THEN
+	RETURN;
+END_IF
+
+thisNodeKey := Node.key;
+
+IF (Node.Left <> 0) THEN
+	leftNodeKey := Node.Left.key;
+END_IF
+
+IF (Node.Right <> 0) THEN
+	rightNodeKey := Node.Right.key;
+END_IF
+
+
+RecursiveClear(Node.Left);
+RecursiveClear(Node.Right);
+Node.Dispose();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveCountNodes" Id="{9f63a0ac-35e8-4cbf-a38a-c90a10af839e}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveCountNodes
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+	Count : REFERENCE TO DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Node = 0 THEN
+	RETURN;
+END_IF
+
+Count := Count + 1;
+
+THIS^.RecursiveCountNodes(Node.Left,Count);
+THIS^.RecursiveCountNodes(Node.Right,Count);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveDelete" Id="{fc05b1f1-b783-416a-a016-57051dde62b4}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveDelete : I_DictionaryTreeNode
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Node : I_DictionaryTreeNode;
+END_VAR
+VAR
+	newNode : I_DictionaryTreeNode; 
+	minValueNode : I_DictionaryTreeNode;
+	minValueNodeParent : I_DictionaryTreeNode;
+	balanceFactor : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Node = 0) THEN
+    RETURN;
+END_IF
+
+IF (Key < Node.Key) THEN
+    Node.left := THIS^.RecursiveDelete(Key, Node.left);
+ELSIF (Key > Node.Key) THEN
+    Node.right := THIS^.RecursiveDelete(Key, Node.right);
+ELSE
+    IF (Node.Left = 0) OR (Node.Right = 0) THEN
+        IF (Node.Left = 0) THEN
+            newNode := Node.Right;
+        ELSE
+            newNode := Node.Left;
+        END_IF
+
+        Node.Dispose();
+        THIS^.updateHeight(newNode);
+        RecursiveDelete := THIS^.Balance(newNode);
+        RETURN;
+    ELSE
+        minValueNode := FindMinimum(Node.Right);
+        Node.Clone(minValueNode);
+        Node.Right := THIS^.RecursiveDelete(minValueNode.Key, Node.Right);	
+    END_IF
+END_IF
+
+THIS^.updateHeight(Node);
+RecursiveDelete := THIS^.Balance(Node);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveFind" Id="{f68328e2-eb51-40ce-a947-cd7fc76a0f23}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveFind : I_DictionaryTreeNode
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Node = 0) THEN
+	RETURN;
+END_IF
+
+IF (Key < Node.key) THEN
+  RecursiveFind := THIS^.RecursiveFind(key, Node.left);
+  RETURN;
+ELSIF (key > Node.key) THEN
+  RecursiveFind := THIS^.RecursiveFind(key, Node.right);
+  RETURN;
+ELSE 
+  RecursiveFind := Node;
+  RETURN;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RecursiveInsert" Id="{8730a210-307b-4c42-ba62-c16896333f93}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RecursiveInsert : I_DictionaryTreeNode
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+	Node : I_DictionaryTreeNode;
+END_VAR
+VAR
+	pAVLTreeNode : POINTER TO DictionaryTreeNode;
+	balanceFactor : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Node = 0) THEN
+	pAVLTreeNode := __NEW(DictionaryTreeNode);
+	pAVLTreeNode^.Initialize(Key, Value);
+	RecursiveInsert := pAVLTreeNode^;
+	RETURN;
+END_IF
+
+IF (Key < Node.Key) THEN
+	Node.left := THIS^.RecursiveInsert(Key, Value, Node.left);
+ELSIF (Key > Node.Key) THEN
+	Node.right := THIS^.RecursiveInsert(Key, Value, Node.right);
+ELSE
+	Node.Initialize(Key,Value);
+	RecursiveInsert := Node;
+END_IF
+
+THIS^.updateHeight(node);
+
+balanceFactor := THIS^.GetBalanceFactor(Node);
+Node := balance(Node);
+RecursiveInsert := Node;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Remove" Id="{ceae3240-44b2-47d2-8283-07b21c5d48bf}">
+      <Declaration><![CDATA[METHOD PUBLIC Remove
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rootNode := THIS^.RecursiveDelete(Key, rootNode);
+EmitChangedEvent();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RightRotate" Id="{5db5fe2d-b732-467c-9152-1cebe619b6d8}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE RightRotate : I_DictionaryTreeNode
+VAR_INPUT
+	Y : I_DictionaryTreeNode;
+END_VAR
+VAR
+	x : I_DictionaryTreeNode;
+	t2 : I_DictionaryTreeNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[x := Y.left;
+t2 := x.right;
+x.right := Y;
+Y.left := t2;
+THIS^.UpdateHeight(Y);
+THIS^.UpdateHeight(x);
+RightRotate := x;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryAdd" Id="{b93a19d1-a528-48af-ab9c-6689cda8aa95}">
+      <Declaration><![CDATA[METHOD PUBLIC TryAdd : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ContainsKey(Key) THEN
+	RETURN;
+END_IF
+	  
+THIS^.AddOrUpdate(Key, Value);
+TryAdd := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetValue" Id="{c2e9fe84-12ee-4d7e-ad02-7393543ad2be}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValue : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Destination	: ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TryGetValue := TryGetValueTo(Key, Destination.pValue, DINT_TO_UDINT(Destination.diSize));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryGetValueTo" Id="{84805d81-5a86-401e-94af-05fcf5cb0146}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValueTo : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+VAR
+	foundNode : I_DictionaryTreeNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundNode := THIS^.RecursiveFind(Key, rootNode);
+
+IF foundNode = 0 THEN
+	RETURN;
+END_IF
+
+TryGetValueTo := foundNode.TryGetTo(DestinationAddress, DestinationSize);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UpdateHeight" Id="{32b20f87-5b08-4800-b6d7-2926c03258b8}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE UpdateHeight
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Node = 0) THEN
+	RETURN;
+END_IF
+
+Node.height := 1 + MAX(THIS^.GetHeight(Node.left), THIS^.GetHeight(Node.right));]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

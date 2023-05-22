@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.7.0</ProjectVersion>
+    <ProjectVersion>0.8.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -35,18 +35,6 @@
     </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
-    <PlaceholderReference Include="mobject-disposable">
-      <DefaultResolution>mobject-disposable, * (mobject)</DefaultResolution>
-      <Namespace>mobject_disposable</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="mobject-enumerable">
-      <DefaultResolution>mobject-enumerable, * (mobject)</DefaultResolution>
-      <Namespace>mobject_enumerable</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="mobject-events">
-      <DefaultResolution>mobject-events, * (mobject)</DefaultResolution>
-      <Namespace>mobject_events</Namespace>
-    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
@@ -62,17 +50,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Interfaces\Collections\Events" />
     <Folder Include="Interfaces\Collections\Nodes" />
     <Folder Include="Interfaces\Collections" />
-    <Folder Include="Interfaces\Events" />
+    <Folder Include="Interfaces\KeyValueCollections" />
+    <Folder Include="Interfaces\KeyValueCollections\Events" />
+    <Folder Include="Interfaces\KeyValueCollections\Nodes" />
     <Folder Include="LinkedList" />
     <Folder Include="Interfaces" />
     <Folder Include="List" />
+    <Folder Include="Dictionary" />
     <Folder Include="_Internal" />
     <Folder Include="Queue" />
     <Folder Include="Stack" />
+    <Folder Include="_Internal\Dictionary" />
+    <Folder Include="_Internal\Dictionary\Enumerator" />
+    <Folder Include="_Internal\Dictionary\Node" />
     <Folder Include="_Internal\Events" />
     <Folder Include="_Internal\Events\Collection" />
+    <Folder Include="_Internal\Events\KeyValueCollection" />
     <Folder Include="_Internal\LinkedList" />
     <Folder Include="_Internal\LinkedList\Enumerator" />
     <Folder Include="_Internal\LinkedList\Node" />
@@ -81,10 +77,19 @@
     <Folder Include="_Internal\List\Node" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\Collections\I_List.TcIO">
+    <Compile Include="Dictionary\Dictionary.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Collections\Events\I_CollectionChangedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Collections\Events\I_CollectionDisposedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\Collections\I_Collection.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Collections\I_List.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\Collections\I_LinkedList.TcIO">
@@ -96,16 +101,28 @@
     <Compile Include="Interfaces\Collections\I_Stack.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Interfaces\Collections\Nodes\I_CollectionNode.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\Collections\Nodes\I_LinkedListNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\Collections\Nodes\I_ListNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\Events\I_CollectionChangedEvent.TcIO">
+    <Compile Include="Interfaces\KeyValueCollections\Events\I_KeyValueCollectionChangedEvent.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\Events\I_CollectionDisposedEvent.TcIO">
+    <Compile Include="Interfaces\KeyValueCollections\Events\I_KeyValueCollectionDisposedEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\KeyValueCollections\I_Dictionary.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\KeyValueCollections\I_KeyValueCollection.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\KeyValueCollections\Nodes\I_DictionaryTreeNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LinkedList\LinkedList.TcPOU">
@@ -120,6 +137,12 @@
     <Compile Include="Stack\Stack.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Internal\Dictionary\Enumerator\DictionaryForwardEnumerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Dictionary\Node\DictionaryTreeNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_Internal\Events\Collection\CollectionChangedEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -127,6 +150,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\Events\Collection\CollectionEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\KeyValueCollection\KeyValueCollectionChangedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\KeyValueCollection\KeyValueCollectionDisposedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Events\KeyValueCollection\KeyValueCollectionEvent.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\LinkedList\Enumerator\LinkedListForwardEnumerator.TcPOU">
@@ -146,12 +178,17 @@
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
     </PlaceholderResolution>
-    <PlaceholderResolution Include="mobject-enumerable">
-      <Resolution>mobject-enumerable, 0.1.0 (mobject)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="mobject-events">
-      <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>
-    </PlaceholderResolution>
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="mobject-disposable,0.3.1,mobject">
+      <Namespace>mobject_disposable</Namespace>
+    </LibraryReference>
+    <LibraryReference Include="mobject-enumerable,0.1.0,mobject">
+      <Namespace>mobject_enumerable</Namespace>
+    </LibraryReference>
+    <LibraryReference Include="mobject-events,0.4.1,mobject">
+      <Namespace>mobject_events</Namespace>
+    </LibraryReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

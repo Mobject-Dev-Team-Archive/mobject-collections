@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_DictionaryTreeNode" Id="{b049ebc5-6910-459d-8181-35c0e92ce9cc}">
+    <Declaration><![CDATA[INTERFACE I_DictionaryTreeNode EXTENDS I_CollectionNode
+]]></Declaration>
+    <Method Name="Clone" Id="{5fbd90f7-ad8c-4844-a236-694402648117}">
+      <Declaration><![CDATA[METHOD PUBLIC Clone
+VAR_INPUT
+	Node : I_DictionaryTreeNode;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Height" Id="{d505bf5b-8ee9-455b-961d-2af3f83e2374}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Height : DINT]]></Declaration>
+      <Get Name="Get" Id="{82350a15-c594-4ff4-89f1-edf1aa8dd241}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{5b56c20a-56a2-4da9-b79a-d9ab2cc0f075}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="Initialize" Id="{4e666a69-fbdc-4504-8413-4d645bb072e7}">
+      <Declaration><![CDATA[METHOD Initialize
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Key" Id="{346641d0-7fb0-4dfa-81c9-7410426c1415}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Key : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{2fa95320-2e04-46a8-9ef1-8c5876f59e56}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Left" Id="{a06887f7-f336-4b50-bf5c-920e26d04b52}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Left : I_DictionaryTreeNode]]></Declaration>
+      <Get Name="Get" Id="{290a01ba-12a0-4ac0-9463-c22efd8de14b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{64bd001e-c04a-4304-9bf2-7a10ee37d04f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="NodeBufferPointer" Id="{d117737e-cc0e-4e5e-8a0b-d67defb04ced}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NodeBufferPointer : Pointer To Byte]]></Declaration>
+      <Get Name="Get" Id="{92f300c7-46ed-421b-98d6-4b1eb2c5a56f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="NodeBufferSize" Id="{b53a213b-7a12-401e-bd14-fcbbc65ec2b1}">
+      <Declaration><![CDATA[PROPERTY PUBLIC NodeBufferSize : UDINT]]></Declaration>
+      <Get Name="Get" Id="{fd927efb-202c-4042-8bd4-77eae35c8d58}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Right" Id="{4785ac1a-33ef-4008-9184-6e0b82817986}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Right : I_DictionaryTreeNode]]></Declaration>
+      <Get Name="Get" Id="{8d25d25a-0ad1-4409-ba9c-7468ae0f0930}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0f893abf-81b1-4c64-a0b7-52ceb220507c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

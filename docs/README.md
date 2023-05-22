@@ -60,6 +60,8 @@ Using the Stack class can help you to manage your system's tasks in an organized
 
 ### Dictionary
 
-The mobject-collections library will soon be expanding to include Dictionary. Dictionaries are a data structure that allow for efficient key-value lookups.
+<img src="./images/dictionary-example.svg">
 
-With the addition of this class, the mobject-collections library will provide a comprehensive set of data structures that can be used to manage collections of objects in a wide range of scenarios.
+The [Dictionary](dictionary.md) class is a data structure that is designed around the AVL Tree model. This structure allows for efficient search, insertion, and deletion operations, all of which are performed in O(log n) time. A distinctive characteristic of an AVL tree is its self-balancing nature, which ensures that the tree remains approximately balanced at all times, thereby maintaining its optimal search times.
+
+In the Dictionary class, data is stored in key-value pairs, similar to an actual dictionary. This makes it particularly useful for scenarios where fast lookup times are required for large data sets. Additionally, the implementation of the AVL tree guarantees that the operations of adding a new pair, deleting an existing pair, or updating the value of a pair are all performed quickly and efficiently. This makes the Dictionary class an invaluable tool for applications that involve frequent and dynamic changes to stored data.

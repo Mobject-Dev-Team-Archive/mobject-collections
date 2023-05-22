@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_KeyValueCollection" Id="{8afa0049-808e-42a5-a811-87c8f4a10e9f}">
+    <Declaration><![CDATA[INTERFACE I_KeyValueCollection EXTENDS I_Enumerable, I_Disposable, I_EventEmitter
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

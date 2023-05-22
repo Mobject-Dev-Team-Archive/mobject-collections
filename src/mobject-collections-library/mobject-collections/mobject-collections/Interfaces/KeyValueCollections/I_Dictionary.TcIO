@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_Dictionary" Id="{06f7de23-27cf-4103-9cac-bc3822cddc82}">
+    <Declaration><![CDATA[INTERFACE I_Dictionary EXTENDS I_KeyValueCollection]]></Declaration>
+    <Method Name="AddOrUpdate" Id="{641eaa0a-e872-4d4b-bc8a-d398207c70c2}">
+      <Declaration><![CDATA[METHOD PUBLIC AddOrUpdate
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Clear" Id="{7bb7b21a-499d-4c0e-8c5c-4ea2106057a5}">
+      <Declaration><![CDATA[METHOD PUBLIC Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ContainsKey" Id="{ffccb942-d8e8-4e6d-bd12-715818c73d38}">
+      <Declaration><![CDATA[METHOD PUBLIC ContainsKey : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="GetKeys" Id="{8c2ec7fd-25f6-48b1-9d92-32f03d6814c3}">
+      <Declaration><![CDATA[METHOD PUBLIC GetKeys : I_Collection]]></Declaration>
+    </Method>
+    <Method Name="Remove" Id="{9cbd6d40-ae4d-429a-8f44-1c26ba8dd518}">
+      <Declaration><![CDATA[METHOD PUBLIC Remove
+VAR_INPUT
+	Key : T_MAXSTRING;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="TryAdd" Id="{d7a05a01-800c-4d04-a211-24735d139ae7}">
+      <Declaration><![CDATA[METHOD PUBLIC TryAdd : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Value : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="TryGetValue" Id="{b6af0a3f-85a9-4af8-8c8a-adb57519096b}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValue : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Destination	: ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="TryGetValueTo" Id="{d6adcfe3-d192-411f-8625-ea56b0400ab0}">
+      <Declaration><![CDATA[METHOD PUBLIC TryGetValueTo : BOOL
+VAR_INPUT
+	Key : T_MAXSTRING;
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
