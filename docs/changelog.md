@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.8.1 
+
+- Fixed bug with Dictionary ForwardEnumerator not returning correct element when MoveNext() was called.
+
 # 0.8.0
 
 - Added Dictionary Class.

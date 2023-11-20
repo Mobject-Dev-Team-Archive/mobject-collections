@@ -124,15 +124,9 @@
     <PlaceholderResolution Include="mobject-disposable">
       <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
     </PlaceholderResolution>
-    <PlaceholderResolution Include="mobject-enumerable">
-      <Resolution>mobject-enumerable, 0.1.0 (mobject)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="mobject-events">
-      <Resolution>mobject-events, 0.4.1 (mobject)</Resolution>
-    </PlaceholderResolution>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-collections,0.8.0,mobject">
+    <LibraryReference Include="mobject-collections,0.8.1,mobject">
       <Namespace>mobject_collections</Namespace>
     </LibraryReference>
     <LibraryReference Include="mobject-disposable,0.3.1,mobject">

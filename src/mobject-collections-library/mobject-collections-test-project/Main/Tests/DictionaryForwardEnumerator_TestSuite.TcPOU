@@ -222,9 +222,15 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckWorksWithStrings" Id="{b368385f-8ff3-4104-a844-933843921213}">
       <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithStrings
 VAR
-	in : STRING := 'test';
-	out : STRING;
-	expected : STRING := 'test';
+	in1 : STRING := 'test1';
+	in2 : STRING := 'test2';
+	in3 : STRING := 'test3';
+	out1 : STRING;
+	out2 : STRING;
+	out3 : STRING;
+	expected1 : STRING := 'test1';
+	expected2 : STRING := 'test2';
+	expected3 : STRING := 'test3';
 	result : BOOL;
 	dictionary : Dictionary;
 	enumerator : I_ForwardEnumerator;
@@ -233,11 +239,19 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-dictionary.TryAdd('a',in);
-enumerator := dictionary.GetEnumerator();
-enumerator.MoveNext();
+dictionary.TryAdd('a',in1);
+dictionary.TryAdd('b',in2);
+dictionary.TryAdd('c',in3);
 
-result := enumerator.TryGet(out);
+enumerator := dictionary.GetEnumerator();
+
+enumerator.MoveNext();
+result := enumerator.TryGet(out1);
+enumerator.MoveNext();
+result := enumerator.TryGet(out2);
+enumerator.MoveNext();
+result := enumerator.TryGet(out3);
+
 enumerator.Dispose();
 
 AssertTrue(
@@ -246,9 +260,21 @@ AssertTrue(
 );
 
 AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
+);
+
+AssertEquals(
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
 );
 
 TEST_FINISHED();]]></ST>
