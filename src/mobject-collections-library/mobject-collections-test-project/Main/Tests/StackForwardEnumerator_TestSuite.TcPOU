@@ -254,9 +254,15 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckWorksWithStrings" Id="{5b4ac783-359e-4250-a936-191ee4c0ecfc}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithStrings
 VAR
-	in : STRING := 'test';
-	out : STRING;
-	expected : STRING := 'test';
+	in1 : STRING := 'test1';
+	in2 : STRING := 'test2';
+	in3 : STRING := 'test3';
+	out1 : STRING;
+	out2 : STRING;
+	out3 : STRING;
+	expected1 : STRING := 'test3';
+	expected2 : STRING := 'test2';
+	expected3 : STRING := 'test1';
 	result : BOOL;
 	stack : Stack;
 	enumerator : I_ForwardEnumerator;
@@ -265,11 +271,19 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-stack.Push(in);
-enumerator := stack.GetEnumerator();
-enumerator.MoveNext();
+stack.Push(in1);
+stack.Push(in2);
+stack.Push(in3);
 
-result := enumerator.TryGet(out);
+enumerator := stack.GetEnumerator();
+
+enumerator.MoveNext();
+result := enumerator.TryGet(out1);
+enumerator.MoveNext();
+result := enumerator.TryGet(out2);
+enumerator.MoveNext();
+result := enumerator.TryGet(out3);
+
 enumerator.Dispose();
 
 AssertTrue(
@@ -278,13 +292,76 @@ AssertTrue(
 );
 
 AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
+);
+
+AssertEquals(
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
 );
 
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <LineIds Name="StackForwardEnumerator_TestSuite">
+      <LineId Id="3" Count="7" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckIsValidAtStart">
+      <LineId Id="3" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckMoveNextReturnsFalseWhenEmpty">
+      <LineId Id="3" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckMoveNextReturnsTrueMultipleItems">
+      <LineId Id="3" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckMoveNextReturnsTrueSingleItem">
+      <LineId Id="3" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckTryGet">
+      <LineId Id="3" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckTryGetTo">
+      <LineId Id="3" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckWorksWithArrays">
+      <LineId Id="3" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckWorksWithIntegers">
+      <LineId Id="3" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="StackForwardEnumerator_TestSuite.CheckWorksWithStrings">
+      <LineId Id="3" Count="2" />
+      <LineId Id="59" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="62" Count="3" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="10" Count="6" />
+      <LineId Id="32" Count="15" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
