@@ -4,6 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC LinkedListForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite]]></Declaration>
     <Implementation>
       <ST><![CDATA[CheckIsValidAtStart();
+CheckMoveNextReturnsFalseAtTheEnd();
 CheckMoveNextReturnsFalseWhenEmpty();
 CheckMoveNextReturnsTrueMultipleItems();
 CheckMoveNextReturnsTrueSingleItem();
@@ -36,6 +37,31 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CheckMoveNextReturnsFalseAtTheEnd" Id="{d767b86c-ffdb-46b5-be66-1298aa2ed2b7}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsFalseAtTheEnd
+VAR
+	in1 : INT := 123;
+	result : BOOL;
+	linkedList : LinkedList;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckMoveNextReturnsFalseAtTheEnd');
+
+linkedList.AddLast(in1);
+enumerator := linkedList.GetEnumerator();
+
+enumerator.MoveNext();
+result := enumerator.MoveNext();
+enumerator.Dispose();
+
+AssertFalse(result,
+    'MoveNext did not correctly signal the end of the enumeration');
+	
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{a68253cc-1ed3-49ed-acd4-53baa7fe922c}">
       <Declaration><![CDATA[METHOD PUBLIC CheckMoveNextReturnsFalseWhenEmpty
 VAR
@@ -54,7 +80,7 @@ enumerator.Dispose();
 
 AssertFalse(
 	Condition := result,
-	Message := 'Method returned true'
+	Message := 'MoveNext did not correctly signal the end of the enumeration'
 );
 
 TEST_FINISHED();]]></ST>
@@ -82,7 +108,7 @@ enumerator := linkedList.GetEnumerator();
 result := enumerator.MoveNext();
 enumerator.Dispose();
 
-AssertTrue(result, 'MoveNext returned false');
+AssertTrue(result, 'MoveNext did not correctly signal there were more items to follow');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -106,7 +132,7 @@ result := enumerator.MoveNext();
 enumerator.Dispose();
 
 AssertTrue(result,
-    'MoveNext returned False');
+    'MoveNext did not correctly signal there were more items to follow');
 	
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -184,10 +210,15 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckWorksWithArrays" Id="{7cf015ca-4657-41d6-beb2-5ed73eae250b}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithArrays
 VAR
-	in : ARRAY [0..1] OF REAL := [0.1,2.3];
-	out : ARRAY [0..1] OF REAL;
-	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
-	result : BOOL;
+	in1 : ARRAY [0..1] OF REAL := [0.1,2.3];
+	in2 : ARRAY [0..1] OF REAL := [1.2,3.4];
+	in3 : ARRAY [0..1] OF REAL := [2.3,4.5];
+	out1 : ARRAY [0..1] OF REAL;
+	out2 : ARRAY [0..1] OF REAL;
+	out3 : ARRAY [0..1] OF REAL;
+	expected1 : ARRAY [0..1] OF REAL := [0.1,2.3];
+	expected2 : ARRAY [0..1] OF REAL := [1.2,3.4];
+	expected3 : ARRAY [0..1] OF REAL := [2.3,4.5];
 	linkedList : LinkedList;
 	enumerator : I_ForwardEnumerator;
 END_VAR
@@ -195,22 +226,37 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithArrays');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
-enumerator.MoveNext();
+linkedList.AddLast(in1);
+linkedList.AddLast(in2);
+linkedList.AddLast(in3);
 
-result := enumerator.TryGet(out);
+enumerator := linkedList.GetEnumerator();
+
+enumerator.MoveNext();
+enumerator.TryGet(out1);
+enumerator.MoveNext();
+enumerator.TryGet(out2);
+enumerator.MoveNext();
+enumerator.TryGet(out3);
+
 enumerator.Dispose();
 
-AssertTrue(
-	Condition := result,
-	Message := 'Method returned false'
+AssertEquals(
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
 );
 
 AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
 );
 
 TEST_FINISHED();]]></ST>
@@ -219,10 +265,15 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckWorksWithIntegers" Id="{4f7f3be9-b4a2-48f3-88e3-3f8e662637bf}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithIntegers
 VAR
-	in : INT := 123;
-	out : INT;
-	expected : INT := 123;
-	result : BOOL;
+	in1 : INT := 123;
+	in2 : INT := 234;
+	in3 : INT := 345;
+	out1 : INT;
+	out2 : INT;
+	out3 : INT;
+	expected1 : INT := 123;
+	expected2 : INT := 234;
+	expected3 : INT := 345;
 	linkedList : LinkedList;
 	enumerator : I_ForwardEnumerator;
 END_VAR
@@ -230,22 +281,37 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithIntegers');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
-enumerator.MoveNext();
+linkedList.AddLast(in1);
+linkedList.AddLast(in2);
+linkedList.AddLast(in3);
 
-result := enumerator.TryGet(out);
+enumerator := linkedList.GetEnumerator();
+
+enumerator.MoveNext();
+enumerator.TryGet(out1);
+enumerator.MoveNext();
+enumerator.TryGet(out2);
+enumerator.MoveNext();
+enumerator.TryGet(out3);
+
 enumerator.Dispose();
 
-AssertTrue(
-	Condition := result,
-	Message := 'Method returned false'
+AssertEquals(
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
 );
 
 AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
 );
 
 TEST_FINISHED();]]></ST>
@@ -254,10 +320,15 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckWorksWithStrings" Id="{d619ebb8-0ab7-41b2-a1b5-989a2a8f567f}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithStrings
 VAR
-	in : STRING := 'test';
-	out : STRING;
-	expected : STRING := 'test';
-	result : BOOL;
+	in1 : STRING := 'test1';
+	in2 : STRING := 'test2';
+	in3 : STRING := 'test3';
+	out1 : STRING;
+	out2 : STRING;
+	out3 : STRING;
+	expected1 : STRING := 'test1';
+	expected2 : STRING := 'test2';
+	expected3 : STRING := 'test3';
 	linkedList : LinkedList;
 	enumerator : I_ForwardEnumerator;
 END_VAR
@@ -265,22 +336,37 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-linkedList.AddLast(in);
-enumerator := linkedList.GetEnumerator();
-enumerator.MoveNext();
+linkedList.AddLast(in1);
+linkedList.AddLast(in2);
+linkedList.AddLast(in3);
 
-result := enumerator.TryGet(out);
+enumerator := linkedList.GetEnumerator();
+
+enumerator.MoveNext();
+enumerator.TryGet(out1);
+enumerator.MoveNext();
+enumerator.TryGet(out2);
+enumerator.MoveNext();
+enumerator.TryGet(out3);
+
 enumerator.Dispose();
 
-AssertTrue(
-	Condition := result,
-	Message := 'Method returned false'
+AssertEquals(
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
 );
 
 AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
 );
 
 TEST_FINISHED();]]></ST>

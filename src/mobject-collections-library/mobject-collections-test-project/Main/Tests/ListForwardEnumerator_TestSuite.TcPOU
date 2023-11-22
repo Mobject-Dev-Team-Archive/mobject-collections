@@ -7,10 +7,12 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[CheckIsValidAtStart();
+CheckMoveNextReturnsFalseAtTheEnd();
 CheckMoveNextReturnsTrueSingleItem();
 CheckMoveNextReturnsFalseWhenEmpty();
 CheckMoveNextReturnsTrueMultipleItems();
 CheckTryGet();
+CheckTryGetTo();
 CheckWorksWithArrays();
 CheckWorksWithIntegers();
 CheckWorksWithStrings();]]></ST>
@@ -39,6 +41,31 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="CheckMoveNextReturnsFalseAtTheEnd" Id="{57822c53-79e9-48d2-8700-1c3954dbf639}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsFalseAtTheEnd
+VAR
+	in1 : INT := 123;
+	result : BOOL;
+	store : List;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckMoveNextReturnsFalseAtTheEnd');
+
+store.AddItem(in1);
+enumerator := store.GetEnumerator();
+
+enumerator.MoveNext();
+result := enumerator.MoveNext();
+enumerator.Dispose();
+
+AssertFalse(result,
+    'MoveNext did not correctly signal the end of the enumeration');
+	
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{e9136119-78de-43d2-84ab-945aef56b7f7}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsFalseWhenEmpty
 VAR
@@ -58,7 +85,7 @@ result := enumerator.MoveNext();
 enumerator.Dispose();
 
 AssertFalse(Condition := result,
-    Message := 'MoveNext returned true');
+    Message := 'MoveNext did not correctly signal the end of the enumeration');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -85,7 +112,7 @@ enumerator := store.GetEnumerator();
 result := enumerator.MoveNext();
 enumerator.Dispose();
 
-AssertTrue(result, 'MoveNext returned false');
+AssertTrue(result, 'MoveNext did not correctly signal there were more items to follow');
 
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -109,7 +136,7 @@ result := enumerator.MoveNext();
 enumerator.Dispose();
 
 AssertTrue(result,
-    'MoveNext returned False');
+    'MoveNext did not correctly signal there were more items to follow');
 	
 TEST_FINISHED();]]></ST>
       </Implementation>
@@ -149,43 +176,8 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithArrays" Id="{fc714a4d-38d9-48ac-9c82-e49aaf8d36b5}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithArrays
-VAR
-	in : ARRAY [0..1] OF REAL := [0.1,2.3];
-	out : ARRAY [0..1] OF REAL;
-	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
-	result : BOOL;
-	store : List;
-	enumerator : I_ForwardEnumerator;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckWorksWithArrays');
-
-store.AddItem(in);
-enumerator := store.GetEnumerator();
-enumerator.MoveNext();
-
-result := enumerator.TryGet(out);
-enumerator.Dispose();
-
-AssertTrue(
-	Condition := result,
-	Message := 'TryGet returned false'
-);
-
-AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckWorksWithIntegers" Id="{2b00fa39-4eda-42f7-ada4-33e201e5f9c3}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithIntegers
+    <Method Name="CheckTryGetTo" Id="{a10234d2-180c-4de5-ae7a-380f60b3c725}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckTryGetTo
 VAR
 	in : INT := 123;
 	out : INT;
@@ -196,18 +188,18 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckWorksWithIntegers');
+        <ST><![CDATA[TEST('CheckTryGetTo');
 
 store.AddItem(in);
 enumerator := store.GetEnumerator();
 enumerator.MoveNext();
 
-result := enumerator.TryGet(out);
+result := enumerator.TryGetTo(ADR(out),SIZEOF(out));
 enumerator.Dispose();
 
 AssertTrue(
 	Condition := result,
-	Message := 'TryGet returned false'
+	Message := 'Method returned false'
 );
 
 AssertEquals(
@@ -219,25 +211,24 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithStrings" Id="{3fea921e-4163-4be1-8520-a34ae51f9b32}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithStrings
+    <Method Name="CheckWorksWithArrays" Id="{fc714a4d-38d9-48ac-9c82-e49aaf8d36b5}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithArrays
 VAR
-	in1 : STRING := 'test1';
-	in2 : STRING := 'test2';
-	in3 : STRING := 'test3';
-	out1 : STRING;
-	out2 : STRING;
-	out3 : STRING;
-	expected1 : STRING := 'test1';
-	expected2 : STRING := 'test2';
-	expected3 : STRING := 'test3';
-	result : BOOL;
+	in1 : ARRAY [0..1] OF REAL := [0.1,2.3];
+	in2 : ARRAY [0..1] OF REAL := [1.2,3.4];
+	in3 : ARRAY [0..1] OF REAL := [2.3,4.5];
+	out1 : ARRAY [0..1] OF REAL;
+	out2 : ARRAY [0..1] OF REAL;
+	out3 : ARRAY [0..1] OF REAL;
+	expected1 : ARRAY [0..1] OF REAL := [0.1,2.3];
+	expected2 : ARRAY [0..1] OF REAL := [1.2,3.4];
+	expected3 : ARRAY [0..1] OF REAL := [2.3,4.5];
 	store : List;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckWorksWithStrings');
+        <ST><![CDATA[TEST('CheckWorksWithArrays');
 
 store.AddItem(in1);
 store.AddItem(in2);
@@ -246,19 +237,13 @@ store.AddItem(in3);
 enumerator := store.GetEnumerator();
 
 enumerator.MoveNext();
-result := enumerator.TryGet(out1);
+enumerator.TryGet(out1);
 enumerator.MoveNext();
-result := enumerator.TryGet(out2);
+enumerator.TryGet(out2);
 enumerator.MoveNext();
-result := enumerator.TryGet(out3);
-
+enumerator.TryGet(out3);
 
 enumerator.Dispose();
-
-AssertTrue(
-	Condition := result,
-	Message := 'TryGet returned false'
-);
 
 AssertEquals(
 	Expected := expected1,
@@ -281,56 +266,115 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="ListForwardEnumerator_TestSuite">
-      <LineId Id="3" Count="6" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckIsValidAtStart">
-      <LineId Id="3" Count="11" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckMoveNextReturnsFalseWhenEmpty">
-      <LineId Id="3" Count="10" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckMoveNextReturnsTrueMultipleItems">
-      <LineId Id="3" Count="11" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckMoveNextReturnsTrueSingleItem">
-      <LineId Id="3" Count="10" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckTryGet">
-      <LineId Id="3" Count="19" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckWorksWithArrays">
-      <LineId Id="3" Count="19" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckWorksWithIntegers">
-      <LineId Id="3" Count="19" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="ListForwardEnumerator_TestSuite.CheckWorksWithStrings">
-      <LineId Id="3" Count="2" />
-      <LineId Id="36" Count="2" />
-      <LineId Id="6" Count="0" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="43" Count="1" />
-      <LineId Id="46" Count="1" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="40" Count="0" />
-      <LineId Id="10" Count="11" />
-      <LineId Id="49" Count="4" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="55" Count="4" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
+    <Method Name="CheckWorksWithIntegers" Id="{2b00fa39-4eda-42f7-ada4-33e201e5f9c3}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithIntegers
+VAR
+	in1 : INT := 123;
+	in2 : INT := 234;
+	in3 : INT := 345;
+	out1 : INT;
+	out2 : INT;
+	out3 : INT;
+	expected1 : INT := 123;
+	expected2 : INT := 234;
+	expected3 : INT := 345;
+	store : List;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckWorksWithIntegers');
+
+store.AddItem(in1);
+store.AddItem(in2);
+store.AddItem(in3);
+
+enumerator := store.GetEnumerator();
+
+enumerator.MoveNext();
+enumerator.TryGet(out1);
+enumerator.MoveNext();
+enumerator.TryGet(out2);
+enumerator.MoveNext();
+enumerator.TryGet(out3);
+
+enumerator.Dispose();
+
+AssertEquals(
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
+);
+
+AssertEquals(
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckWorksWithStrings" Id="{3fea921e-4163-4be1-8520-a34ae51f9b32}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithStrings
+VAR
+	in1 : STRING := 'test1';
+	in2 : STRING := 'test2';
+	in3 : STRING := 'test3';
+	out1 : STRING;
+	out2 : STRING;
+	out3 : STRING;
+	expected1 : STRING := 'test1';
+	expected2 : STRING := 'test2';
+	expected3 : STRING := 'test3';
+	store : List;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckWorksWithStrings');
+
+store.AddItem(in1);
+store.AddItem(in2);
+store.AddItem(in3);
+
+enumerator := store.GetEnumerator();
+
+enumerator.MoveNext();
+enumerator.TryGet(out1);
+enumerator.MoveNext();
+enumerator.TryGet(out2);
+enumerator.MoveNext();
+enumerator.TryGet(out3);
+
+enumerator.Dispose();
+
+AssertEquals(
+	Expected := expected1,
+	Actual := out1,
+	Message := 'Did not produce the expected 1st result'
+);
+
+AssertEquals(
+	Expected := expected2,
+	Actual := out2,
+	Message := 'Did not produce the expected 2nd result'
+);
+
+AssertEquals(
+	Expected := expected3,
+	Actual := out3,
+	Message := 'Did not produce the expected 3rd result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>
