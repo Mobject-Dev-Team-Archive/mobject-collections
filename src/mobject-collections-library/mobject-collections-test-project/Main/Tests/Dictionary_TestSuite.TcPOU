@@ -326,7 +326,7 @@ dictionary.TryAdd('b',in2);
 dictionary.TryAdd('c',in3);
 
 collection := dictionary.GetKeys();
-collection.CopyTo(out);
+collection.TryCopyTo(out);
 collection.Dispose();
 
 // create the test result

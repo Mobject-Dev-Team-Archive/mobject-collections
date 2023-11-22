@@ -14,7 +14,7 @@ CheckContains();
 CheckClear();
 CheckCount();
 CheckAddItem();
-CheckRemoveItem();
+CheckTryRemoveItem();
 CheckTryDequeueRemovesTheItem();
 CheckTryDequeueReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
@@ -23,8 +23,8 @@ CheckOnChangedEvent();
 CheckOnDisposedEvent();
 CheckOnceEvent();
 CheckOffEvent();
-CheckCopyTo();
-CheckCopyToLocation();
+CheckTryCopyTo();
+CheckTryCopyToLocation();
 CheckQueueOrderIsCorrect();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
@@ -115,70 +115,6 @@ result := queue.Contains(in2);
 AssertTrue(
 	Condition := result,
 	Message := 'Did not find the item in the queue'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckCopyTo" Id="{04c00048-c9dd-4eab-b8e3-21029b5d2dc4}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckCopyTo
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [123,456,789];
-	queue : Queue;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckCopyTo');
-
-// @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in3); // (lifo->) 123, 456, 789
-
-// @TEST-RUN
-queue.CopyTo(out);
-
-// @TEST-ASSSERT
-AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckCopyToLocation" Id="{fe0722f1-f253-4ea9-a57d-4f42b174587b}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckCopyToLocation
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [123,456,789];
-	queue : Queue;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckCopyToLocation');
-
-// @TEST-FIXTURE
-queue.Enqueue(in1); // (lifo->) 123
-queue.Enqueue(in2); // (lifo->) 123, 456
-queue.Enqueue(in3); // (lifo->) 123, 456, 789
-
-// @TEST-RUN
-queue.CopyToLocation(ADR(out),SIZEOF(out));
-
-// @TEST-ASSSERT
-AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
 );
 
 TEST_FINISHED();]]></ST>
@@ -608,18 +544,19 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckRemoveItem" Id="{b3b564ce-6e3d-430b-94e8-9a658b1622f8}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveItem
+    <Method Name="CheckTryCopyTo" Id="{04c00048-c9dd-4eab-b8e3-21029b5d2dc4}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryCopyTo
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
-	result : BOOL;
+	out : ARRAY [0..2] OF INT;
+	expected : ARRAY [0..2] OF INT := [123,456,789];
 	queue : Queue;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('CheckRemoveItem');
+        <ST><![CDATA[TEST('CheckTryCopyTo');
 
 // @TEST-FIXTURE
 queue.Enqueue(in1); // (lifo->) 123
@@ -627,17 +564,48 @@ queue.Enqueue(in2); // (lifo->) 123, 456
 queue.Enqueue(in3); // (lifo->) 123, 456, 789
 
 // @TEST-RUN
-queue.RemoveItem(in2); // (lifo->) 123, 789
-result := queue.Contains(in2);
+queue.TryCopyTo(out);
 
 // @TEST-ASSSERT
-AssertFalse(
-	Condition := result,
-	Message := 'Method returned true'
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
 );
 
-TEST_FINISHED();
-]]></ST>
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryCopyToLocation" Id="{fe0722f1-f253-4ea9-a57d-4f42b174587b}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryCopyToLocation
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : ARRAY [0..2] OF INT;
+	expected : ARRAY [0..2] OF INT := [123,456,789];
+	queue : Queue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryCopyToLocation');
+
+// @TEST-FIXTURE
+queue.Enqueue(in1); // (lifo->) 123
+queue.Enqueue(in2); // (lifo->) 123, 456
+queue.Enqueue(in3); // (lifo->) 123, 456, 789
+
+// @TEST-RUN
+queue.TryCopyToLocation(ADR(out),SIZEOF(out));
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
     <Method Name="CheckTryDequeueRemovesTheItem" Id="{f9332718-bb4a-4b5f-bb20-19baf3e48339}">
@@ -764,6 +732,38 @@ AssertEquals(
 );
 
 TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryRemoveItem" Id="{b3b564ce-6e3d-430b-94e8-9a658b1622f8}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryRemoveItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	queue : Queue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryRemoveItem');
+
+// @TEST-FIXTURE
+queue.Enqueue(in1); // (lifo->) 123
+queue.Enqueue(in2); // (lifo->) 123, 456
+queue.Enqueue(in3); // (lifo->) 123, 456, 789
+
+// @TEST-RUN
+queue.TryRemoveItem(in2); // (lifo->) 123, 789
+result := queue.Contains(in2);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();
+]]></ST>
       </Implementation>
     </Method>
   </POU>

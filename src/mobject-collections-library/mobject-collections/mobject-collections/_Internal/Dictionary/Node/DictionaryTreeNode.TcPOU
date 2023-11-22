@@ -17,6 +17,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Folder Name="Constructor" Id="{98c33be7-bb9f-4966-bfe1-4da8db9741bb}" />
     <Folder Name="Destructor" Id="{6a355d55-227d-4525-bab3-243311168afd}" />
     <Folder Name="Private" Id="{09c596bd-e6ff-4258-9f50-f3fe757f94f9}" />
     <Method Name="Clone" Id="{b5e38b97-ab23-475f-b74a-09a0e29e3529}">
@@ -119,6 +120,20 @@ END_IF
 DestroyBuffer();]]></ST>
       </Implementation>
     </Method>
+    <Method Name="FB_init" Id="{44e25f03-eeb9-4cba-b404-5167bf549ff4}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	NodeKey : T_MAXSTRING;
+	NodeSource : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_key := NodeKey;
+CreateBuffer(DINT_TO_UDINT(NodeSource.diSize));
+CopySourceToBuffer(NodeSource.pValue);]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Height" Id="{e75861c9-4c26-4f36-bfd9-0817403a6d0b}">
       <Declaration><![CDATA[PROPERTY PUBLIC Height : DINT]]></Declaration>
       <Get Name="Get" Id="{f880cbec-ab5f-4889-89d1-d675618a649f}">
@@ -139,24 +154,6 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Method Name="Initialize" Id="{c32ed31f-afed-418f-9c72-da4c7ed23cb8}">
-      <Declaration><![CDATA[METHOD Initialize
-VAR_INPUT
-	Key : T_MAXSTRING;
-	Value : ANY;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_key := Key;
-
-IF pBuffer <> 0 THEN
-	DestroyBuffer();
-END_IF
-
-CreateBuffer(DINT_TO_UDINT(Value.diSize));
-CopySourceToBuffer(Value.pValue);]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Key" Id="{bff75fa6-4e61-4ac0-85e1-49cf96fce562}">
       <Declaration><![CDATA[PROPERTY PUBLIC Key : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{edc907b9-a790-45c7-88e8-9902d6a7e078}">
@@ -180,17 +177,9 @@ END_VAR
       </Get>
       <Set Name="Set" Id="{2c740441-4609-40d5-9012-d38f55371ff2}">
         <Declaration><![CDATA[VAR
-	debugNode : T_MAXSTRING;
-	debugLink : T_MAXSTRING;
 END_VAR]]></Declaration>
         <Implementation>
-          <ST><![CDATA[debugNode := key;
-
-IF Left <>0 THEN
-	debugLink := Left.Key;
-END_IF
-
-_left := Left;]]></ST>
+          <ST><![CDATA[_left := Left;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -216,6 +205,24 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="Reinitialize" Id="{c32ed31f-afed-418f-9c72-da4c7ed23cb8}">
+      <Declaration><![CDATA[METHOD Reinitialize
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Source : ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_key := Key;
+
+IF pBuffer <> 0 THEN
+	DestroyBuffer();
+END_IF
+
+CreateBuffer(DINT_TO_UDINT(Source.diSize));
+CopySourceToBuffer(Source.pValue);]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Right" Id="{273701e4-e7dd-4c40-9369-5d032ce2345d}">
       <Declaration><![CDATA[PROPERTY PUBLIC Right : I_DictionaryTreeNode]]></Declaration>
       <Get Name="Get" Id="{c344eb50-27d3-4a32-b03d-0483cfd148e4}">
@@ -228,18 +235,10 @@ END_VAR
       </Get>
       <Set Name="Set" Id="{c5abb06f-6ec0-4e10-b0ee-eacc944812d0}">
         <Declaration><![CDATA[VAR
-	debugNode : T_MAXSTRING;
-	debugLink : T_MAXSTRING;
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[debugNode := key;
-
-IF Right <>0 THEN
-	debugLink := Right.Key;
-END_IF
-
-_right := Right;]]></ST>
+          <ST><![CDATA[_right := Right;]]></ST>
         </Implementation>
       </Set>
     </Property>

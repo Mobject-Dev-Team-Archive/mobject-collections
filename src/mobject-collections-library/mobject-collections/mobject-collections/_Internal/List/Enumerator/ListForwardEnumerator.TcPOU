@@ -81,7 +81,15 @@ END_VAR
       <Declaration><![CDATA[METHOD MoveNext : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF invalid OR parent = 0 OR parent.Count = 0 THEN
+        <ST><![CDATA[IF invalid THEN
+    RETURN;
+END_IF
+
+IF parent = 0 THEN
+    RETURN;
+END_IF
+
+IF parent.Count = 0 THEN
     RETURN;
 END_IF
 
@@ -102,7 +110,15 @@ VAR_INPUT
 	Destination : ANY;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF invalid OR parent = 0 OR NOT moveNextCalled THEN
+        <ST><![CDATA[IF invalid THEN
+	RETURN;
+END_IF
+
+IF parent = 0 THEN
+	RETURN;
+END_IF
+
+IF NOT moveNextCalled THEN
 	RETURN;
 END_IF
 
@@ -114,12 +130,17 @@ TryGet := parent.TryGetByIndex(currentIndex, Destination);]]></ST>
 VAR_INPUT
 	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
-END_VAR
-VAR
-	node : I_ListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF invalid OR parent = 0 OR NOT moveNextCalled THEN
+        <ST><![CDATA[IF invalid THEN
+	RETURN;
+END_IF
+
+IF parent = 0 THEN
+	RETURN;
+END_IF
+
+IF NOT moveNextCalled THEN
 	RETURN;
 END_IF
 

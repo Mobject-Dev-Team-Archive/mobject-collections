@@ -17,27 +17,27 @@ VAR_INPUT
 	Item : ANY;
 END_VAR]]></Declaration>
     </Method>
-    <Method Name="CopyTo" Id="{eabb38d8-11ef-4981-b5dc-084a365b6ffd}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
-VAR_INPUT
-	Destination : ANY;
-END_VAR]]></Declaration>
-    </Method>
-    <Method Name="CopyToLocation" Id="{ca5c655f-ed6c-4dab-b806-28ef02f4713e}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
-VAR_INPUT
-	DestinationAddress : PVOID;
-	DestinationSize : UDINT;
-END_VAR]]></Declaration>
-    </Method>
     <Property Name="Count" Id="{69ca6d31-a011-44c8-b83c-680b980d92f2}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{400427f4-def2-4155-af7f-13cd948a1988}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Method Name="RemoveItem" Id="{fb9c7199-d4c2-4354-af03-01593a2b4090}">
-      <Declaration><![CDATA[METHOD PUBLIC RemoveItem : BOOL
+    <Method Name="TryCopyTo" Id="{eabb38d8-11ef-4981-b5dc-084a365b6ffd}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyTo : BOOL
+VAR_INPUT
+	Destination : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="TryCopyToLocation" Id="{ca5c655f-ed6c-4dab-b806-28ef02f4713e}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyToLocation : BOOL
+VAR_INPUT
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="TryRemoveItem" Id="{fb9c7199-d4c2-4354-af03-01593a2b4090}">
+      <Declaration><![CDATA[METHOD PUBLIC TryRemoveItem : BOOL
 VAR_INPUT
 	Item : ANY;
 END_VAR]]></Declaration>

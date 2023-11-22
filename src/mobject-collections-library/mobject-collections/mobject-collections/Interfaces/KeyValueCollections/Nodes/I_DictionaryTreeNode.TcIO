@@ -19,14 +19,6 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
-    <Method Name="Initialize" Id="{4e666a69-fbdc-4504-8413-4d645bb072e7}">
-      <Declaration><![CDATA[METHOD Initialize
-VAR_INPUT
-	Key : T_MAXSTRING;
-	Value : ANY;
-END_VAR
-]]></Declaration>
-    </Method>
     <Property Name="Key" Id="{346641d0-7fb0-4dfa-81c9-7410426c1415}">
       <Declaration><![CDATA[PROPERTY PUBLIC Key : T_MAXSTRING]]></Declaration>
       <Get Name="Get" Id="{2fa95320-2e04-46a8-9ef1-8c5876f59e56}">
@@ -54,6 +46,14 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
+    <Method Name="Reinitialize" Id="{4e666a69-fbdc-4504-8413-4d645bb072e7}">
+      <Declaration><![CDATA[METHOD Reinitialize
+VAR_INPUT
+	Key : T_MAXSTRING;
+	Source : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="Right" Id="{4785ac1a-33ef-4008-9184-6e0b82817986}">
       <Declaration><![CDATA[PROPERTY PUBLIC Right : I_DictionaryTreeNode]]></Declaration>
       <Get Name="Get" Id="{8d25d25a-0ad1-4409-ba9c-7468ae0f0930}">

@@ -428,8 +428,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (Node = 0) THEN
-	pAVLTreeNode := __NEW(DictionaryTreeNode);
-	pAVLTreeNode^.Initialize(Key, Value);
+	pAVLTreeNode := __NEW(DictionaryTreeNode(NodeKey := Key, NodeSource := Value));
 	RecursiveInsert := pAVLTreeNode^;
 	RETURN;
 END_IF
@@ -439,7 +438,7 @@ IF (Key < Node.Key) THEN
 ELSIF (Key > Node.Key) THEN
 	Node.right := THIS^.RecursiveInsert(Key, Value, Node.right);
 ELSE
-	Node.Initialize(Key,Value);
+	Node.Reinitialize(Key,Value);
 	RecursiveInsert := Node;
 END_IF
 
@@ -540,124 +539,5 @@ END_IF
 Node.height := 1 + MAX(THIS^.GetHeight(Node.left), THIS^.GetHeight(Node.right));]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="Dictionary">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.AddOrUpdate">
-      <LineId Id="3" Count="0" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.Balance">
-      <LineId Id="3" Count="13" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.Clear">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.ContainsKey">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.Count.Get">
-      <LineId Id="3" Count="0" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.EmitChangedEvent">
-      <LineId Id="3" Count="1" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.EmitDisposedEvent">
-      <LineId Id="3" Count="1" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.FB_exit">
-      <LineId Id="3" Count="4" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.FindMinimum">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.GetBalanceFactor">
-      <LineId Id="3" Count="4" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.GetEnumerator">
-      <LineId Id="3" Count="3" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.GetHeight">
-      <LineId Id="3" Count="4" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.GetKeys">
-      <LineId Id="3" Count="1" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.LeftRotate">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.OffEvent">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.OnceEvent">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.OnEvent">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveAddKeysInOrderToCollection">
-      <LineId Id="3" Count="6" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveAddNodesInOrderToCollection">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveClear">
-      <LineId Id="3" Count="16" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveCountNodes">
-      <LineId Id="3" Count="6" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveDelete">
-      <LineId Id="3" Count="27" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveFind">
-      <LineId Id="3" Count="13" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RecursiveInsert">
-      <LineId Id="3" Count="19" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.Remove">
-      <LineId Id="3" Count="0" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.RightRotate">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.TryAdd">
-      <LineId Id="3" Count="4" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.TryGetValue">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.TryGetValueTo">
-      <LineId Id="3" Count="5" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="Dictionary.UpdateHeight">
-      <LineId Id="3" Count="3" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

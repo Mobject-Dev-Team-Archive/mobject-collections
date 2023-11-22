@@ -15,19 +15,6 @@ VAR_INPUT
 	Item : ANY;
 END_VAR]]></Declaration>
     </Method>
-    <Method Name="Insert" Id="{61d79cd2-a37c-4e6b-96ef-c3dcdf52a503}">
-      <Declaration><![CDATA[METHOD Insert : BOOL
-VAR_INPUT
-	Index : DINT;
-	Item : ANY;
-END_VAR]]></Declaration>
-    </Method>
-    <Method Name="RemoveAt" Id="{3fd904de-394f-4ea8-8de5-3698783696e0}">
-      <Declaration><![CDATA[METHOD RemoveAt : BOOL
-VAR_INPUT
-	Index : DINT;
-END_VAR]]></Declaration>
-    </Method>
     <Method Name="TrimExcess" Id="{dfc4328e-0187-40bb-aed9-fff8e2ce8d28}">
       <Declaration><![CDATA[METHOD PUBLIC TrimExcess]]></Declaration>
     </Method>
@@ -44,6 +31,19 @@ VAR_INPUT
 	Index : DINT;
 	DestinationAddress : PVOID;
 	DestinationSize : UDINT;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="TryInsert" Id="{61d79cd2-a37c-4e6b-96ef-c3dcdf52a503}">
+      <Declaration><![CDATA[METHOD TryInsert : BOOL
+VAR_INPUT
+	Index : DINT;
+	Item : ANY;
+END_VAR]]></Declaration>
+    </Method>
+    <Method Name="TryRemoveAt" Id="{3fd904de-394f-4ea8-8de5-3698783696e0}">
+      <Declaration><![CDATA[METHOD TryRemoveAt : BOOL
+VAR_INPUT
+	Index : DINT;
 END_VAR]]></Declaration>
     </Method>
   </Itf>

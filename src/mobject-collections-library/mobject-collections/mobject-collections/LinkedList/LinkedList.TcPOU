@@ -106,7 +106,6 @@ END_VAR]]></Declaration>
 	RETURN;
 END_IF
 
-// After -> Node -> originalNext
 originalNext := After.Next;
 After.Next := Node;
 Node.Previous := After;
@@ -129,7 +128,6 @@ END_VAR]]></Declaration>
 	RETURN;
 END_IF
 
-// originalBefore <- Node <- Before
 originalBefore := Before.Previous;
 Before.Previous := Node;
 Node.Next := Before;
@@ -151,9 +149,6 @@ END_VAR]]></Declaration>
 	tail := Node; 
 	RETURN;	
 END_IF
-
-// was (First->) originalFirst
-// now (First->) Node -> originalFirst
 
 originalFirst := head;
 head := Node;
@@ -184,10 +179,7 @@ originalLast.Next := Node;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Clear" Id="{68eac5b7-8615-47ef-b82b-6d6f6c286291}">
-      <Declaration><![CDATA[METHOD PUBLIC Clear
-//VAR
-//	currentItem, nextItem : I_DictionaryItem;
-//END_VAR]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Clear]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF IsEmpty() THEN
 	return;
@@ -207,8 +199,7 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[found := Find(Item);
-Contains := found <> 0;
-]]></ST>
+Contains := found <> 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="ContainsLinkedListNode" Id="{9c3093fa-1190-4721-b415-48f901dd3daa}" FolderPath="Private\">
@@ -234,51 +225,6 @@ WHILE current <> 0 DO
 	current := current.next; 
 END_WHILE;
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CopyTo" Id="{1aea4900-d688-48e9-9a9f-8b39c70acb8b}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
-VAR_INPUT
-	Destination : ANY;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[CopyTo := CopyToLocation(Destination.pValue, DINT_TO_UDINT(Destination.diSize));
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CopyToLocation" Id="{01bff3c0-b7f3-43be-b887-cf05759eef58}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
-VAR_INPUT
-	DestinationAddress : PVOID;
-	DestinationSize : UDINT;
-END_VAR
-VAR
-	currentNode : I_LinkedListNode;
-	requiredDestinationSize : UDINT;
-	currentPointer : pvoid;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[currentNode := First;
-
-// first pass we check to see what the total size of the list will be.
-WHILE currentNode <> 0 DO
-	requiredDestinationSize := requiredDestinationSize + currentNode.DataSize;
-	currentNode := currentNode.Next;
-END_WHILE
-
-// we will not process the copy if the destination is too small.
-IF DestinationSize <> requiredDestinationSize THEN
-	RETURN;
-END_IF
-
-currentPointer := DestinationAddress;
-currentNode := First;
-
-WHILE currentNode <> 0 DO
-	currentNode.TryGetTo(currentPointer,currentNode.DataSize);
-	currentPointer := currentPointer + currentNode.DataSize;
-	currentNode := currentNode.Next;
-END_WHILE]]></ST>
       </Implementation>
     </Method>
     <Property Name="Count" Id="{2e1031c7-13dc-4afc-9b93-190c74b78f2e}">
@@ -483,7 +429,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[RemoveItem(Value);]]></ST>
+        <ST><![CDATA[TryRemoveItem(Value);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveAllNodes" Id="{0d2ee20c-7757-4ee4-89ad-9f4848a333f1}" FolderPath="Private\">
@@ -503,27 +449,6 @@ END_IF
 
 RemoveNode(First);
 EmitChangedEvent();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="RemoveItem" Id="{742d63a8-24ea-40db-b03c-82ad814ca21b}">
-      <Declaration><![CDATA[METHOD PUBLIC RemoveItem : BOOL
-VAR_INPUT
-	Item : ANY;
-END_VAR
-VAR
-	foundNode : I_LinkedListNode;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[foundNode := FindFirstNodeWithValue(Item);
-
-IF foundNode = 0 THEN
-	RETURN;
-END_IF
-
-RemoveNode(foundNode);
-EmitChangedEvent();
-
-RemoveItem := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemoveLast" Id="{d50cb0c7-635c-475a-9798-a63ab164b5b9}">
@@ -574,6 +499,72 @@ ELSE
 	Node.Dispose();
 	RETURN;
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCopyTo" Id="{1aea4900-d688-48e9-9a9f-8b39c70acb8b}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyTo : BOOL
+VAR_INPUT
+	Destination : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TryCopyTo := TryCopyToLocation(Destination.pValue, DINT_TO_UDINT(Destination.diSize));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCopyToLocation" Id="{01bff3c0-b7f3-43be-b887-cf05759eef58}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyToLocation : BOOL
+VAR_INPUT
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+VAR
+	currentNode : I_LinkedListNode;
+	requiredDestinationSize : UDINT;
+	currentPointer : pvoid;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[currentNode := First;
+
+// first pass we check to see what the total size of the list will be.
+WHILE currentNode <> 0 DO
+	requiredDestinationSize := requiredDestinationSize + currentNode.DataSize;
+	currentNode := currentNode.Next;
+END_WHILE
+
+// we will not process the copy if the destination is too small.
+IF DestinationSize <> requiredDestinationSize THEN
+	RETURN;
+END_IF
+
+currentPointer := DestinationAddress;
+currentNode := First;
+
+WHILE currentNode <> 0 DO
+	currentNode.TryGetTo(currentPointer,currentNode.DataSize);
+	currentPointer := currentPointer + currentNode.DataSize;
+	currentNode := currentNode.Next;
+END_WHILE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryRemoveItem" Id="{742d63a8-24ea-40db-b03c-82ad814ca21b}">
+      <Declaration><![CDATA[METHOD PUBLIC TryRemoveItem : BOOL
+VAR_INPUT
+	Item : ANY;
+END_VAR
+VAR
+	foundNode : I_LinkedListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[foundNode := FindFirstNodeWithValue(Item);
+
+IF foundNode = 0 THEN
+	RETURN;
+END_IF
+
+RemoveNode(foundNode);
+EmitChangedEvent();
+
+TryRemoveItem := TRUE;]]></ST>
       </Implementation>
     </Method>
   </POU>

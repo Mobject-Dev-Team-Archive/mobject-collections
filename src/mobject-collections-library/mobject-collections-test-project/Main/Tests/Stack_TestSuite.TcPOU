@@ -14,7 +14,7 @@ CheckContains();
 CheckClear();
 CheckCount();
 CheckAddItem();
-CheckRemoveItem();
+CheckTryRemoveItem();
 CheckTryPopRemovesTheItem();
 CheckTryPopReturnsTheCorrectValue();
 CheckTryPeekReturnsTheCorrectValue();
@@ -23,8 +23,8 @@ CheckOnChangedEvent();
 CheckOnDisposedEvent();
 CheckOnceEvent();
 CheckOffEvent();
-CheckCopyTo();
-CheckCopyToLocation();
+CheckTryCopyTo();
+CheckTryCopyToLocation();
 CheckStackOrderIsCorrect();
 CheckListReturnsEnumerator();
 CheckEnumeratorIsInvalidAfterChange();
@@ -115,70 +115,6 @@ result := stack.Contains(in2);
 AssertTrue(
 	Condition := result,
 	Message := 'Did not find the item in the queue'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckCopyTo" Id="{9fb697c0-ab92-46cd-a4a2-bcf09ce6d767}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckCopyTo
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [789,456,123];
-	stack : Stack;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckCopyTo');
-
-// @TEST-FIXTURE
-stack.Push(in1); // (fifo->) 123
-stack.Push(in2); // (fifo->) 456, 123
-stack.Push(in3); // (fifo->) 789, 456, 123
-
-// @TEST-RUN
-stack.CopyTo(out);
-
-// @TEST-ASSSERT
-AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckCopyToLocation" Id="{04778451-d673-4ad2-9578-d96bcc13484c}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckCopyToLocation
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	out : ARRAY [0..2] OF INT;
-	expected : ARRAY [0..2] OF INT := [789,456,123];
-	stack : Stack;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckCopyToLocation');
-
-// @TEST-FIXTURE
-stack.Push(in1); // (fifo->) 123
-stack.Push(in2); // (fifo->) 456, 123
-stack.Push(in3); // (fifo->) 789, 456, 123
-
-// @TEST-RUN
-stack.CopyToLocation(ADR(out),SIZEOF(out));
-
-// @TEST-ASSSERT
-AssertEquals(
-	Expected := expected,
-	Actual := out,
-	Message := 'Did not produce the expected result'
 );
 
 TEST_FINISHED();]]></ST>
@@ -529,38 +465,6 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckRemoveItem" Id="{f25f826b-ad0f-4bf1-8859-5179bf9b1e64}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckRemoveItem
-VAR
-	in1 : INT := 123;
-	in2 : INT := 456;
-	in3 : INT := 789;
-	result : BOOL;
-	stack : Stack;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckRemoveItem');
-
-// @TEST-FIXTURE
-stack.Push(in1); // (fifo->) 123
-stack.Push(in2); // (fifo->) 456, 123
-stack.Push(in3); // (fifo->) 789, 456, 123
-
-// @TEST-RUN
-stack.RemoveItem(in2); // (lifo->) 789, 123
-result := stack.Contains(in2);
-
-// @TEST-ASSSERT
-AssertFalse(
-	Condition := result,
-	Message := 'Method returned true'
-);
-
-TEST_FINISHED();
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="CheckStackImplementsI_Stack" Id="{9f17d6e7-99b9-48b8-a1f6-f977c9a72060}">
       <Declaration><![CDATA[METHOD PUBLIC CheckStackImplementsI_Stack
 VAR
@@ -634,6 +538,70 @@ AssertEquals(
 AssertEquals(
 	Expected := expected3,
 	Actual := out3,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryCopyTo" Id="{9fb697c0-ab92-46cd-a4a2-bcf09ce6d767}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryCopyTo
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : ARRAY [0..2] OF INT;
+	expected : ARRAY [0..2] OF INT := [789,456,123];
+	stack : Stack;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryCopyTo');
+
+// @TEST-FIXTURE
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
+
+// @TEST-RUN
+stack.TryCopyTo(out);
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryCopyToLocation" Id="{04778451-d673-4ad2-9578-d96bcc13484c}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryCopyToLocation
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	out : ARRAY [0..2] OF INT;
+	expected : ARRAY [0..2] OF INT := [789,456,123];
+	stack : Stack;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryCopyToLocation');
+
+// @TEST-FIXTURE
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
+
+// @TEST-RUN
+stack.TryCopyToLocation(ADR(out),SIZEOF(out));
+
+// @TEST-ASSSERT
+AssertEquals(
+	Expected := expected,
+	Actual := out,
 	Message := 'Did not produce the expected result'
 );
 
@@ -764,6 +732,38 @@ AssertEquals(
 );
 
 TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckTryRemoveItem" Id="{f25f826b-ad0f-4bf1-8859-5179bf9b1e64}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckTryRemoveItem
+VAR
+	in1 : INT := 123;
+	in2 : INT := 456;
+	in3 : INT := 789;
+	result : BOOL;
+	stack : Stack;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckTryRemoveItem');
+
+// @TEST-FIXTURE
+stack.Push(in1); // (fifo->) 123
+stack.Push(in2); // (fifo->) 456, 123
+stack.Push(in3); // (fifo->) 789, 456, 123
+
+// @TEST-RUN
+stack.TryRemoveItem(in2); // (lifo->) 789, 123
+result := stack.Contains(in2);
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Method returned true'
+);
+
+TEST_FINISHED();
+]]></ST>
       </Implementation>
     </Method>
   </POU>

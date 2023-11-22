@@ -43,25 +43,6 @@ END_VAR]]></Declaration>
 Contains := found <> 0;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CopyTo" Id="{af958370-a50e-4e86-9c4b-ff6a7cc7410a}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
-VAR_INPUT
-	Destination : ANY;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[CopyTo := linkedList.CopyTo(Destination);]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CopyToLocation" Id="{28903e4e-8156-4bd6-b962-c02c0a27e37c}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
-VAR_INPUT
-	DestinationAddress : PVOID;
-	DestinationSize : UDINT;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[CopyToLocation := linkedList.CopyToLocation(DestinationAddress, DestinationSize);]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Count" Id="{a94a5378-7530-4234-b8d6-9da634e0e108}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{32f5b2ef-b4fc-43f9-8efb-27f1fb752ef0}">
@@ -153,14 +134,23 @@ END_VAR]]></Declaration>
 EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RemoveItem" Id="{ac74a60b-f8ed-4206-aa41-4c071a5aba0b}">
-      <Declaration><![CDATA[METHOD PUBLIC RemoveItem : BOOL
+    <Method Name="TryCopyTo" Id="{af958370-a50e-4e86-9c4b-ff6a7cc7410a}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyTo : BOOL
 VAR_INPUT
-	Item : ANY;
+	Destination : ANY;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[RemoveItem := linkedList.RemoveItem(Item);
-EmitChangedEvent();]]></ST>
+        <ST><![CDATA[TryCopyTo := linkedList.TryCopyTo(Destination);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCopyToLocation" Id="{28903e4e-8156-4bd6-b962-c02c0a27e37c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyToLocation : BOOL
+VAR_INPUT
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TryCopyToLocation := linkedList.TryCopyToLocation(DestinationAddress, DestinationSize);]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryPeek" Id="{e0200c18-235c-43fd-8c04-d6e1cbe0445e}">
@@ -206,6 +196,16 @@ END_IF
 linkedList.RemoveFirst();
 EmitChangedEvent();
 TryPop := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryRemoveItem" Id="{ac74a60b-f8ed-4206-aa41-4c071a5aba0b}">
+      <Declaration><![CDATA[METHOD PUBLIC TryRemoveItem : BOOL
+VAR_INPUT
+	Item : ANY;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TryRemoveItem := linkedList.TryRemoveItem(Item);
+EmitChangedEvent();]]></ST>
       </Implementation>
     </Method>
   </POU>

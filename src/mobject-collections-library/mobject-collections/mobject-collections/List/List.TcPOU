@@ -122,54 +122,6 @@ END_IF
 Contains := GetIndexOf(Item) > -1;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CopyTo" Id="{08647dfb-c5bf-4481-b560-e5f349a8a87f}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyTo : BOOL
-VAR_INPUT
-	Destination	: ANY;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[CopyTo := CopyToLocation(Destination.pValue, DINT_TO_UDINT(Destination.diSize));]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CopyToLocation" Id="{2460292a-feaa-4f20-a5c3-9f55d0dc2c6c}">
-      <Declaration><![CDATA[METHOD PUBLIC CopyToLocation : BOOL
-VAR_INPUT
-	DestinationAddress : PVOID;
-	DestinationSize : UDINT;
-END_VAR
-VAR
-	i : DINT;
-	requiredSize : UDINT;
-	current : I_ListNode;
-	pCurrent : PVOID;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
-    RETURN;
-END_IF
-
-//Compute required size
-FOR i := 0 TO Count - 1 DO
-    current := Item(i);
-    requiredSize := requiredSize + current.DataSize;
-END_FOR
-
-//If destination size is to small abort
-IF DestinationSize < requiredSize THEN
-    RETURN;
-END_IF
-
-pCurrent := DestinationAddress;
-
-FOR i := 0 TO Count - 1 DO
-    current := Item(i);
-    current.TryGetTo(pCurrent, current.DataSize);
-    pCurrent := pCurrent + current.DataSize;
-END_FOR]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Count" Id="{18af26e5-6368-08f4-3269-b1e13029edb8}">
       <Declaration><![CDATA[PROPERTY PUBLIC Count : DINT]]></Declaration>
       <Get Name="Get" Id="{84d29658-765a-06de-2dbc-7bd104ca837e}">
@@ -191,8 +143,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pNode := __NEW(ListNode);
-pNode^.Initialize(Value);
+        <ST><![CDATA[pNode := __NEW(ListNode(Source := Value));
 CreateNewNode := pNode^;]]></ST>
       </Implementation>
     </Method>
@@ -271,26 +222,6 @@ FOR i := 0 TO itemCount - 1 DO
 		RETURN;
 	END_IF
 END_FOR ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Insert" Id="{4a28931b-7145-4a14-a1cc-726d2ed98557}">
-      <Declaration><![CDATA[METHOD Insert : BOOL
-VAR_INPUT
-	Index : DINT;
-	Item : ANY;
-END_VAR
-VAR
-	node : I_ListNode;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
-	RETURN;
-END_IF
-
-node := CreateNewNode(Item);
-AddNodeAt(Index, node);
-EmitChangedEvent();
-Insert := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="IsEmpty" Id="{c3ebfab7-6e9b-4a26-b4d6-f2fc75649597}" FolderPath="Private\">
@@ -376,59 +307,17 @@ END_VAR]]></Declaration>
     </Method>
     <Method Name="RemoveAllNodes" Id="{1924a692-4a0d-400c-b4f6-02313ee91984}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE RemoveAllNodes
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[WHILE itemCount > 0 DO	
-	RemoveAt(itemCount-1);
-END_WHILE]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="RemoveAt" Id="{5fddda2d-2bc3-08a7-1fc5-3303b29b003f}">
-      <Declaration><![CDATA[METHOD PUBLIC RemoveAt : BOOL;
-VAR_INPUT
-	Index : DINT;
-END_VAR
 VAR
 	i : DINT;
-	node : I_ListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
-	RETURN;
-END_IF
-
-node := Item(Index);
-node.Dispose();
-
-FOR i := Index + 1 TO itemCount - 1 DO
-	pArrayOfListNodes[i - 1] := pArrayOfListNodes[i];
-	pArrayOfListNodes[i] := 0;
+        <ST><![CDATA[FOR i := 0 TO itemCount - 1 DO
+	IF pArrayOfListNodes[i] <> 0 THEN
+		pArrayOfListNodes[i].Dispose();
+	END_IF
 END_FOR
 
-itemCount := itemCount - 1;
-EmitChangedEvent();
-RemoveAt := TRUE;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="RemoveItem" Id="{405b8587-bb35-4a7f-9adc-3766cc05ff19}">
-      <Declaration><![CDATA[METHOD RemoveItem : BOOL
-VAR_INPUT
-    Item : ANY;
-END_VAR
-VAR
-    index : DINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[index := GetIndexOf(Item);
-
-IF index = -1 THEN
-	RETURN;
-END_IF
-
-RemoveItem := RemoveAt(index);]]></ST>
+itemCount := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Resize" Id="{aa524b81-d1fc-4fc5-8e9b-5c5798157c90}" FolderPath="Private\">
@@ -473,6 +362,54 @@ arrayCapacity := itemCount;
 buffer.Resize(nSize := DINT_TO_UDINT(arrayCapacity) * SIZEOF(node), bPreserve := TRUE, bReset := FALSE);]]></ST>
       </Implementation>
     </Method>
+    <Method Name="TryCopyTo" Id="{08647dfb-c5bf-4481-b560-e5f349a8a87f}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyTo : BOOL
+VAR_INPUT
+	Destination	: ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TryCopyTo := TryCopyToLocation(Destination.pValue, DINT_TO_UDINT(Destination.diSize));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryCopyToLocation" Id="{2460292a-feaa-4f20-a5c3-9f55d0dc2c6c}">
+      <Declaration><![CDATA[METHOD PUBLIC TryCopyToLocation : BOOL
+VAR_INPUT
+	DestinationAddress : PVOID;
+	DestinationSize : UDINT;
+END_VAR
+VAR
+	i : DINT;
+	requiredSize : UDINT;
+	current : I_ListNode;
+	pCurrent : PVOID;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsEmpty() THEN
+    RETURN;
+END_IF
+
+//Compute required size
+FOR i := 0 TO Count - 1 DO
+    current := Item(i);
+    requiredSize := requiredSize + current.DataSize;
+END_FOR
+
+//If destination size is to small abort
+IF DestinationSize < requiredSize THEN
+    RETURN;
+END_IF
+
+pCurrent := DestinationAddress;
+
+FOR i := 0 TO Count - 1 DO
+    current := Item(i);
+    current.TryGetTo(pCurrent, current.DataSize);
+    pCurrent := pCurrent + current.DataSize;
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryGetByIndex" Id="{58aae7f1-11d1-4b34-9d25-48c86c9e3f03}">
       <Declaration><![CDATA[METHOD PUBLIC TryGetByIndex : BOOL
 VAR_INPUT
@@ -510,6 +447,72 @@ IF node = 0 THEN
 END_IF
 
 TryGetToByIndex := node.TryGetTo(DestinationAddress, DestinationSize);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryInsert" Id="{4a28931b-7145-4a14-a1cc-726d2ed98557}">
+      <Declaration><![CDATA[METHOD TryInsert : BOOL
+VAR_INPUT
+	Index : DINT;
+	Item : ANY;
+END_VAR
+VAR
+	node : I_ListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
+	RETURN;
+END_IF
+
+node := CreateNewNode(Item);
+AddNodeAt(Index, node);
+EmitChangedEvent();
+TryInsert := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryRemoveAt" Id="{5fddda2d-2bc3-08a7-1fc5-3303b29b003f}">
+      <Declaration><![CDATA[METHOD PUBLIC TryRemoveAt : BOOL;
+VAR_INPUT
+	Index : DINT;
+END_VAR
+VAR
+	i : DINT;
+	node : I_ListNode;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsNotValidIndex(Index) THEN
+	RETURN;
+END_IF
+
+node := Item(Index);
+node.Dispose();
+
+FOR i := Index + 1 TO itemCount - 1 DO
+	pArrayOfListNodes[i - 1] := pArrayOfListNodes[i];
+	pArrayOfListNodes[i] := 0;
+END_FOR
+
+itemCount := itemCount - 1;
+EmitChangedEvent();
+TryRemoveAt := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TryRemoveItem" Id="{405b8587-bb35-4a7f-9adc-3766cc05ff19}">
+      <Declaration><![CDATA[METHOD TryRemoveItem : BOOL
+VAR_INPUT
+    Item : ANY;
+END_VAR
+VAR
+    index : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[index := GetIndexOf(Item);
+
+IF index = -1 THEN
+	RETURN;
+END_IF
+
+TryRemoveItem := TryRemoveAt(index);]]></ST>
       </Implementation>
     </Method>
   </POU>
