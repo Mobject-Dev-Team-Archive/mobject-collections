@@ -26,8 +26,8 @@
     - [I_LinkedList](i-linkedlist.md)
     - [I_LinkedListNode](i-linkedlistnode.md)
     - [I_List](i-list.md)
-    - [TBA I_Queue](i-queue.md)
-    - [TBA I_Stack](i-stack.md)
+    - [I_Queue](i-queue.md)
+    - [I_Stack](i-stack.md)
 
 - Guides
 
