@@ -15,19 +15,19 @@
   - Interfaces
 
     - [I_Collection](i-collection.md)
-    - TBA [I_CollectionNode](i-collectionnode.md)
+    - [TBA I_CollectionNode](i-collectionnode.md)
     - [I_CollectionChangedEvent](i-collectionchangedevent.md)
     - [I_CollectionDisposedEvent](i-collectiondisposedevent.md)
-    - TBA [I_Dictionary](i-dictionary.md)
-    - TBA [I_DictionaryNode](i-dictionarynode.md)
-    - TBA [I_KeyValueCollection](i-keyvaluecollection.md)
-    - TBA [I_KeyValueCollectionChangedEvent](i-keyvaluecollectionchangedevent.md)
-    - TBA [I_KeyValueCollectionDisposedEvent](i-keyvaluecollectiondisposedevent.md)
+    - [TBA I_Dictionary](i-dictionary.md)
+    - [TBA I_DictionaryNode](i-dictionarynode.md)
+    - [TBA I_KeyValueCollection](i-keyvaluecollection.md)
+    - [TBA I_KeyValueCollectionChangedEvent](i-keyvaluecollectionchangedevent.md)
+    - [TBA I_KeyValueCollectionDisposedEvent](i-keyvaluecollectiondisposedevent.md)
     - [I_LinkedList](i-linkedlist.md)
     - [I_LinkedListNode](i-linkedlistnode.md)
     - [I_List](i-list.md)
-    - TBA [I_Queue](i-queue.md)
-    - TBA [I_Stack](i-stack.md)
+    - [TBA I_Queue](i-queue.md)
+    - [TBA I_Stack](i-stack.md)
 
 - Guides
 
