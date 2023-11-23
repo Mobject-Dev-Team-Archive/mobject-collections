@@ -244,91 +244,6 @@ linkedList.AddLast(value);
 result := linkedList.Contains(value); // result = TRUE
 ```
 
-### CopyTo(Destination)
-
-Copies the contents of the linkedlist to an array. The array must be of the correct size to contain all of the items.
-
-#### Parameters
-
-| Parameters  | Datatype | Description                                 |
-| ----------- | -------- | ------------------------------------------- |
-| Destination | ANY      | The array which will act as the destination |
-
-#### Return
-
-| Datatype | Description                                                                                                                   |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
-
-#### Usage
-
-```declaration
-linkedList : LinkedList;
-value1 : INT := 123;
-value2 : INT := 456;
-value3 : INT := 789;
-myArray : ARRAY [0..2] OF INT;
-```
-
-```body
-linkedList.AddLast(value1); // (first->) 123 (<-last)
-linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
-linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
-linkedList.CopyTo(myArray); // myArray = [123,456,789];
-```
-
-### CopyToLocation(Destination)
-
-Copies the contents of the linkedlist to an array defined by address and size. The array must be of the correct size to contain all of the items.
-
-#### Parameters
-
-| Parameters         | Datatype | Description                                                |
-| ------------------ | -------- | ---------------------------------------------------------- |
-| DestinationAddress | PVOID    | The address of the array which will act as the destination |
-| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
-
-#### Return
-
-| Datatype | Description                                                                                                                   |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
-
-#### Usage
-
-```declaration
-linkedList : LinkedList;
-value1 : INT := 123;
-value2 : INT := 456;
-value3 : INT := 789;
-myArray : ARRAY [0..2] OF INT;
-```
-
-```body
-linkedList.AddLast(value1); // (first->) 123 (<-last)
-linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
-linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
-linkedList.CopyToLocation(ADR(myArray),SIZEOF(myArray)); // myArray = [123,456,789];
-```
-
-### Dispose()
-
-Will trigger the object for deletion.
-
-#### Parameters
-
-N/A
-
-#### Return
-
-N/A
-
-#### Usage
-
-```example
-linkedList.Dispose()
-```
-
 ### Find(Value)
 
 Returns the first I_LinkedListNode which matches the value supplied.
@@ -608,6 +523,73 @@ linkedList.AddLast(value1); // (first->) 123 (<-last)
 linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
 linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
 linkedList.RemoveLast(); // (first->) 123, 456 (<-last)
+```
+
+### TryCopyTo(Destination)
+
+Copies the contents of the linkedlist to an array. The array must be of the correct size to contain all of the items.
+
+#### Parameters
+
+| Parameters  | Datatype | Description                                 |
+| ----------- | -------- | ------------------------------------------- |
+| Destination | ANY      | The array which will act as the destination |
+
+#### Return
+
+| Datatype | Description                                                                                                                   |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
+
+#### Usage
+
+```declaration
+linkedList : LinkedList;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+myArray : ARRAY [0..2] OF INT;
+```
+
+```body
+linkedList.AddLast(value1); // (first->) 123 (<-last)
+linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
+linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
+linkedList.TryCopyTo(myArray); // myArray = [123,456,789];
+```
+
+### TryCopyToLocation(DestinationAddress, DestinationSize)
+
+Copies the contents of the linkedlist to an array defined by address and size. The array must be of the correct size to contain all of the items.
+
+#### Parameters
+
+| Parameters         | Datatype | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| DestinationAddress | PVOID    | The address of the array which will act as the destination |
+| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
+
+#### Return
+
+| Datatype | Description                                                                                                                   |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
+
+#### Usage
+
+```declaration
+linkedList : LinkedList;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+myArray : ARRAY [0..2] OF INT;
+```
+
+```body
+linkedList.AddLast(value1); // (first->) 123 (<-last)
+linkedList.AddLast(value2); // (first->) 123, 456 (<-last)
+linkedList.AddLast(value3); // (first->) 123, 456, 789 (<-last)
+linkedList.TryCopyToLocation(ADR(myArray),SIZEOF(myArray)); // myArray = [123,456,789];
 ```
 
 ## Properties

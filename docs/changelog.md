@@ -1,8 +1,17 @@
 # Changelog
 
-# 0.8.1 
+# 0.9.0
 
-- Fixed bug with Dictionary ForwardEnumerator not returning correct element when MoveNext() was called.
+- Documentation update
+
+!> This update contains the following breaking changes.
+
+- Method calls which perform an action and return TRUE or FALSE based on their success are now prefixed with "Try". For example, list.CopyTo() -> list.TryCopyTo(). This is to improve their readability and promote their use in IF statements.
+
+# 0.8.1
+
+- Bugfix Dictionary ForwardEnumerator not returning correct element when MoveNext() was called.
+- Library built using 4024.53.
 
 # 0.8.0
 

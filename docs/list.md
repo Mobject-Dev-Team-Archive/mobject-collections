@@ -60,11 +60,11 @@ allowed := list.TryGetByIndex(2, output); // allowed = true, output = 30
 allowed := list.TryGetToByIndex(3, ADR(output), SIZEOF(output)); // allowed = true, output = 40
 
 // inserting items is possible if the index is greater than 0 and equal or less than count
-list.Insert(2, value6); // [10,20,60,30,40,50,null,null], count = 6, capacity = 8
+allowed := list.TryInsert(2, value6); // allowed = true, [10,20,60,30,40,50,null,null], count = 6, capacity = 8
 
 // removing items can be via index, or first found
-list.RemoveAt(2); // [10,20,30,40,50,null,null,null], count = 5, capacity = 8
-list.RemoveItem(value1); // [20,30,40,50,null,null,null,null], count = 4, capacity = 8
+allowed := list.TryRemoveAt(2); // allowed = true,  [10,20,30,40,50,null,null,null], count = 5, capacity = 8
+allowed := list.TryRemoveItem(value1); // allowed = true, [20,30,40,50,null,null,null,null], count = 4, capacity = 8
 
 // excess memory can be returned using TrimExcess
 list.TrimExcess(); // [20,30,40,50], count = 4, capacity = 4
@@ -148,91 +148,6 @@ list.AddItem(value);
 result := list.Contains(value); // result = TRUE
 ```
 
-### CopyTo(Destination)
-
-Copies the contents of the list to an array. The array must be of the correct size to contain all of the items.
-
-#### Parameters
-
-| Parameters  | Datatype | Description                                 |
-| ----------- | -------- | ------------------------------------------- |
-| Destination | ANY      | The array which will act as the destination |
-
-#### Return
-
-| Datatype | Description                                                                                                                   |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
-
-#### Usage
-
-```declaration
-list : List;
-value1 : INT := 123;
-value2 : INT := 456;
-value3 : INT := 789;
-myArray : ARRAY [0..2] OF INT;
-```
-
-```body
-list.AddItem(value1); // [123]
-list.AddItem(value2); // [123, 456]
-list.AddItem(value3); // [123, 456, 789]
-list.CopyTo(myArray); // myArray = [123, 456, 789];
-```
-
-### CopyToLocation(Destination)
-
-Copies the contents of the list to an array defined by address and size. The array must be of the correct size to contain all of the items.
-
-#### Parameters
-
-| Parameters         | Datatype | Description                                                |
-| ------------------ | -------- | ---------------------------------------------------------- |
-| DestinationAddress | PVOID    | The address of the array which will act as the destination |
-| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
-
-#### Return
-
-| Datatype | Description                                                                                                                   |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
-
-#### Usage
-
-```declaration
-list : List;
-value1 : INT := 123;
-value2 : INT := 456;
-value3 : INT := 789;
-myArray : ARRAY [0..2] OF INT;
-```
-
-```body
-list.AddItem(value1); // [123]
-list.AddItem(value2); // [123, 456]
-list.AddItem(value3); // [123, 456, 789]
-list.CopyToLocation(ADR(myArray),SIZEOF(myArray)); // myArray = [123, 456, 789];
-```
-
-### Dispose()
-
-Will trigger the object for deletion.
-
-#### Parameters
-
-N/A
-
-#### Return
-
-N/A
-
-#### Usage
-
-```example
-list.Dispose()
-```
-
 ### GetEnumerator()
 
 Returns a forward enumerator for the list. More information on the enumerators can be found [here](http://enumerable.mobject.org/#/i-forward-enumerator)
@@ -275,6 +190,40 @@ END_WHILE;
 
 // you must dispose enumerators as they are new objects.
 enumerator.Dispose();
+```
+
+### GetIndexOf(Item)
+
+Returns the index of an item in a list.
+
+#### Parameters
+
+| Parameters | Datatype | Description                      |
+| ---------- | -------- | -------------------------------- |
+| Item       | ANY      | The item used to find the index. |
+
+#### Return
+
+| Datatype | Description                                                                   |
+| -------- | ----------------------------------------------------------------------------- |
+| DINT     | Returns the index of the item if contained in the list, otherwise returns -1. |
+
+#### Usage
+
+```declaration
+list : List;
+value1 : INT := 123;
+value2 : INT := 234;
+value3 : INT := 345;
+index : DINT;
+```
+
+```body
+list.AddItem(value1);
+list.AddItem(value2);
+index := list.GetIndexOf(value1); // index = 0
+index := list.GetIndexOf(value2); // index = 1
+index := list.GetIndexOf(value3); // index = -1
 ```
 
 ### OnEvent(EventName, EventHandler)
@@ -340,68 +289,6 @@ N/A
 list.OffEvent('OnChanged', eventHandler);
 ```
 
-### RemoveAt(Item)
-
-Removes item from the list using the index. Lists are zero based index.
-
-#### Parameters
-
-| Parameters | Datatype | Description                                        |
-| ---------- | -------- | -------------------------------------------------- |
-| Index      | DINT     | The index of the item to be removed from the list. |
-
-#### Return
-
-| Datatype | Description                                                                                                |
-| -------- | ---------------------------------------------------------------------------------------------------------- |
-| BOOL     | The method will return TRUE if the remove was completed. FALSE will be returned if the index was not found |
-
-#### Usage
-
-```declaration
-list : List;
-value1 : INT := 123;
-value2 : INT := 456;
-value3 : INT := 789;
-```
-
-```body
-list.AddItem(value1); // [123]
-list.AddItem(value2); // [123, 456]
-list.AddItem(value3); // [123, 456, 789]
-list.RemoveAt(1); // [123, 789]
-```
-
-### RemoveItem(Item)
-
-Removes the first matching item from the list. This is a requirement of the [I_Collection](i-collection.md) interface.
-
-#### Parameters
-
-| Parameters | Datatype | Description                           |
-| ---------- | -------- | ------------------------------------- |
-| Item       | ANY      | The item to be removed from the list. |
-
-#### Return
-
-N/A
-
-#### Usage
-
-```declaration
-list : List;
-value1 : INT := 123;
-value2 : INT := 456;
-value3 : INT := 789;
-```
-
-```body
-list.AddItem(value1); // [123]
-list.AddItem(value2); // [123, 456]
-list.AddItem(value3); // [123, 456, 789]
-list.RemoveItem(value2); // [123, 789]
-```
-
 ### TrimExcess(Item)
 
 Releases any spare capacity in the list
@@ -428,6 +315,75 @@ list.AddItem(value1); // [123, null, null, null], capacity = 4
 list.AddItem(value2); // [123, 456, null, null], capacity = 4
 list.AddItem(value3); // [123, 456, 789, null], capacity = 4
 list.TrimExcess(); // [123, 456, 789], capacity = 3
+```
+
+### TryCopyTo(Destination)
+
+Copies the contents of the list to an array. The array must be of the correct size to contain all of the items.
+
+#### Parameters
+
+| Parameters  | Datatype | Description                                 |
+| ----------- | -------- | ------------------------------------------- |
+| Destination | ANY      | The array which will act as the destination |
+
+#### Return
+
+| Datatype | Description                                                                                                                   |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
+
+#### Usage
+
+```declaration
+list : List;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+myArray : ARRAY [0..2] OF INT;
+result : BOOL;
+```
+
+```body
+list.AddItem(value1); // [123]
+list.AddItem(value2); // [123, 456]
+list.AddItem(value3); // [123, 456, 789]
+result := list.TryCopyTo(myArray); // result = true, myArray = [123, 456, 789];
+```
+
+### TryCopyToLocation(DestinationAddress, DestinationSize)
+
+Copies the contents of the list to an array defined by address and size. The array must be of the correct size to contain all of the items.
+
+#### Parameters
+
+| Parameters         | Datatype | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| DestinationAddress | PVOID    | The address of the array which will act as the destination |
+| DestinationSize    | UDINT    | The size of the array which will act as the destination    |
+
+#### Return
+
+| Datatype | Description                                                                                                                   |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
+
+#### Usage
+
+```declaration
+list : List;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+myArray : ARRAY [0..2] OF INT;
+result : BOOL;
+```
+
+```body
+list.AddItem(value1); // [123]
+list.AddItem(value2); // [123, 456]
+list.AddItem(value3); // [123, 456, 789]
+result := list.TryCopyToLocation(ADR(myArray),SIZEOF(myArray)); // result = true, myArray = [123, 456, 789];
 ```
 
 ### TryGetByIndex(Index, Destination)
@@ -499,6 +455,105 @@ list.AddItem(value1); // [123]
 list.AddItem(value2); // [123, 456]
 list.AddItem(value3); // [123, 456, 789]
 result := list.TryGetToByIndex(1, ADR(out), SIZEOF(out)); // result = TRUE, out = 456
+```
+
+### TryInsert(Index, Item)
+
+Inserts an item at a specified index. The index must be greater than 0 and less than list item count.
+
+#### Parameters
+
+| Parameters | Datatype | Description                               |
+| ---------- | -------- | ----------------------------------------- |
+| Index      | DINT     | The index in the list to insert the item. |
+| Item       | ANY      | The item to be inserted.                  |
+
+#### Return
+
+| Datatype | Description                                                                                           |
+| -------- | ----------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the insert was completed. FALSE will be returned if the method failed. |
+
+#### Usage
+
+```declaration
+list : List;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+result : BOOL;
+```
+
+```body
+list.AddItem(value1); // [123]
+list.AddItem(value2); // [123, 456]
+result := list.TryInsert(1, value3); // result = TRUE,  [123, 789, 456]
+```
+
+### TryRemoveAt(Item)
+
+Removes item from the list using the index. Lists are zero based index.
+
+#### Parameters
+
+| Parameters | Datatype | Description                                        |
+| ---------- | -------- | -------------------------------------------------- |
+| Index      | DINT     | The index of the item to be removed from the list. |
+
+#### Return
+
+| Datatype | Description                                                                                                |
+| -------- | ---------------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the remove was completed. FALSE will be returned if the index was not found |
+
+#### Usage
+
+```declaration
+list : List;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+result : BOOL;
+```
+
+```body
+list.AddItem(value1); // [123]
+list.AddItem(value2); // [123, 456]
+list.AddItem(value3); // [123, 456, 789]
+result := list.TryRemoveAt(1); // result = TRUE, [123, 789]
+```
+
+### TryRemoveItem(Item)
+
+Removes the first matching item from the list. This is a requirement of the [I_Collection](i-collection.md) interface.
+
+#### Parameters
+
+| Parameters | Datatype | Description                           |
+| ---------- | -------- | ------------------------------------- |
+| Item       | ANY      | The item to be removed from the list. |
+
+#### Return
+
+| Datatype | Description                                                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the remove was completed. FALSE will be returned if the item was not found |
+
+#### Usage
+
+```declaration
+list : List;
+value1 : INT := 123;
+value2 : INT := 456;
+value3 : INT := 789;
+result : BOOL;
+```
+
+```body
+list.AddItem(value1); // [123]
+list.AddItem(value2); // [123, 456]
+list.AddItem(value3); // [123, 456, 789]
+result := list.TryRemoveItem(value2); // result = TRUE,  [123, 789]
 ```
 
 ## Properties

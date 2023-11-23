@@ -57,7 +57,7 @@ Checks to see if an item is contained in the collection.
 | -------- | ------------------------------------------------------- |
 | BOOL     | Returns true if the item is contained in the collection |
 
-### CopyTo(Destination)
+### TryCopyTo(Destination)
 
 Copies the contents of the collection to an array. The array must be of the correct size to contain all of the items.
 
@@ -73,7 +73,7 @@ Copies the contents of the collection to an array. The array must be of the corr
 | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
 
-### CopyToLocation(Destination)
+### TryCopyToCopyToLocation(DestinationAddress, DestinationSize)
 
 Copies the contents of the collection to an array defined by address and size. The array must be of the correct size to contain all of the items.
 
@@ -90,7 +90,7 @@ Copies the contents of the collection to an array defined by address and size. T
 | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | BOOL     | The method will return TRUE if the copy was completed. FALSE will be returned if the destination size is too big or too small |
 
-### RemoveItem(Item)
+### TryRemoveItem(Item)
 
 Removes the first matching item from the collection.
 
@@ -102,7 +102,9 @@ Removes the first matching item from the collection.
 
 #### Return
 
-N/A
+| Datatype | Description                                              |
+| -------- | -------------------------------------------------------- |
+| BOOL     | The method will return TRUE if the remove was completed. |
 
 ## Properties
 
