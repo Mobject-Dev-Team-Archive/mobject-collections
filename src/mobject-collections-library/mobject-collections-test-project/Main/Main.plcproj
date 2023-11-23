@@ -80,7 +80,6 @@
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
     <Folder Include="Tests\Mocks\EventHandlers" />
-    <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
