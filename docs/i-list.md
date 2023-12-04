@@ -2,12 +2,12 @@
 
 ## Definition
 
-|             |                     |
-| ----------- | ------------------- |
-| Namespace   | mobject-collections |
-| Library     | mobject-collections |
-| Inheritance | [I_List](i-list.md) |
-| Implements  |                     |
+|             |                                 |
+| ----------- | ------------------------------- |
+| Namespace   | mobject-collections             |
+| Library     | mobject-collections             |
+| Inheritance | [I_Collection](i-collection.md) |
+| Implements  |                                 |
 
 ## Remarks
 

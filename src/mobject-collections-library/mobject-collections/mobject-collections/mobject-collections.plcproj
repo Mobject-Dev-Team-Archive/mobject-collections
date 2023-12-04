@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>0.9.0</ProjectVersion>
+    <ProjectVersion>1.0.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -175,18 +175,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderResolution Include="mobject-disposable">
-      <Resolution>mobject-disposable, 0.3.1 (mobject)</Resolution>
-    </PlaceholderResolution>
-  </ItemGroup>
-  <ItemGroup>
-    <LibraryReference Include="mobject-disposable,0.3.1,mobject">
+    <LibraryReference Include="mobject-disposable,1.0.0,mobject">
       <Namespace>mobject_disposable</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-enumerable,0.1.0,mobject">
+    <LibraryReference Include="mobject-enumerable,1.0.0,mobject">
       <Namespace>mobject_enumerable</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-events,0.4.1,mobject">
+    <LibraryReference Include="mobject-events,1.0.0,mobject">
       <Namespace>mobject_events</Namespace>
     </LibraryReference>
   </ItemGroup>
