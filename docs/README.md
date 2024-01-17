@@ -20,7 +20,7 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 ## Why use mobject-collections?
 
-The mobject-collections library provides a set of efficient and flexible data structures that can be used to manage collections of objects in your industrial control system. The library currently includes threr classes: LinkedList Stack and Queue, with Dynamic Array and Dictionary coming soon.
+The mobject-collections library provides a set of efficient and flexible data structures that can be used to manage collections of objects in your industrial control system. The library currently includes three classes: LinkedList Stack and Queue, with Dynamic Array and Dictionary coming soon.
 
 ### LinkedList (Double linked list)
 
