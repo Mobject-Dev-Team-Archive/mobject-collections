@@ -100,6 +100,16 @@ if currentNode.Next <> 0 then
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Reset" Id="{f24e6da2-ae5f-4a69-85dc-9e48a492fb09}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[moveNextCalled := FALSE;
+currentNode := 0;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryGet" Id="{00128fb3-0888-4680-baae-fe94bc38c29b}">
       <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
 VAR_INPUT

@@ -97,6 +97,16 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Reset" Id="{98f7795a-4c24-485d-adb6-2753586f2244}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[moveNextCalled := FALSE;
+collectionEnumerator.Reset();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TryGet" Id="{0ffa1c2e-bcbd-4d65-bc20-482a62ad79ab}">
       <Declaration><![CDATA[METHOD PUBLIC TryGet : BOOL;
 VAR_INPUT

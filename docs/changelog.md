@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.0-beta
+
+- Updated to support mobject-enumerable v1.1.0-beta.
+- Added the Reset method.
+
 ## v1.0.0-beta
 
 - Changed status from alpha to beta.
