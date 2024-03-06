@@ -4,6 +4,8 @@
 
 - Updated to support mobject-enumerable v1.1.0-beta.
 - Added the Reset method.
+- Dictionary to support I_KeyValueEnumerable.
+- Dictionary enumerator to support I_KeyValueForwardEnumerator.
 
 ## v1.0.0-beta
 

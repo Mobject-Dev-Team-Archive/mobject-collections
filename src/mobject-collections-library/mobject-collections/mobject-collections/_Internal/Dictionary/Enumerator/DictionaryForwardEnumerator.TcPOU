@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'linkalways'} 
 {attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
 {attribute 'enable_dynamic_creation'}
-FUNCTION_BLOCK DictionaryForwardEnumerator EXTENDS Disposable IMPLEMENTS I_ForwardEnumerator, I_EventHandler
+FUNCTION_BLOCK DictionaryForwardEnumerator EXTENDS Disposable IMPLEMENTS I_KeyValueForwardEnumerator, I_EventHandler
 VAR
 	parent : I_Dictionary;
 	nodes : I_Collection;
@@ -80,6 +80,25 @@ END_IF]]></ST>
         <Declaration><![CDATA[PUBLIC]]></Declaration>
         <Implementation>
           <ST><![CDATA[IsValid := (not invalid and parent <> 0);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Key" Id="{6b61c32a-baa7-4a3b-8a76-93a9930d2de0}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Key : T_MAXSTRING]]></Declaration>
+      <Get Name="Get" Id="{c54d6d74-b03d-4993-9a39-2c5f46d386ec}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF NOT IsValid THEN
+	RETURN;
+END_IF
+
+IF currentNode = 0 THEN
+	RETURN;
+END_IF
+
+Key := currentNode.Key;]]></ST>
         </Implementation>
       </Get>
     </Property>
