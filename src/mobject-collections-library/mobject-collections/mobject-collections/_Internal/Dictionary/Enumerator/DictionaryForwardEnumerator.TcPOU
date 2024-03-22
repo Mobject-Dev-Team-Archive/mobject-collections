@@ -70,7 +70,8 @@ END_VAR]]></Declaration>
 	invalid := TRUE;
 	currentNode := 0;
 ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
-	parent := 0;
+	parent := 0;	
+	Dispose();
 END_IF]]></ST>
       </Implementation>
     </Method>

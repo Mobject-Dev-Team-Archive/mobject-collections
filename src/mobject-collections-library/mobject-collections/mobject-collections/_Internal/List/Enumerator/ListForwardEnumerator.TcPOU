@@ -62,6 +62,7 @@ END_VAR]]></Declaration>
 	currentIndex := 0;
 ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
 	parent := 0;
+	Dispose();
 END_IF]]></ST>
       </Implementation>
     </Method>

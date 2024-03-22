@@ -6,6 +6,7 @@
 - Added the Reset method.
 - Dictionary to support I_KeyValueEnumerable.
 - Dictionary enumerator to support I_KeyValueForwardEnumerator.
+- Enumerators will auto dispose on parent dispose.
 
 ## v1.0.0-beta
 
