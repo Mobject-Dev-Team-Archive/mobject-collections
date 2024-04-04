@@ -6,28 +6,28 @@
 
   - Classes
 
-    - [Dictionary](dictionary.md)
-    - [LinkedList](linkedlist.md)
-    - [List](list.md)
-    - [Queue](queue.md)
-    - [Stack](stack.md)
+    - [Dictionary](Dictionary.md)
+    - [LinkedList](LinkedList.md)
+    - [List](List.md)
+    - [Queue](Queue.md)
+    - [Stack](Stack.md)
 
   - Interfaces
 
-    - [I_Collection](i-collection.md)
-    - [TBA I_CollectionNode](i-collectionnode.md)
-    - [I_CollectionChangedEvent](i-collectionchangedevent.md)
-    - [I_CollectionDisposedEvent](i-collectiondisposedevent.md)
-    - [TBA I_Dictionary](i-dictionary.md)
-    - [TBA I_DictionaryNode](i-dictionarynode.md)
-    - [TBA I_KeyValueCollection](i-keyvaluecollection.md)
-    - [TBA I_KeyValueCollectionChangedEvent](i-keyvaluecollectionchangedevent.md)
-    - [TBA I_KeyValueCollectionDisposedEvent](i-keyvaluecollectiondisposedevent.md)
-    - [I_LinkedList](i-linkedlist.md)
-    - [I_LinkedListNode](i-linkedlistnode.md)
-    - [I_List](i-list.md)
-    - [I_Queue](i-queue.md)
-    - [I_Stack](i-stack.md)
+    - [I_Collection](I_Collection.md)
+    - [TBA I_CollectionNode](I_CollectionNode.md)
+    - [I_CollectionChangedEvent](I_CollectionChangedEvent.md)
+    - [I_CollectionDisposedEvent](I_CollectionDisposedEvent.md)
+    - [TBA I_Dictionary](I_Dictionary.md)
+    - [TBA I_DictionaryNode](I_DictionaryNode.md)
+    - [TBA I_KeyValueCollection](I_KeyValueCollection.md)
+    - [TBA I_KeyValueCollectionChangedEvent](I_KeyValueCollectionChangedEvent.md)
+    - [TBA I_KeyValueCollectionDisposedEvent](I_KeyValueCollectionDisposedEvent.md)
+    - [I_LinkedList](I_Linkedlist.md)
+    - [I_LinkedListNode](I_Linkedlistnode.md)
+    - [I_List](I_List.md)
+    - [I_Queue](I_Queue.md)
+    - [I_Stack](I_Stack.md)
 
 - Guides
 

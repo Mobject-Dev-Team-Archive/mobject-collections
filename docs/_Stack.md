@@ -7,7 +7,7 @@
 | Namespace   | mobject-collections                                      |
 | Library     | mobject-collections                                      |
 | Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
-| Implements  | [I_Stack](i-stack.md)                                    |
+| Implements  | [I_Stack](I_Stack.md)                                    |
 
 ## Remarks
 

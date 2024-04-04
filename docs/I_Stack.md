@@ -6,12 +6,12 @@
 | ----------- | ------------------------------- |
 | Namespace   | mobject-collections             |
 | Library     | mobject-collections             |
-| Inheritance | [I_Collection](i-collection.md) |
+| Inheritance | [I_Collection](I_Collection.md) |
 | Implements  |                                 |
 
 ## Remarks
 
-The I_Stack interface is part of the mobject-collections library and is designed to facilitate stack data structure management. This interface extends the [I_Collection](i-collection.md) interface, focusing on LIFO (Last-In-First-Out) operations typical of stacks. It is ideal for scenarios where elements need to be processed in a reversed order compared to their insertion sequence.
+The I_Stack interface is part of the mobject-collections library and is designed to facilitate stack data structure management. This interface extends the [I_Collection](I_Collection.md) interface, focusing on LIFO (Last-In-First-Out) operations typical of stacks. It is ideal for scenarios where elements need to be processed in a reversed order compared to their insertion sequence.
 
 ## Methods
 

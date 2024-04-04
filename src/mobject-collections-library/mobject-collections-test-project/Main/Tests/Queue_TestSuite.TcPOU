@@ -27,8 +27,7 @@ CheckTryCopyTo();
 CheckTryCopyToLocation();
 CheckQueueOrderIsCorrect();
 CheckListReturnsEnumerator();
-CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();]]></ST>
+CheckEnumeratorIsInvalidAfterChange();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{59e4bf74-6319-49c6-a1e4-c45e3bba7cdb}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
@@ -167,36 +166,6 @@ END_VAR
 // @TEST-FIXTURE
 enumerator := queue.GetEnumerator();
 queue.Enqueue(in);
-
-// @TEST-RUN
-result := enumerator.IsValid;
-enumerator.Dispose();
-
-// @TEST-ASSSERT
-AssertFalse(
-	Condition := result,
-	Message := 'Method returned true'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckEnumeratorIsInvalidAfterDispose" Id="{8bf8f48d-8511-4d45-8b30-77260100e14c}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterDispose
-VAR
-	in : INT := 123;
-	result : BOOL;
-	pQueue : POINTER TO Queue;
-	enumerator : I_ForwardEnumerator;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterDispose');
-
-// @TEST-FIXTURE
-pQueue := __NEW(queue);
-enumerator := pQueue^.GetEnumerator();
-__DELETE(pQueue);
 
 // @TEST-RUN
 result := enumerator.IsValid;

@@ -13,7 +13,6 @@ CheckContainsKeyIsFalse();
 CheckContainsKeyIsTrue();
 CheckCount();
 CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();
 CheckGetEnumerator();
 CheckGetKeysReturnsACollection();
 CheckGetKeysReturnsACollectionOfValidKeys();
@@ -207,33 +206,6 @@ END_VAR
 
 enumerator := dictionary.GetEnumerator();
 dictionary.TryAdd('a',in);
-
-result := enumerator.IsValid;
-enumerator.Dispose();
-
-AssertFalse(
-	Condition := result,
-	Message := 'Method returned true'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckEnumeratorIsInvalidAfterDispose" Id="{48fa3ffc-e6db-4a45-bbe1-bd74146c7f1b}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterDispose
-VAR
-	in : INT := 123;
-	result : BOOL;
-	pDictionary : POINTER TO Dictionary;
-	enumerator : I_ForwardEnumerator;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterDispose');
-
-pDictionary := __NEW(Dictionary);
-enumerator := pDictionary^.GetEnumerator();
-__DELETE(pDictionary);
 
 result := enumerator.IsValid;
 enumerator.Dispose();

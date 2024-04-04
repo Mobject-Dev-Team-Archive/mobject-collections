@@ -63,6 +63,7 @@ END_VAR]]></Declaration>
 	currentNode := 0;
 ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
 	parent := 0;
+	Dispose();
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -98,6 +99,16 @@ if currentNode.Next <> 0 then
 	MoveNext := TRUE;	
 	RETURN;
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{f24e6da2-ae5f-4a69-85dc-9e48a492fb09}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[moveNextCalled := FALSE;
+currentNode := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryGet" Id="{00128fb3-0888-4680-baae-fe94bc38c29b}">

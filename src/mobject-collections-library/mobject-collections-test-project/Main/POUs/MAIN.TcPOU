@@ -5,6 +5,7 @@
 VAR
 	dictionary_TestSuite : Dictionary_TestSuite;
 	dictionaryForwardEnumerator_TestSuite : DictionaryForwardEnumerator_TestSuite;
+	dictionaryKeyValueForwardEnumerator_TestSuite : DictionaryKeyValueForwardEnumerator_TestSuite;
     linkedList_TestSuite : LinkedList_TestSuite;
 	linkedListForwardEnumerator_TestSuite : LinkedListForwardEnumerator_TestSuite;
     list_TestSuite : List_TestSuite;

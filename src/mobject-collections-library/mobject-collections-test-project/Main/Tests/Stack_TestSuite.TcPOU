@@ -27,8 +27,7 @@ CheckTryCopyTo();
 CheckTryCopyToLocation();
 CheckStackOrderIsCorrect();
 CheckListReturnsEnumerator();
-CheckEnumeratorIsInvalidAfterChange();
-CheckEnumeratorIsInvalidAfterDispose();]]></ST>
+CheckEnumeratorIsInvalidAfterChange();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{b1407b4b-116a-428f-9dec-c1ea8851de1a}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
@@ -167,36 +166,6 @@ END_VAR
 // @TEST-FIXTURE
 enumerator := stack.GetEnumerator();
 stack.Push(in);
-
-// @TEST-RUN
-result := enumerator.IsValid;
-enumerator.Dispose();
-
-// @TEST-ASSSERT
-AssertFalse(
-	Condition := result,
-	Message := 'Method returned true'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CheckEnumeratorIsInvalidAfterDispose" Id="{4296ac72-b824-47e8-982b-ce1853d8a4d2}">
-      <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterDispose
-VAR
-	in : INT := 123;
-	result : BOOL;
-	pStack : POINTER TO Stack;
-	enumerator : I_ForwardEnumerator;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('CheckEnumeratorIsInvalidAfterDispose');
-
-// @TEST-FIXTURE
-pStack := __NEW(Stack);
-enumerator := pStack^.GetEnumerator();
-__DELETE(pStack);
 
 // @TEST-RUN
 result := enumerator.IsValid;

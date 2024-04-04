@@ -211,6 +211,20 @@ THIS^.RecursiveAddKeysInOrderToCollection(rootNode,pLinkedList^);
 GetKeys := pLinkedList^;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetKeyValueEnumerator" Id="{4d66db03-a7c7-4b5b-b008-47f06a549c8f}">
+      <Declaration><![CDATA[METHOD GetKeyValueEnumerator : I_KeyValueForwardEnumerator
+VAR
+	pNodeCollection : POINTER TO LinkedList;
+	pEnumerator : POINTER TO DictionaryForwardEnumerator;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pNodeCollection := __NEW(LinkedList);
+THIS^.RecursiveAddNodesInOrderToCollection(rootNode, pNodeCollection^);
+
+pEnumerator := __NEW(DictionaryForwardEnumerator(Parent := THIS^, Nodes := pNodeCollection^));
+GetKeyValueEnumerator := pEnumerator^;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="LeftRotate" Id="{eed2e16c-86e1-410b-a6d8-fcb5ebd431d5}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE LeftRotate : I_DictionaryTreeNode
 VAR_INPUT

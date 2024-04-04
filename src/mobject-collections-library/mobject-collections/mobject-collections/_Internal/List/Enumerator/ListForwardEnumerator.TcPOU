@@ -62,6 +62,7 @@ END_VAR]]></Declaration>
 	currentIndex := 0;
 ELSIF __QUERYINTERFACE(Event, disposedEvent) THEN
 	parent := 0;
+	Dispose();
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -102,6 +103,16 @@ IF currentIndex < parent.Count - 1 THEN
     currentIndex := currentIndex + 1;
     MoveNext := TRUE;
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{a8a10cb7-9f41-48bf-8314-7d421717f7a9}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[moveNextCalled := FALSE;
+currentIndex := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="TryGet" Id="{fc9b3816-84f5-4733-83b3-f353243e6fb9}">

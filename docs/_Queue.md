@@ -7,7 +7,7 @@
 | Namespace   | mobject-collections                                      |
 | Library     | mobject-collections                                      |
 | Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
-| Implements  | [I_Queue](i-queue.md)                                    |
+| Implements  | [I_Queue](I_Queue.md)                                    |
 
 ## Remarks
 
