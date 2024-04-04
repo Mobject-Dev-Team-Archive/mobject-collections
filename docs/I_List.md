@@ -6,7 +6,7 @@
 | ----------- | ------------------------------- |
 | Namespace   | mobject-collections             |
 | Library     | mobject-collections             |
-| Inheritance | [I_Collection](i-collection.md) |
+| Inheritance | [I_Collection](I_Collection.md) |
 | Implements  |                                 |
 
 ## Remarks
