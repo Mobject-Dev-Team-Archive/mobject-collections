@@ -24,6 +24,9 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\DictionaryKeyValueForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Dictionary_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>

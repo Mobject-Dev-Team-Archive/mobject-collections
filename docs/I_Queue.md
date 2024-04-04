@@ -6,12 +6,12 @@
 | ----------- | ------------------------------- |
 | Namespace   | mobject-collections             |
 | Library     | mobject-collections             |
-| Inheritance | [I_Collection](i-collection.md) |
+| Inheritance | [I_Collection](I_Collection.md) |
 | Implements  |                                 |
 
 ## Remarks
 
-The I_Queue interface provides a standardized approach to queue data structure management in the mobject-collections library. It extends the functionality of the [I_Collection](i-collection.md) interface, focusing on FIFO (First-In-First-Out) operations commonly associated with queues. This interface is particularly useful in scenarios where orderly processing of items is required.
+The I_Queue interface provides a standardized approach to queue data structure management in the mobject-collections library. It extends the functionality of the [I_Collection](I_Collection.md) interface, focusing on FIFO (First-In-First-Out) operations commonly associated with queues. This interface is particularly useful in scenarios where orderly processing of items is required.
 
 ## Methods
 

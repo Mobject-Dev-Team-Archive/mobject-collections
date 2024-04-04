@@ -7,7 +7,7 @@
 | Namespace   | mobject-collections                                      |
 | Library     | mobject-collections                                      |
 | Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
-| Implements  | [I_List](i-list.md)                                      |
+| Implements  | [I_List](I_List.md)                                      |
 
 ## Remarks
 
@@ -74,7 +74,7 @@ list.TrimExcess(); // [20,30,40,50], count = 4, capacity = 4
 
 ### AddItem(Item)
 
-Add an item to the list. This is a requirement of the [I_Collection](i-collection.md) and will add the item to the end of the list.
+Add an item to the list. This is a requirement of the [I_Collection](I_Collection.md) and will add the item to the end of the list.
 
 #### Parameters
 
@@ -150,7 +150,7 @@ result := list.Contains(value); // result = TRUE
 
 ### GetEnumerator()
 
-Returns a forward enumerator for the list. More information on the enumerators can be found [here](http://enumerable.mobject.org/#/i-forward-enumerator)
+Returns a forward enumerator for the list. More information on the enumerators can be found [here](http://enumerable.mobject.org/#/I_ForwardEnumerator)
 
 !> Enumerators are \_\_NEW objects, which means you must dispose of any enumerators you make once you are finished using them. Failure to do so will result in a memory leak.
 
@@ -160,9 +160,9 @@ N/A
 
 #### Return
 
-| Datatype                                                                    | Description                                                     |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [I_ForwardEnumerator](http://enumerable.mobject.org/#/i-forward-enumerator) | The method will return a forward enumerator for the linked list |
+| Datatype                                                                   | Description                                                     |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [I_ForwardEnumerator](http://enumerable.mobject.org/#/I_ForwardEnumerator) | The method will return a forward enumerator for the linked list |
 
 #### Usage
 
@@ -232,10 +232,10 @@ Registers an event handler for the given event name. See [events](#events) for t
 
 #### Parameters
 
-| Parameters   | Datatype                                                      | Description                    |
-| ------------ | ------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                   | The name of the event.         |
-| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to register. |
+| Parameters   | Datatype                                                     | Description                    |
+| ------------ | ------------------------------------------------------------ | ------------------------------ |
+| EventName    | T_MAXSTRING                                                  | The name of the event.         |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/I_EventHandler) | The event handler to register. |
 
 #### Return
 
@@ -253,10 +253,10 @@ Registers an event handler for the given event name which is triggered only once
 
 #### Parameters
 
-| Parameters   | Datatype                                                      | Description                    |
-| ------------ | ------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                   | The name of the event.         |
-| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to register. |
+| Parameters   | Datatype                                                     | Description                    |
+| ------------ | ------------------------------------------------------------ | ------------------------------ |
+| EventName    | T_MAXSTRING                                                  | The name of the event.         |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/I_EventHandler) | The event handler to register. |
 
 #### Return
 
@@ -274,10 +274,10 @@ Unregisters an event handler for the given event name. See [events](#events) for
 
 #### Parameters
 
-| Parameters   | Datatype                                                      | Description                      |
-| ------------ | ------------------------------------------------------------- | -------------------------------- |
-| EventName    | T_MAXSTRING                                                   | The name of the event.           |
-| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to unregister. |
+| Parameters   | Datatype                                                     | Description                      |
+| ------------ | ------------------------------------------------------------ | -------------------------------- |
+| EventName    | T_MAXSTRING                                                  | The name of the event.           |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/I_EventHandler) | The event handler to unregister. |
 
 #### Return
 
@@ -525,7 +525,7 @@ result := list.TryRemoveAt(1); // result = TRUE, [123, 789]
 
 ### TryRemoveItem(Item)
 
-Removes the first matching item from the list. This is a requirement of the [I_Collection](i-collection.md) interface.
+Removes the first matching item from the list. This is a requirement of the [I_Collection](I_Collection.md) interface.
 
 #### Parameters
 
@@ -624,7 +624,7 @@ Triggered when there is any change to the content of the linked list.
 
 | Datatype                                                | Description                                                   |
 | ------------------------------------------------------- | ------------------------------------------------------------- |
-| [I_CollectionChangedEvent](i-collectionchangedevent.md) | The event handler will be passed the I_CollectionChangedEvent |
+| [I_CollectionChangedEvent](I_CollectionChangedEvent.md) | The event handler will be passed the I_CollectionChangedEvent |
 
 ### OnDisposed
 
@@ -634,4 +634,4 @@ Triggered when the linked list is disposed.
 
 | Datatype                                                  | Description                                                    |
 | --------------------------------------------------------- | -------------------------------------------------------------- |
-| [I_CollectionDisposedEvent](i-collectiondisposedevent.md) | The event handler will be passed the I_CollectionDisposedEvent |
+| [I_CollectionDisposedEvent](I_CollectionDisposedEvent.md) | The event handler will be passed the I_CollectionDisposedEvent |

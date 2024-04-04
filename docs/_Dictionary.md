@@ -7,7 +7,7 @@
 | Namespace   | mobject-collections                                      |
 | Library     | mobject-collections                                      |
 | Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
-| Implements  | [I_Dictionary](i-dictionary.md)                          |
+| Implements  | [I_Dictionary](I_Dictionary.md)                          |
 
 ## Remarks
 

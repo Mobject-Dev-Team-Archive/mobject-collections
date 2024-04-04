@@ -7,7 +7,7 @@
 | Namespace   | mobject-collections                                      |
 | Library     | mobject-collections                                      |
 | Inheritance | [Disposable](http://disposable.mobject.org/#/disposable) |
-| Implements  | [I_LinkedList](i-linkedlist.md)                          |
+| Implements  | [I_LinkedList](I_LinkedList.md)                          |
 
 ## Remarks
 
@@ -66,7 +66,7 @@ Add an item to the linked list after a given node.
 
 | Parameters | Datatype                                | Description                                           |
 | ---------- | --------------------------------------- | ----------------------------------------------------- |
-| After      | [I_LinkedListNode](i-linkedlistnode.md) | The node object which the value will be placed after. |
+| After      | [I_LinkedListNode](I_LinkedListNode.md) | The node object which the value will be placed after. |
 | Value      | ANY                                     | The value to store in the linked list.                |
 
 #### Return
@@ -96,7 +96,7 @@ Add an item to the linked list before a given node.
 
 | Parameters | Datatype                                | Description                                            |
 | ---------- | --------------------------------------- | ------------------------------------------------------ |
-| Before     | [I_LinkedListNode](i-linkedlistnode.md) | The node object which the value will be placed before. |
+| Before     | [I_LinkedListNode](I_LinkedListNode.md) | The node object which the value will be placed before. |
 | Value      | ANY                                     | The value to store in the linked list.                 |
 
 #### Return
@@ -145,7 +145,7 @@ linkedList.AddFirst(value);
 
 ### AddItem(Item)
 
-Add an item to the collection. This is a requirement of the [I_Collection](i-collection.md) interface and is the same as calling AddLast.
+Add an item to the collection. This is a requirement of the [I_Collection](I_Collection.md) interface and is the same as calling AddLast.
 
 #### Parameters
 
@@ -258,7 +258,7 @@ Returns the first I_LinkedListNode which matches the value supplied.
 
 | Datatype                                | Description                                                                  |
 | --------------------------------------- | ---------------------------------------------------------------------------- |
-| [I_LinkedListNode](i-linkedlistnode.md) | The method will return the first matching node, or zero if no value is found |
+| [I_LinkedListNode](I_LinkedListNode.md) | The method will return the first matching node, or zero if no value is found |
 
 #### Usage
 
@@ -287,7 +287,7 @@ Returns the last I_LinkedListNode which matches the value supplied.
 
 | Datatype                                | Description                                                                 |
 | --------------------------------------- | --------------------------------------------------------------------------- |
-| [I_LinkedListNode](i-linkedlistnode.md) | The method will return the last matching node, or zero if no value is found |
+| [I_LinkedListNode](I_LinkedListNode.md) | The method will return the last matching node, or zero if no value is found |
 
 #### Usage
 
@@ -304,7 +304,7 @@ foundNode := linkedList.FindLast(value1);
 
 ### GetEnumerator()
 
-Returns a forward enumerator for the linked list. More information on the enumerators can be found [here](http://enumerable.mobject.org/#/i-forward-enumerator)
+Returns a forward enumerator for the linked list. More information on the enumerators can be found [here](http://enumerable.mobject.org/#/I_ForwardEnumerator)
 
 !> Enumerators are \_\_NEW objects, which means you must dispose of any enumerators you make once you are finished using them. Failure to do so will result in a memory leak.
 
@@ -314,9 +314,9 @@ N/A
 
 #### Return
 
-| Datatype                                                                    | Description                                                     |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [I_ForwardEnumerator](http://enumerable.mobject.org/#/i-forward-enumerator) | The method will return a forward enumerator for the linked list |
+| Datatype                                                                   | Description                                                     |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [I_ForwardEnumerator](http://enumerable.mobject.org/#/I_ForwardEnumerator) | The method will return a forward enumerator for the linked list |
 
 #### Usage
 
@@ -352,10 +352,10 @@ Registers an event handler for the given event name. See [events](#events) for t
 
 #### Parameters
 
-| Parameters   | Datatype                                                      | Description                    |
-| ------------ | ------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                   | The name of the event.         |
-| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to register. |
+| Parameters   | Datatype                                                     | Description                    |
+| ------------ | ------------------------------------------------------------ | ------------------------------ |
+| EventName    | T_MAXSTRING                                                  | The name of the event.         |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/I_EventHandler) | The event handler to register. |
 
 #### Return
 
@@ -373,10 +373,10 @@ Registers an event handler for the given event name which is triggered only once
 
 #### Parameters
 
-| Parameters   | Datatype                                                      | Description                    |
-| ------------ | ------------------------------------------------------------- | ------------------------------ |
-| EventName    | T_MAXSTRING                                                   | The name of the event.         |
-| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to register. |
+| Parameters   | Datatype                                                     | Description                    |
+| ------------ | ------------------------------------------------------------ | ------------------------------ |
+| EventName    | T_MAXSTRING                                                  | The name of the event.         |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/I_EventHandler) | The event handler to register. |
 
 #### Return
 
@@ -394,10 +394,10 @@ Unregisters an event handler for the given event name. See [events](#events) for
 
 #### Parameters
 
-| Parameters   | Datatype                                                      | Description                      |
-| ------------ | ------------------------------------------------------------- | -------------------------------- |
-| EventName    | T_MAXSTRING                                                   | The name of the event.           |
-| EventHandler | [I_EventHandler](http://events.mobject.org/#/i-event-handler) | The event handler to unregister. |
+| Parameters   | Datatype                                                     | Description                      |
+| ------------ | ------------------------------------------------------------ | -------------------------------- |
+| EventName    | T_MAXSTRING                                                  | The name of the event.           |
+| EventHandler | [I_EventHandler](http://events.mobject.org/#/I_EventHandler) | The event handler to unregister. |
 
 #### Return
 
@@ -469,7 +469,7 @@ linkedList.RemoveFirst(); // (first->) 456, 789 (<-last)
 
 ### RemoveItem(Item)
 
-Removes the first matching item from the linked list. This is a requirement of the [I_Collection](i-collection.md) interface and is the same as calling Remove.
+Removes the first matching item from the linked list. This is a requirement of the [I_Collection](I_Collection.md) interface and is the same as calling Remove.
 
 #### Parameters
 
@@ -685,7 +685,7 @@ Triggered when there is any change to the content of the linked list.
 
 | Datatype                                                | Description                                                   |
 | ------------------------------------------------------- | ------------------------------------------------------------- |
-| [I_CollectionChangedEvent](i-collectionchangedevent.md) | The event handler will be passed the I_CollectionChangedEvent |
+| [I_CollectionChangedEvent](I_CollectionChangedEvent.md) | The event handler will be passed the I_CollectionChangedEvent |
 
 ### OnDisposed
 
@@ -695,4 +695,4 @@ Triggered when the linked list is disposed.
 
 | Datatype                                                  | Description                                                    |
 | --------------------------------------------------------- | -------------------------------------------------------------- |
-| [I_CollectionDisposedEvent](i-collectiondisposedevent.md) | The event handler will be passed the I_CollectionDisposedEvent |
+| [I_CollectionDisposedEvent](I_CollectionDisposedEvent.md) | The event handler will be passed the I_CollectionDisposedEvent |

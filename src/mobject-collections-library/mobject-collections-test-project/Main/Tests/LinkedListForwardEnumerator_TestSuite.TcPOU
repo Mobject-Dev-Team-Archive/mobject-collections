@@ -8,6 +8,7 @@ CheckMoveNextReturnsFalseAtTheEnd();
 CheckMoveNextReturnsFalseWhenEmpty();
 CheckMoveNextReturnsTrueMultipleItems();
 CheckMoveNextReturnsTrueSingleItem();
+CheckReset();
 CheckTryGet();
 CheckTryGetTo();
 CheckWorksWithIntegers();
@@ -134,6 +135,44 @@ enumerator.Dispose();
 AssertTrue(result,
     'MoveNext did not correctly signal there were more items to follow');
 	
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckReset" Id="{bdc3fc70-1ce5-46f1-9bd6-2a81cddeb8eb}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckReset
+VAR
+	in1 : ARRAY [0..1] OF REAL := [0.1,2.3];
+	in2 : ARRAY [0..1] OF REAL := [1.2,3.4];
+	in3 : ARRAY [0..1] OF REAL := [2.3,4.5];
+	out : ARRAY [0..1] OF REAL;
+	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
+	linkedList : LinkedList;
+	enumerator : I_ForwardEnumerator;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckReset');
+
+linkedList.AddLast(in1);
+linkedList.AddLast(in2);
+linkedList.AddLast(in3);
+
+enumerator := linkedList.GetEnumerator();
+
+enumerator.MoveNext();
+enumerator.MoveNext();
+enumerator.Reset();
+enumerator.MoveNext();
+enumerator.TryGet(out);
+
+enumerator.Dispose();
+
+AssertEquals(
+	Expected := expected,
+	Actual := out,
+	Message := 'Did not produce the expected result'
+);
+
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>

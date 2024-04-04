@@ -6,7 +6,7 @@
 | ----------- | ------------------------------- |
 | Namespace   | mobject-collections             |
 | Library     | mobject-collections             |
-| Inheritance | [I_Collection](i-collection.md) |
+| Inheritance | [I_Collection](I_Collection.md) |
 | Implements  |                                 |
 
 ## Remarks
@@ -23,7 +23,7 @@ Add an item to the linked list after a given node.
 
 | Parameters | Datatype                                | Description                                           |
 | ---------- | --------------------------------------- | ----------------------------------------------------- |
-| After      | [I_LinkedListNode](i-linkedlistnode.md) | The node object which the value will be placed after. |
+| After      | [I_LinkedListNode](I_LinkedListNode.md) | The node object which the value will be placed after. |
 | Value      | ANY                                     | The value to store in the linked list.                |
 
 #### Return
@@ -38,7 +38,7 @@ Add an item to the linked list before a given node.
 
 | Parameters | Datatype                                | Description                                            |
 | ---------- | --------------------------------------- | ------------------------------------------------------ | --- |
-| Before     | [I_LinkedListNode](i-linkedlistnode.md) | The node object which the value will be placed before. |
+| Before     | [I_LinkedListNode](I_LinkedListNode.md) | The node object which the value will be placed before. |
 | Value      | ANY                                     | The value to store in the linked list.                 |     |
 
 #### Return
@@ -87,7 +87,7 @@ Returns the first I_LinkedListNode which matches the value supplied.
 
 | Datatype                                | Description                                                                  |
 | --------------------------------------- | ---------------------------------------------------------------------------- |
-| [I_LinkedListNode](i-linkedlistnode.md) | The method will return the first matching node, or zero if no value is found |
+| [I_LinkedListNode](I_LinkedListNode.md) | The method will return the first matching node, or zero if no value is found |
 
 ### FindLast(Value)
 
@@ -103,7 +103,7 @@ Returns the last I_LinkedListNode which matches the value supplied.
 
 | Datatype                                | Description                                                                 |
 | --------------------------------------- | --------------------------------------------------------------------------- |
-| [I_LinkedListNode](i-linkedlistnode.md) | The method will return the last matching node, or zero if no value is found |
+| [I_LinkedListNode](I_LinkedListNode.md) | The method will return the last matching node, or zero if no value is found |
 
 ### Remove(Value)
 

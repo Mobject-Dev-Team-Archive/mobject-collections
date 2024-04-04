@@ -6,12 +6,12 @@
 | ----------- | ---------------------------------------------- |
 | Namespace   | mobject-collections                            |
 | Library     | mobject-collections                            |
-| Inheritance | [I_Event](http://events.mobject.org/#/i-event) |
+| Inheritance | [I_Event](http://events.mobject.org/#/I_Event) |
 | Implements  |                                                |
 
 ## Remarks
 
-The I_CollectionChangedEvent is an event emitted by any collection implementing the [I_Collection](i-collection.md) interface.
+The I_CollectionChangedEvent is an event emitted by any collection implementing the [I_Collection](I_Collection.md) interface.
 
 ## Example
 
@@ -58,4 +58,4 @@ Returns the collection who raised the event.
 
 | Datatype                        | Description                         |
 | ------------------------------- | ----------------------------------- |
-| [I_Collection](i-collection.md) | The collection who raised the event |
+| [I_Collection](I_Collection.md) | The collection who raised the event |
