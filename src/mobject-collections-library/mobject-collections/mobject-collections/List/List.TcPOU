@@ -100,7 +100,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	RETURN;
 END_IF
 
@@ -115,7 +115,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	RETURN;
 END_IF
 
@@ -210,7 +210,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[GetIndexOf := -1;
 
-IF IsEmpty() THEN
+IF IsEmpty THEN
 	RETURN;
 END_IF
 
@@ -224,15 +224,17 @@ FOR i := 0 TO itemCount - 1 DO
 END_FOR ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsEmpty" Id="{c3ebfab7-6e9b-4a26-b4d6-f2fc75649597}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE IsEmpty : BOOL
-VAR_INPUT
+    <Property Name="IsEmpty" Id="{4ad381b9-db6e-4adb-9e4a-12902170c312}">
+      <Declaration><![CDATA[PROPERTY IsEmpty : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a9e217e4-6ded-4f1a-9d8d-aadaebe0bcf4}">
+        <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IsEmpty := itemCount = 0;]]></ST>
-      </Implementation>
-    </Method>
+        <Implementation>
+          <ST><![CDATA[IsEmpty := itemCount = 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="IsNotValidIndex" Id="{6b2f0604-0d45-4dec-b1e4-88140675f855}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsNotValidIndex : BOOL
 VAR_INPUT
@@ -386,7 +388,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
     RETURN;
 END_IF
 

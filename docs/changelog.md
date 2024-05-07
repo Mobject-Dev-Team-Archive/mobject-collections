@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.0-beta
+
+- Added OrderedDictionary, which preserves the order of added items when using enumerators
+- Added IsEmpty to I_Collection
+
 ## v1.1.0-beta
 
 - Updated to support mobject-enumerable v1.1.0-beta.

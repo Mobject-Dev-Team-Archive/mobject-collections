@@ -107,6 +107,17 @@ EmitDisposedEvent();]]></ST>
         <ST><![CDATA[GetEnumerator := linkedList.GetEnumerator();]]></ST>
       </Implementation>
     </Method>
+    <Property Name="IsEmpty" Id="{a9ed2e9b-105f-4b3d-9aa5-9a02246202d2}">
+      <Declaration><![CDATA[PROPERTY IsEmpty : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4e607b0e-1cbb-4abf-a159-be4c1f864d23}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsEmpty := linkedList.IsEmpty;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="OffEvent" Id="{2cb4ce4a-f4a1-4b48-9e09-eba0541704b2}">
       <Declaration><![CDATA[METHOD PUBLIC OffEvent
 VAR_INPUT

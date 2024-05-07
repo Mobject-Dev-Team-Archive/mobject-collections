@@ -270,9 +270,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithArrays');
 
-dictionary.TryAdd('a',in1);
-dictionary.TryAdd('b',in2);
 dictionary.TryAdd('c',in3);
+dictionary.TryAdd('b',in2);
+dictionary.TryAdd('a',in1);
 
 enumerator := dictionary.GetEnumerator();
 
@@ -325,9 +325,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithIntegers');
 
-dictionary.TryAdd('a',in1);
-dictionary.TryAdd('b',in2);
 dictionary.TryAdd('c',in3);
+dictionary.TryAdd('b',in2);
+dictionary.TryAdd('a',in1);
 
 enumerator := dictionary.GetEnumerator();
 
@@ -380,9 +380,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-dictionary.TryAdd('a',in1);
-dictionary.TryAdd('b',in2);
 dictionary.TryAdd('c',in3);
+dictionary.TryAdd('b',in2);
+dictionary.TryAdd('a',in1);
 
 enumerator := dictionary.GetEnumerator();
 

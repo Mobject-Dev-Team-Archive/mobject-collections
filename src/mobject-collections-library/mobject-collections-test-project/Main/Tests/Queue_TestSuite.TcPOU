@@ -27,7 +27,9 @@ CheckTryCopyTo();
 CheckTryCopyToLocation();
 CheckQueueOrderIsCorrect();
 CheckListReturnsEnumerator();
-CheckEnumeratorIsInvalidAfterChange();]]></ST>
+CheckEnumeratorIsInvalidAfterChange();
+CheckIsEmptyWhenEmpty();
+CheckIsEmptyWhenFull();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{59e4bf74-6319-49c6-a1e4-c45e3bba7cdb}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddItem
@@ -175,6 +177,54 @@ enumerator.Dispose();
 AssertFalse(
 	Condition := result,
 	Message := 'Method returned true'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckIsEmptyWhenEmpty" Id="{b1a431a5-2c66-4f8f-a536-11af6a4ab894}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenEmpty
+VAR
+	result : BOOL;
+	queue : Queue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsEmptyWhenEmpty');
+
+// @TEST-RUN
+result := queue.IsEmpty;
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Incorrect state of IsEmpty'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckIsEmptyWhenFull" Id="{0c153246-57d1-473e-b361-335cb02ed6aa}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenFull
+VAR
+	in : INT := 123;
+	result : BOOL;
+	queue : Queue;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsEmptyWhenFull');
+
+// @TEST-FIXTURE
+queue.Enqueue(in);
+
+// @TEST-RUN
+result := queue.IsEmpty;
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Incorrect state of IsEmpty'
 );
 
 TEST_FINISHED();]]></ST>

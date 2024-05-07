@@ -33,7 +33,9 @@ CheckOnDisposedEvent();
 CheckOnceEvent();
 CheckOffEvent();
 CheckTryCopyTo();
-CheckEnumeratorIsInvalidAfterChange();]]></ST>
+CheckEnumeratorIsInvalidAfterChange();
+CheckIsEmptyWhenEmpty();
+CheckIsEmptyWhenFull();]]></ST>
     </Implementation>
     <Method Name="CheckAddAfter" Id="{7489ba0a-a234-4014-8db4-eb6a82273218}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddAfter
@@ -401,6 +403,54 @@ AssertEquals(
 	Expected := expected,
 	Actual := out,
 	Message := 'Did not produce the expected result'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckIsEmptyWhenEmpty" Id="{5a75eaac-7363-4150-bcd8-d04608b1bf0b}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenEmpty
+VAR
+	result : BOOL;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsEmptyWhenEmpty');
+
+// @TEST-RUN
+result := linkedList.IsEmpty;
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Incorrect state of IsEmpty'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckIsEmptyWhenFull" Id="{2ecd78a1-ab99-4195-ae8e-5a9486402506}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenFull
+VAR
+	in : INT := 123;
+	result : BOOL;
+	linkedList : LinkedList;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsEmptyWhenFull');
+
+// @TEST-FIXTURE
+linkedList.AddItem(in);
+
+// @TEST-RUN
+result := linkedList.IsEmpty;
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Incorrect state of IsEmpty'
 );
 
 TEST_FINISHED();]]></ST>

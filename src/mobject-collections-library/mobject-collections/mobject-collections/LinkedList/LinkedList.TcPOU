@@ -144,7 +144,7 @@ VAR
 	originalFirst : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	head := Node;
 	tail := Node; 
 	RETURN;	
@@ -166,7 +166,7 @@ VAR
 	originalLast : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	head := Node;
 	tail := Node; 
 	RETURN;	
@@ -181,7 +181,7 @@ originalLast.Next := Node;]]></ST>
     <Method Name="Clear" Id="{68eac5b7-8615-47ef-b82b-6d6f6c286291}">
       <Declaration><![CDATA[METHOD PUBLIC Clear]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	return;
 END_IF
 
@@ -211,7 +211,7 @@ VAR
 	current : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN	
+        <ST><![CDATA[IF IsEmpty THEN	
 	RETURN;
 END_IF
 
@@ -310,7 +310,7 @@ VAR
 	current : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN	
+        <ST><![CDATA[IF IsEmpty THEN	
 	RETURN;
 END_IF
 
@@ -343,7 +343,7 @@ VAR
 	current : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN	
+        <ST><![CDATA[IF IsEmpty THEN	
 	RETURN;
 END_IF
 
@@ -377,12 +377,17 @@ END_VAR]]></Declaration>
 GetEnumerator := pLinkedListForwardEnumerator^;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsEmpty" Id="{8ca337ca-ea3a-4a25-b43a-39c0ede8c147}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE IsEmpty : BOOL]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IsEmpty := head = 0;]]></ST>
-      </Implementation>
-    </Method>
+    <Property Name="IsEmpty" Id="{24b50f94-0421-4e14-b7d3-541ca5bdc51e}">
+      <Declaration><![CDATA[PROPERTY IsEmpty : BOOL]]></Declaration>
+      <Get Name="Get" Id="{91f70dd5-0c6f-416a-8928-42d9711ae07e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsEmpty := head = 0;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Last" Id="{b4f56a72-14a1-4003-9d24-0596fa4789d3}">
       <Declaration><![CDATA[PROPERTY PUBLIC Last : I_LinkedListNode]]></Declaration>
       <Get Name="Get" Id="{4e4925d3-5504-4666-95bd-648c9e75b01d}">
@@ -443,7 +448,7 @@ END_WHILE]]></ST>
     <Method Name="RemoveFirst" Id="{48f46376-4b16-4840-921a-3d0f98b1990a}">
       <Declaration><![CDATA[METHOD PUBLIC RemoveFirst]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	RETURN;
 END_IF
 
@@ -454,7 +459,7 @@ EmitChangedEvent();]]></ST>
     <Method Name="RemoveLast" Id="{d50cb0c7-635c-475a-9798-a63ab164b5b9}">
       <Declaration><![CDATA[METHOD PUBLIC RemoveLast]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	RETURN;
 END_IF
 
@@ -468,7 +473,7 @@ VAR_INPUT
 	Node : I_LinkedListNode;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF IsEmpty() THEN
+        <ST><![CDATA[IF IsEmpty THEN
 	RETURN;
 END_IF
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="DictionaryKeyValueForwardEnumerator_TestSuite" Id="{448724ae-9ab9-42b8-ad8f-5049ba678e2b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK DictionaryKeyValueForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite
+  <POU Name="OrderedDicKeyValueForwardEnumerator_TestSuite" Id="{b245bb92-7484-4d17-af3a-aa37aeccedc9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK OrderedDicKeyValueForwardEnumerator_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -19,11 +19,11 @@ CheckWorksWithArrays();
 CheckWorksWithIntegers();
 CheckWorksWithStrings();]]></ST>
     </Implementation>
-    <Method Name="CheckIsValidAtStart" Id="{a9d352ca-c0c3-4593-89e6-db9e660c65c1}">
+    <Method Name="CheckIsValidAtStart" Id="{1994e45f-c17a-4cca-bf31-142fbe8345ae}">
       <Declaration><![CDATA[METHOD PRIVATE CheckIsValidAtStart
 VAR
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -43,7 +43,7 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckKey" Id="{c8f353e7-1059-4f52-8946-ac7923733db8}">
+    <Method Name="CheckKey" Id="{8c9b505a-1dd9-4545-b5e6-39ebcd07c832}">
       <Declaration><![CDATA[METHOD PRIVATE CheckKey
 VAR
 	in1 : STRING := 'test1';
@@ -55,7 +55,7 @@ VAR
 	expected1 : STRING := 'a';
 	expected2 : STRING := 'b';
 	expected3 : STRING := 'c';
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -98,12 +98,12 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsFalseAtTheEnd" Id="{56375e51-baf1-4759-8f20-e8436345a080}">
+    <Method Name="CheckMoveNextReturnsFalseAtTheEnd" Id="{8bb54452-53bc-4ce6-994c-dfd5d82e9547}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsFalseAtTheEnd
 VAR
 	in1 : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -124,11 +124,11 @@ AssertFalse(result,
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{88d67c5f-8bc3-44b9-b0c8-1e4f2b8b7a4a}">
+    <Method Name="CheckMoveNextReturnsFalseWhenEmpty" Id="{9c6949ac-a149-431c-b3ee-3d990b998d5c}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsFalseWhenEmpty
 VAR
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 	count : DINT;
 END_VAR
@@ -148,14 +148,14 @@ AssertFalse(Condition := result,
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsTrueMultipleItems" Id="{b1116254-13cd-451a-bf13-400f3b5daefc}">
+    <Method Name="CheckMoveNextReturnsTrueMultipleItems" Id="{cca16160-4900-49bf-a179-51b8fef3a800}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsTrueMultipleItems
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -175,12 +175,12 @@ AssertTrue(result, 'MoveNext did not correctly signal there were more items to f
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckMoveNextReturnsTrueSingleItem" Id="{724c5cfe-073e-432b-8c3b-1eb1b66983c5}">
+    <Method Name="CheckMoveNextReturnsTrueSingleItem" Id="{fdb84057-9d4c-4491-a1c3-6210dd2d3ab4}">
       <Declaration><![CDATA[METHOD PRIVATE CheckMoveNextReturnsTrueSingleItem
 VAR
 	in1 : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -199,7 +199,7 @@ AssertTrue(result,
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckReset" Id="{80469d4d-c43d-44d2-8f23-527e3f2def0e}">
+    <Method Name="CheckReset" Id="{94e2fac9-6536-42c7-a7b1-fbf587dafe1f}">
       <Declaration><![CDATA[METHOD PRIVATE CheckReset
 VAR
 	in1 : ARRAY [0..1] OF REAL := [0.1,2.3];
@@ -207,7 +207,7 @@ VAR
 	in3 : ARRAY [0..1] OF REAL := [2.3,4.5];
 	out : ARRAY [0..1] OF REAL;
 	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -237,14 +237,14 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryGet" Id="{d8293a3c-c4f3-4f33-85c6-d8e41e8c3856}">
+    <Method Name="CheckTryGet" Id="{6622e031-d5c9-48a6-85fe-a40638568d2b}">
       <Declaration><![CDATA[METHOD PRIVATE CheckTryGet
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -272,14 +272,14 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryGetTo" Id="{6f569cc2-a92c-48dc-ac4e-4822daeacfa3}">
+    <Method Name="CheckTryGetTo" Id="{28608e76-b3e3-48c5-961a-ae4c96c32674}">
       <Declaration><![CDATA[METHOD PRIVATE CheckTryGetTo
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -307,7 +307,7 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithArrays" Id="{2adb149b-cf0d-4fa0-8521-b7d7377adc03}">
+    <Method Name="CheckWorksWithArrays" Id="{99936fdf-c08b-4cd7-9b1b-2ff7eeb4ba74}">
       <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithArrays
 VAR
 	in1 : ARRAY [0..1] OF REAL := [0.1,2.3];
@@ -319,16 +319,16 @@ VAR
 	expected1 : ARRAY [0..1] OF REAL := [0.1,2.3];
 	expected2 : ARRAY [0..1] OF REAL := [1.2,3.4];
 	expected3 : ARRAY [0..1] OF REAL := [2.3,4.5];
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithArrays');
 
-dictionary.TryAdd('c',in3);
+dictionary.TryAdd('c',in1);
 dictionary.TryAdd('b',in2);
-dictionary.TryAdd('a',in1);
+dictionary.TryAdd('a',in3);
 
 enumerator := dictionary.GetKeyValueEnumerator();
 
@@ -362,7 +362,7 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithIntegers" Id="{2b8a4cfe-b5c2-4154-84e7-6c6999302e57}">
+    <Method Name="CheckWorksWithIntegers" Id="{e61a0e62-2085-480e-9dd0-299cc103d6dd}">
       <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithIntegers
 VAR
 	in1 : INT := 123;
@@ -374,16 +374,16 @@ VAR
 	expected1 : INT := 123;
 	expected2 : INT := 234;
 	expected3 : INT := 345;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithIntegers');
 
-dictionary.TryAdd('c',in3);
+dictionary.TryAdd('c',in1);
 dictionary.TryAdd('b',in2);
-dictionary.TryAdd('a',in1);
+dictionary.TryAdd('a',in3);
 
 enumerator := dictionary.GetKeyValueEnumerator();
 
@@ -417,7 +417,7 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithStrings" Id="{b92fbab7-2292-4265-8d0b-a24408f753a8}">
+    <Method Name="CheckWorksWithStrings" Id="{d77bc4f0-0a19-42c7-884a-a7ed6b16f1ed}">
       <Declaration><![CDATA[METHOD PRIVATE CheckWorksWithStrings
 VAR
 	in1 : STRING := 'test1';
@@ -429,16 +429,16 @@ VAR
 	expected1 : STRING := 'test1';
 	expected2 : STRING := 'test2';
 	expected3 : STRING := 'test3';
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_KeyValueForwardEnumerator;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckWorksWithStrings');
 
-dictionary.TryAdd('c',in3);
+dictionary.TryAdd('c',in1);
 dictionary.TryAdd('b',in2);
-dictionary.TryAdd('a',in1);
+dictionary.TryAdd('a',in3);
 
 enumerator := dictionary.GetKeyValueEnumerator();
 

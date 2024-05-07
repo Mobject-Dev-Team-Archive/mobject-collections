@@ -18,7 +18,7 @@
     <Company>mobject</Company>
     <Released>false</Released>
     <Title>mobject-collections</Title>
-    <ProjectVersion>1.1.0</ProjectVersion>
+    <ProjectVersion>1.2.0</ProjectVersion>
     <DefaultNamespace>mobject-collections</DefaultNamespace>
     <Placeholder>mobject-collections</Placeholder>
     <Author>mobject dev team</Author>
@@ -60,6 +60,7 @@
     <Folder Include="Interfaces" />
     <Folder Include="List" />
     <Folder Include="Dictionary" />
+    <Folder Include="OrderedDictionary" />
     <Folder Include="_Internal" />
     <Folder Include="Queue" />
     <Folder Include="Stack" />
@@ -75,6 +76,9 @@
     <Folder Include="_Internal\List" />
     <Folder Include="_Internal\List\Enumerator" />
     <Folder Include="_Internal\List\Node" />
+    <Folder Include="_Internal\OrderedDictionary" />
+    <Folder Include="_Internal\OrderedDictionary\Enumerator" />
+    <Folder Include="_Internal\OrderedDictionary\Node" />
     <Folder Include="_Internal\PriorityQueue" />
   </ItemGroup>
   <ItemGroup>
@@ -126,10 +130,16 @@
     <Compile Include="Interfaces\KeyValueCollections\Nodes\I_DictionaryTreeNode.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Interfaces\KeyValueCollections\Nodes\I_OrderedDictionaryTreeNode.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LinkedList\LinkedList.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="List\List.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="OrderedDictionary\OrderedDictionary.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Queue\Queue.TcPOU">
@@ -172,6 +182,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\List\Node\ListNode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\OrderedDictionary\Enumerator\OrderedDictionaryForwardEnumerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\OrderedDictionary\Node\OrderedDictionaryTreeNode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

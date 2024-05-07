@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Dictionary_TestSuite" Id="{d0b4a4e2-dcb9-47bb-8571-9179bc3a4fe3}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Dictionary_TestSuite EXTENDS TcUnit.FB_TestSuite
+  <POU Name="OrderedDictionary_TestSuite" Id="{fa7f762c-481f-4ca4-aeb2-28f160710c58}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK OrderedDictionary_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -34,13 +34,13 @@ CheckWorksWithStrings();
 CheckIsEmptyWhenEmpty();
 CheckIsEmptyWhenFull();]]></ST>
     </Implementation>
-    <Method Name="CheckAddOrUpdateCorrectlyAddsNewKey" Id="{f73ca302-1de2-4258-a95d-f363c57989fb}">
+    <Method Name="CheckAddOrUpdateCorrectlyAddsNewKey" Id="{5abda717-fe48-4290-8167-3e2f32761cd8}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddOrUpdateCorrectlyAddsNewKey
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -58,14 +58,14 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckAddOrUpdateCorrectlyUpdatesExistingKey" Id="{27e18ee5-ff94-4ff9-8158-44aff24b4c07}">
+    <Method Name="CheckAddOrUpdateCorrectlyUpdatesExistingKey" Id="{7a011527-3143-4456-a317-414c6dde8143}">
       <Declaration><![CDATA[METHOD PUBLIC CheckAddOrUpdateCorrectlyUpdatesExistingKey
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	out : INT;
 	expected : INT := 456;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -84,14 +84,14 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckClear" Id="{7419832f-3185-41b3-82e3-85d90cfdf834}">
+    <Method Name="CheckClear" Id="{3a48a0f8-58b2-45ec-99f2-971f279b7bfd}">
       <Declaration><![CDATA[METHOD PUBLIC CheckClear
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	out : INT;
 	expected : INT := 456;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -112,14 +112,14 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckContainsKeyIsFalse" Id="{71f87407-63ff-4021-8c5d-46f65c74da48}">
+    <Method Name="CheckContainsKeyIsFalse" Id="{4dfad808-6474-4947-bb18-022d30258578}">
       <Declaration><![CDATA[METHOD PUBLIC CheckContainsKeyIsFalse
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -139,14 +139,14 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckContainsKeyIsTrue" Id="{a7bcf2f3-72c9-4bdd-8b7c-4e691df6b1e9}">
+    <Method Name="CheckContainsKeyIsTrue" Id="{5181967c-5dc2-4249-86b5-a5973b4d465e}">
       <Declaration><![CDATA[METHOD PUBLIC CheckContainsKeyIsTrue
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -166,7 +166,7 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckCount" Id="{5a704933-e112-4f92-8197-b6158573445e}">
+    <Method Name="CheckCount" Id="{fed2dc03-8ae5-4959-9bf2-7163dd91f714}">
       <Declaration><![CDATA[METHOD PUBLIC CheckCount
 VAR
 	in1 : INT := 123;
@@ -174,7 +174,7 @@ VAR
 	in3 : INT := 789;
 	out : DINT;
 	expected : DINT := 3;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -194,12 +194,12 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckEnumeratorIsInvalidAfterChange" Id="{36d54514-f860-4576-8d4d-bdec61d39fe4}">
+    <Method Name="CheckEnumeratorIsInvalidAfterChange" Id="{5bdb1c4a-0635-491d-9f7a-7de8dc7dd33c}">
       <Declaration><![CDATA[METHOD PUBLIC CheckEnumeratorIsInvalidAfterChange
 VAR
 	in : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	enumerator : I_ForwardEnumerator;
 END_VAR
 ]]></Declaration>
@@ -220,11 +220,11 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckGetEnumerator" Id="{3f3069d8-8a5d-44ca-86db-31189696f900}">
+    <Method Name="CheckGetEnumerator" Id="{df94e536-433b-48ee-8c8a-8180e11641a2}">
       <Declaration><![CDATA[METHOD PUBLIC CheckGetEnumerator
 VAR
 	enumerator : I_ForwardEnumerator;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -242,11 +242,11 @@ enumerator.Dispose();
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckGetKeysReturnsACollection" Id="{f223c6f3-d214-4adf-9fc8-175dff1f5491}">
+    <Method Name="CheckGetKeysReturnsACollection" Id="{fa18359e-ec93-418d-9936-38486c3e976f}">
       <Declaration><![CDATA[METHOD PUBLIC CheckGetKeysReturnsACollection
 VAR
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	collection : I_Collection;
 END_VAR
 ]]></Declaration>
@@ -269,7 +269,7 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckGetKeysReturnsACollectionOfValidKeys" Id="{02fe7daf-6655-45f0-9894-1935523f3bce}">
+    <Method Name="CheckGetKeysReturnsACollectionOfValidKeys" Id="{8cdfbc20-7dae-499b-bb0e-1b7845ebf01c}">
       <Declaration><![CDATA[METHOD PUBLIC CheckGetKeysReturnsACollectionOfValidKeys
 VAR
 	in1 : INT := 123;
@@ -278,7 +278,7 @@ VAR
 	out : ARRAY [0..2] OF T_MAXSTRING;
 	expected : ARRAY [0..2] OF T_MAXSTRING;
 	result,resulta,resultb,resultc : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	collection : I_Collection;
 END_VAR
 ]]></Declaration>
@@ -317,11 +317,11 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckIsEmptyWhenEmpty" Id="{7f991324-c3bf-410c-8c10-8fb4085cba8c}">
+    <Method Name="CheckIsEmptyWhenEmpty" Id="{ad5a6e46-954d-4b96-af48-1a24c39f49bc}">
       <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenEmpty
 VAR
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -339,12 +339,12 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckIsEmptyWhenFull" Id="{e83236c1-dd12-40f8-8369-994d5db0fff8}">
+    <Method Name="CheckIsEmptyWhenFull" Id="{0f88c7c1-e633-4b9a-b2cb-d87727015c22}">
       <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenFull
 VAR
 	in : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -365,11 +365,11 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckOffEvent" Id="{e5456e31-9c50-4011-ac47-807f240f92db}">
+    <Method Name="CheckOffEvent" Id="{82c8ac37-fd17-440a-bdb0-f7ae0a3b68a3}">
       <Declaration><![CDATA[METHOD PUBLIC CheckOffEvent
 VAR
 	value : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	handler : KeyValueCollectionChangedEventHandler(ExpectedOriginator := dictionary);
 END_VAR
 ]]></Declaration>
@@ -389,11 +389,11 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckOnceEvent" Id="{142e25be-6b68-4227-b191-668f753770f0}">
+    <Method Name="CheckOnceEvent" Id="{6d10fe5a-f917-48ab-9734-828222477928}">
       <Declaration><![CDATA[METHOD PUBLIC CheckOnceEvent
 VAR
 	value : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	handler : KeyValueCollectionChangedEventHandler(ExpectedOriginator := dictionary);
 END_VAR
 ]]></Declaration>
@@ -414,11 +414,11 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckOnChangedEvent" Id="{c6ed860e-50dc-410f-9490-b55528a3f6f6}">
+    <Method Name="CheckOnChangedEvent" Id="{ed790b33-f5e3-46ce-a78c-2b584dd73cdf}">
       <Declaration><![CDATA[METHOD PUBLIC CheckOnChangedEvent
 VAR
 	value : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 	handler : KeyValueCollectionChangedEventHandler(ExpectedOriginator := dictionary);
 END_VAR
 ]]></Declaration>
@@ -441,18 +441,18 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckOnDisposedEvent" Id="{fb46ef95-5472-4c9a-8286-7bc0ea49f0a3}">
+    <Method Name="CheckOnDisposedEvent" Id="{2c772297-7ea8-4314-8ea7-034a75427a89}">
       <Declaration><![CDATA[METHOD PUBLIC CheckOnDisposedEvent
 VAR
 	value : INT := 123;
-	pDictionary : POINTER TO Dictionary;
+	pDictionary : POINTER TO OrderedDictionary;
 	handler : KeyValueCollectionDisposedEventHandler(ExpectedOriginator := 0);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CheckOnDisposedEvent');
 
-pDictionary := __NEW(Dictionary);
+pDictionary := __NEW(OrderedDictionary);
 handler.SetExpectedOriginator(pDictionary^);
 pDictionary^.OnEvent('OnDisposed', handler);
 
@@ -471,14 +471,14 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckRemoveExisting" Id="{3f8fcbe2-0261-4e82-b3ac-9ce51069a6ff}">
+    <Method Name="CheckRemoveExisting" Id="{670785b8-07fa-45d6-b2f5-b6507c8fa12b}">
       <Declaration><![CDATA[METHOD PRIVATE CheckRemoveExisting
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	in3 : INT := 789;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -500,7 +500,7 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckRemoveNonExisting" Id="{d94775c5-52fb-40b1-91c5-73f65375f84b}">
+    <Method Name="CheckRemoveNonExisting" Id="{8f387fd9-5c5d-4029-b4b3-64aa118948a8}">
       <Declaration><![CDATA[METHOD PRIVATE CheckRemoveNonExisting
 VAR
 	in1 : INT := 123;
@@ -508,7 +508,7 @@ VAR
 	in3 : INT := 789;
 	out : DINT;
 	expected : DINT := 3;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -531,13 +531,13 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryAddCorrectlyAddsNewKey" Id="{a8b07edd-20ef-4eae-ac97-216b6079bd68}">
+    <Method Name="CheckTryAddCorrectlyAddsNewKey" Id="{1fcec65b-b30f-4197-95d2-1cf6a78ca8d0}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryAddCorrectlyAddsNewKey
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -555,7 +555,7 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryAddCorrectlyIgnoresUpdateWhenDuplicateFound" Id="{04649b16-65ae-4596-97e3-f87b830ff66e}">
+    <Method Name="CheckTryAddCorrectlyIgnoresUpdateWhenDuplicateFound" Id="{31ecb441-81cb-410e-89c6-60db0689dcdc}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryAddCorrectlyIgnoresUpdateWhenDuplicateFound
 VAR
 	in1 : INT := 123;
@@ -563,7 +563,7 @@ VAR
 	out : INT;
 	expected : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -582,13 +582,13 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryAddCorrectlyReturnsFalseWhenDuplicateFound" Id="{9133f9f1-71e2-4fce-b6c2-36af5e7900eb}">
+    <Method Name="CheckTryAddCorrectlyReturnsFalseWhenDuplicateFound" Id="{ff239f35-a611-4016-beb0-517131dfc74a}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryAddCorrectlyReturnsFalseWhenDuplicateFound
 VAR
 	in1 : INT := 123;
 	in2 : INT := 456;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -605,12 +605,12 @@ AssertFalse(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryAddCorrectlyReturnsTrueWhenAddNewKey" Id="{86142409-de0f-4b28-9eff-b3d607911944}">
+    <Method Name="CheckTryAddCorrectlyReturnsTrueWhenAddNewKey" Id="{ef7c3b31-47ce-4330-9122-caee7c647034}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryAddCorrectlyReturnsTrueWhenAddNewKey
 VAR
 	in : INT := 123;
 	result : BOOL;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -626,13 +626,13 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryGetValue" Id="{0f404837-8fcb-4adc-bceb-2297f252a302}">
+    <Method Name="CheckTryGetValue" Id="{b118e0d1-06bb-4419-996c-e89c5096f847}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryGetValue
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -650,13 +650,13 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckTryGetValueTo" Id="{1e33327a-4387-42f1-b37c-2af403f8d563}">
+    <Method Name="CheckTryGetValueTo" Id="{49b7b3f8-1cf1-49fc-a913-d968bcdd5122}">
       <Declaration><![CDATA[METHOD PUBLIC CheckTryGetValueTo
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -674,13 +674,13 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithArrays" Id="{c3ef5e0a-75b7-4e05-845a-84dccc2f546f}">
+    <Method Name="CheckWorksWithArrays" Id="{ba09ef49-a9f6-4009-9ab7-0f5c36d8ee12}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithArrays
 VAR
 	in : ARRAY [0..1] OF REAL := [0.1,2.3];
 	out : ARRAY [0..1] OF REAL;
 	expected : ARRAY [0..1] OF REAL := [0.1,2.3];
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -698,13 +698,13 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithIntegers" Id="{e9424c07-7096-4d8d-9962-13e2fba5474a}">
+    <Method Name="CheckWorksWithIntegers" Id="{7f52a17e-fa96-4fab-bec7-2cf6b1dd468f}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithIntegers
 VAR
 	in : INT := 123;
 	out : INT;
 	expected : INT := 123;
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -722,13 +722,13 @@ AssertEquals(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckWorksWithStrings" Id="{daa7b83e-a07f-4057-b565-57bf30a7a750}">
+    <Method Name="CheckWorksWithStrings" Id="{4b5b1092-8a3b-4cf6-b3af-38102d861b3a}">
       <Declaration><![CDATA[METHOD PUBLIC CheckWorksWithStrings
 VAR
 	in : STRING := 'test';
 	out : STRING;
 	expected : STRING := 'test';
-	dictionary : Dictionary;
+	dictionary : OrderedDictionary;
 END_VAR
 ]]></Declaration>
       <Implementation>

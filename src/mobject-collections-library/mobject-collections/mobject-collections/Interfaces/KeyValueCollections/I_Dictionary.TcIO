@@ -25,6 +25,12 @@ END_VAR]]></Declaration>
     <Method Name="GetKeys" Id="{8c2ec7fd-25f6-48b1-9d92-32f03d6814c3}">
       <Declaration><![CDATA[METHOD PUBLIC GetKeys : I_Collection]]></Declaration>
     </Method>
+    <Property Name="IsEmpty" Id="{e048b32a-c259-4c6f-be4b-4ded9e00db0e}">
+      <Declaration><![CDATA[PROPERTY IsEmpty : BOOL]]></Declaration>
+      <Get Name="Get" Id="{77f0558c-3be6-4900-aa81-d93740589841}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Method Name="Remove" Id="{9cbd6d40-ae4d-429a-8f44-1c26ba8dd518}">
       <Declaration><![CDATA[METHOD PUBLIC Remove
 VAR_INPUT

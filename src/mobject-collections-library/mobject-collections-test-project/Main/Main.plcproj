@@ -24,6 +24,12 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\OrderedDicKeyValueForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\OrderedDictionaryForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\DictionaryKeyValueForwardEnumerator_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +37,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\DictionaryForwardEnumerator_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\OrderedDictionary_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\LinkedList_TestSuite.TcPOU">
@@ -123,7 +132,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-collections,1.1.0,mobject">
+    <LibraryReference Include="mobject-collections,1.2.0,mobject">
       <Namespace>mobject_collections</Namespace>
     </LibraryReference>
     <LibraryReference Include="mobject-disposable,1.0.0,mobject">
