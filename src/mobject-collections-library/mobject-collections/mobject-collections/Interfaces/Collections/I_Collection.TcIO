@@ -23,6 +23,12 @@ END_VAR]]></Declaration>
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
+    <Property Name="IsEmpty" Id="{bfe604ad-f0c6-4598-a754-d515dbd57e3b}">
+      <Declaration><![CDATA[PROPERTY IsEmpty : BOOL]]></Declaration>
+      <Get Name="Get" Id="{aa9a9dc6-c1ca-4c66-9ba3-f3789ade3e99}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Method Name="TryCopyTo" Id="{eabb38d8-11ef-4981-b5dc-084a365b6ffd}">
       <Declaration><![CDATA[METHOD PUBLIC TryCopyTo : BOOL
 VAR_INPUT

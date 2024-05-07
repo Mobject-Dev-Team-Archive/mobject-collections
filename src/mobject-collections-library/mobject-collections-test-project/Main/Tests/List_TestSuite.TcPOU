@@ -35,7 +35,9 @@ CheckTryRemoveAtOutOfBounds();
 CheckTryRemoveItemFirstShiftUp();
 CheckTryRemoveItemNonExisting();
 CheckTryRemoveItemSecondShiftUp();
-CheckTrimExcessAfterAdding5Items();]]></ST>
+CheckTrimExcessAfterAdding5Items();
+CheckIsEmptyWhenEmpty();
+CheckIsEmptyWhenFull();]]></ST>
     </Implementation>
     <Method Name="CheckAddItem" Id="{53909bfa-2a23-432c-b757-416cc9a28880}">
       <Declaration><![CDATA[METHOD PRIVATE CheckAddItem
@@ -440,6 +442,54 @@ result := iList <> 0;
 
 AssertTrue(Condition := result,
     Message := 'Did not implement IList');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckIsEmptyWhenEmpty" Id="{7ba470e3-849c-4c03-ab7a-6d23ad77acac}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenEmpty
+VAR
+	result : BOOL;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsEmptyWhenEmpty');
+
+// @TEST-RUN
+result := list.IsEmpty;
+
+// @TEST-ASSSERT
+AssertTrue(
+	Condition := result,
+	Message := 'Incorrect state of IsEmpty'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckIsEmptyWhenFull" Id="{6ac8632b-3a34-4665-aae2-538ed3d24838}">
+      <Declaration><![CDATA[METHOD PUBLIC CheckIsEmptyWhenFull
+VAR
+	in : INT := 123;
+	result : BOOL;
+	list : List;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CheckIsEmptyWhenFull');
+
+// @TEST-FIXTURE
+list.AddItem(in);
+
+// @TEST-RUN
+result := list.IsEmpty;
+
+// @TEST-ASSSERT
+AssertFalse(
+	Condition := result,
+	Message := 'Incorrect state of IsEmpty'
+);
 
 TEST_FINISHED();]]></ST>
       </Implementation>

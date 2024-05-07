@@ -9,6 +9,7 @@
     - [Dictionary](Dictionary.md)
     - [LinkedList](LinkedList.md)
     - [List](List.md)
+    - [OrderedDictionary](OrderedDictionary.md)
     - [Queue](Queue.md)
     - [Stack](Stack.md)
 
