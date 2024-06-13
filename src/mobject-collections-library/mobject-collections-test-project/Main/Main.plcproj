@@ -132,16 +132,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-collections,1.2.0,mobject">
+    <LibraryReference Include="mobject-collections,1.3.0,mobject">
       <Namespace>mobject_collections</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-disposable,1.0.0,mobject">
+    <LibraryReference Include="mobject-disposable,1.1.1,mobject">
       <Namespace>mobject_disposable</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-enumerable,1.1.0,mobject">
+    <LibraryReference Include="mobject-enumerable,1.2.0,mobject">
       <Namespace>mobject_enumerable</Namespace>
     </LibraryReference>
-    <LibraryReference Include="mobject-events,1.0.0,mobject">
+    <LibraryReference Include="mobject-events,1.1.0,mobject">
       <Namespace>mobject_events</Namespace>
     </LibraryReference>
   </ItemGroup>
