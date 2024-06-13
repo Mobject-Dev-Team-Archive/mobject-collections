@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.0-beta
+
+- Updated to support mobject-disposable v1.1.1
+- Updated to support mobject-enumerable v1.2.0
+- Updated to support mobject-events v1.1.0
+
 ## v1.2.0-beta
 
 - Added OrderedDictionary, which preserves the order of added items when using enumerators
